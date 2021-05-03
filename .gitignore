@@ -28,6 +28,7 @@ dist/*
 nbproject/*
 /bin/
 build.xml
+test/*
 
 #Files per Intellij
 .idea/*

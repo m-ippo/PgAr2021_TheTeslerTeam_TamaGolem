@@ -29,9 +29,16 @@ public final class Node {
 
     private final String name;
     private final HashMap<Node, Link> links = new HashMap<>();
+    private Link cycle;
 
-    public Node(String name) {
+    protected Node(String name) {
         this.name = name;
+        init();
+    }
+
+    private void init() {
+        cycle = new Link(this, this);
+        cycle.lock();
     }
 
     /**
@@ -40,7 +47,9 @@ public final class Node {
      * @param l L'arco da aggiungere.
      */
     public void addLink(Link l) {
-        links.put(l.getLinked(this), l);
+        if (!links.containsValue(l)) {
+            links.put(l.getLinked(this), l);
+        }
     }
 
     /**
@@ -141,5 +150,16 @@ public final class Node {
         }
         return Collections.unmodifiableList(to_ret);
     }
-    
+
+    /**
+     * Restituisce l'arco per arrivare ad un altro nodo. Se il nodo d'arrivo è
+     * uguale al nodo di partenza viene ritornato l'arco che rappresenta il
+     * ciclo su se stesso.
+     *
+     * @param n Il nodo di arrivo.
+     * @return L'arco che rappresenta il percorso da compiere.
+     */
+    public Link to(Node n) {
+        return n == this ? cycle : links.get(n);
+    }
 }

@@ -21,5 +21,5 @@ package tamagolem.contents.balance;
  * @author TTT
  */
 public class Balance {
-
+    
 }

@@ -15,6 +15,8 @@
  */
 package tamagolem.contents.graph;
 
+import java.util.Objects;
+
 /**
  *
  * @author TTT
@@ -25,7 +27,9 @@ public final class Link {
     private final Node from;
     private final Node to;
 
-    public Link(Node from, Node to) {
+    private boolean unlocked = false;
+
+    protected Link(Node from, Node to) {
         this.from = from;
         this.to = to;
     }
@@ -59,12 +63,15 @@ public final class Link {
     }
 
     /**
-     * Imposta il valore della Potenza d'Interazione tra i due nodi.
+     * Imposta il valore della Potenza d'Interazione tra i due nodi. Il valore
+     * può essere cambiato solamente se l'arco non è bloccato.
      *
      * @param power Il valore della potenza.
      */
     public void setPower(Integer power) {
-        this.power = power;
+        if (unlocked) {
+            this.power = power;
+        }
     }
 
     /**
@@ -88,6 +95,39 @@ public final class Link {
             return n == from ? to : from;
         }
         return null;
+    }
+
+    /**
+     * Blocca l'arco da possibili cambiamenti di valore.
+     */
+    public void lock() {
+        unlocked = false;
+    }
+
+    /**
+     * Se l'elemento è bloccato il valore del potere non potrà essere cambiato.
+     *
+     * @return {@code true} se l'elemento è bloccato.
+     */
+    public boolean isLocked() {
+        return !unlocked;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Link) {
+            Link l = (Link) obj;
+            return (l.from == this.from && l.to == this.to) || (l.from == this.to && l.to == this.from);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.from);
+        hash = 71 * hash + Objects.hashCode(this.to);
+        return hash;
     }
 
 }
