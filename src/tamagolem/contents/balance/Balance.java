@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.contenuti.grafo;
+package tamagolem.contents.balance;
 
 /**
+ * Equilibrio.
  *
  * @author TTT
  */
-public class Nodo {
-    
+public class Balance {
+
 }
