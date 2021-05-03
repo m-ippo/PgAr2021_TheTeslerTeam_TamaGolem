@@ -7,7 +7,7 @@ package tamagolem;
 
 /**
  *
- * @author gabri
+ * @author TTT
  */
 public class TamaGolem {
 
