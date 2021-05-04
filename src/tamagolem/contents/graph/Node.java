@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -152,6 +153,15 @@ public final class Node {
     }
 
     /**
+     * Ritorna la lista chiave-valore di nodi e archi.
+     *
+     * @return Map non modificabile.
+     */
+    public Map<Node, Link> getToNodes() {
+        return Collections.unmodifiableMap(links);
+    }
+
+    /**
      * Restituisce l'arco per arrivare ad un altro nodo. Se il nodo d'arrivo è
      * uguale al nodo di partenza viene ritornato l'arco che rappresenta il
      * ciclo su se stesso.
@@ -162,4 +172,15 @@ public final class Node {
     public Link to(Node n) {
         return n == this ? cycle : links.get(n);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Entrano in \"").append(name).append("\":");
+        getInputLinks().forEach(l -> sb.append("\n\t-").append(l.getLinked(this).getName()));
+        sb.append("\nEscono da \"").append(name).append("\":");
+        getOutputLinks().forEach(l -> sb.append("\n\t-").append(l.getLinked(this).getName()));
+        return sb.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

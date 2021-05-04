@@ -18,6 +18,7 @@ package tamagolem.contents.graph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -25,18 +26,45 @@ import java.util.List;
  */
 public class Graph {
 
-    private ArrayList<Link> graph_links = new ArrayList<>();
+    private final ArrayList<Link> graph_links = new ArrayList<>();
     private static ArrayList<Node> graph_nodes = new ArrayList<>();
+
+    private final Random rnd = new Random();
 
     public Graph() {
 
     }
 
+    public void print() {
+        graph_links.forEach(l -> System.out.println(l.toString()));
+    }
+
     /**
-     * Genera la tabella di true-false che determina la direzione degli archi.
+     * Genera la tabella di true-false che determina la direzione degli archi e
+     * succesivamente li genera.
      */
     public void generateLinkTable() {
-
+        graph_links.clear();
+        Collections.shuffle(graph_nodes, rnd);
+        for (int i = 0; i < graph_nodes.size() - 1; i++) {
+            Node main = graph_nodes.get(i);
+            for (int y = i + 1; y < graph_nodes.size(); y++) {
+                Node secondary = graph_nodes.get(y);
+                boolean rnd_bool = rnd.nextBoolean();
+                if (main.getInputLinks().size() == (graph_nodes.size() - 2) && main.getOutputLinks().isEmpty()) {
+                    rnd_bool = true;
+                } else if (main.getOutputLinks().size() == (graph_nodes.size() - 2) && main.getInputLinks().isEmpty()) {
+                    rnd_bool = false;
+                }
+                Link l;
+                if (rnd_bool) {
+                    l = generateLink(main, secondary);
+                } else {
+                    l = generateLink(secondary, main);
+                }
+                graph_links.add(l);
+            }
+        }
     }
 
     /**
@@ -66,6 +94,15 @@ public class Graph {
             Node n = new Node(name);
             graph_nodes.add(n);
         });
+        return Collections.unmodifiableList(graph_nodes);
+    }
+
+    /**
+     * Ritorna una lista non modificabile di nodi comuni ai grafi.
+     *
+     * @return Lista di nodi.
+     */
+    public List<Node> getNodes() {
         return Collections.unmodifiableList(graph_nodes);
     }
 

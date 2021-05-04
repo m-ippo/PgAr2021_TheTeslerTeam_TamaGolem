@@ -114,6 +114,11 @@ public final class Link {
     }
 
     @Override
+    public String toString() {
+        return "LNK: " + from.getName() + " => " + to.getName(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof Link) {
             Link l = (Link) obj;
