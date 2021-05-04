@@ -18,6 +18,7 @@ package tamagolem.contents.graph;
 import java.util.Objects;
 
 /**
+ * Rappresenta un arco.
  *
  * @author TTT
  */

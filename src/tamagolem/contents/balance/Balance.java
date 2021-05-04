@@ -15,11 +15,13 @@
  */
 package tamagolem.contents.balance;
 
+import tamagolem.contents.graph.Graph;
+
 /**
  * Equilibrio.
  *
  * @author TTT
  */
-public class Balance {
+public class Balance extends Graph{
     
 }

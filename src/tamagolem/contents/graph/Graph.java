@@ -18,10 +18,15 @@ package tamagolem.contents.graph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import tamagolem.contents.exceptions.UnitializedException;
+import tamagolem.contents.graph.comparators.NodeChainedComparator;
+import tamagolem.contents.graph.comparators.NodeOutputsCMP;
+import tamagolem.contents.graph.comparators.NodeVoidLinkCMP;
 
 /**
+ * Rappresenta un grafo.
  *
  * @author TTT
  */
@@ -77,6 +82,27 @@ public class Graph {
         } else {
             throw new UnitializedException("I nodi non sono ancora stati inizializzati. Impossibile generare gli archi.");
         }
+    }
+
+    /**
+     * Ritorna il nodo e l'arco associato che secondo la logica prestabilita
+     * necessita di essere completato.<p>
+     * L'ordine è secondo
+     *
+     * @return L'Arco da completare secondo l'ordine. Ritorna {@code null} solo
+     * quando non esistono più archi da completare.
+     */
+    public Link getAttractionNode() {
+        ArrayList<Node> to_be_ordered = new ArrayList<>();
+        graph_nodes.stream().filter((t) -> {
+            return t.getVoidLinks() > 0;
+        }).forEach((t) -> {
+            to_be_ordered.add(t);
+        });
+        NodeChainedComparator ncc = new NodeChainedComparator(new NodeVoidLinkCMP(), new NodeOutputsCMP());
+        Collections.sort(to_be_ordered, ncc);
+        Optional<Node> findFirst = to_be_ordered.stream().findFirst();
+        return findFirst.isPresent() ? findFirst.get().getFirstVoidLink().orElse(null) : null;
     }
 
     /**

@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
+ * Rappresenta un nodo.
  *
  * @author TTT
  */
@@ -185,8 +186,14 @@ public final class Node implements Comparable<Node> {
 
     @Override
     public int compareTo(Node o) {
-        int val = this.getOutputLinks().size() - o.getOutputLinks().size();
-        return val < 0 ? -1 : val > 0 ? 1 : 0;
+        int val1 = this.getOutputLinks().size();
+        int val2 = o.getOutputLinks().size();
+        if (val1 > val2) {
+            return -1;
+        } else if (val1 < val2) {
+            return 1;
+        }
+        return 0;
     }
 
 }
