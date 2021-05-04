@@ -26,7 +26,7 @@ import java.util.Optional;
  *
  * @author TTT
  */
-public final class Node {
+public final class Node implements Comparable<Node> {
 
     private final String name;
     private final HashMap<Node, Link> links = new HashMap<>();
@@ -181,6 +181,12 @@ public final class Node {
         sb.append("\nEscono da \"").append(name).append("\":");
         getOutputLinks().forEach(l -> sb.append("\n\t-").append(l.getLinked(this).getName()));
         return sb.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        int val = this.getOutputLinks().size() - o.getOutputLinks().size();
+        return val < 0 ? -1 : val > 0 ? 1 : 0;
     }
 
 }

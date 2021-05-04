@@ -27,7 +27,7 @@ public final class Link {
     private final Node from;
     private final Node to;
 
-    private boolean unlocked = false;
+    private boolean unlocked = true;
 
     protected Link(Node from, Node to) {
         this.from = from;
@@ -115,7 +115,7 @@ public final class Link {
 
     @Override
     public String toString() {
-        return "LNK: " + from.getName() + " => " + to.getName(); //To change body of generated methods, choose Tools | Templates.
+        return "LNK: " + from.getName() + (hasValue() ? " =" + power + "=> " : " => ") + to.getName();
     }
 
     @Override

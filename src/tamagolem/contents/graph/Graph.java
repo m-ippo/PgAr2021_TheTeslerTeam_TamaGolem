@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import tamagolem.contents.exceptions.UnitializedException;
 
 /**
  *
@@ -27,7 +28,7 @@ import java.util.Random;
 public class Graph {
 
     private final ArrayList<Link> graph_links = new ArrayList<>();
-    private static ArrayList<Node> graph_nodes = new ArrayList<>();
+    private static ArrayList<Node> graph_nodes;
 
     private final Random rnd = new Random();
 
@@ -35,6 +36,9 @@ public class Graph {
 
     }
 
+    /**
+     * Stampa relazioni tra i nodi.
+     */
     public void print() {
         graph_links.forEach(l -> System.out.println(l.toString()));
     }
@@ -42,28 +46,36 @@ public class Graph {
     /**
      * Genera la tabella di true-false che determina la direzione degli archi e
      * succesivamente li genera.
+     *
+     * @throws tamagolem.contents.exceptions.UnitializedException Nel caso in
+     * cui i nodi non siano ancora stati inizializzati.
      */
-    public void generateLinkTable() {
-        graph_links.clear();
-        Collections.shuffle(graph_nodes, rnd);
-        for (int i = 0; i < graph_nodes.size() - 1; i++) {
-            Node main = graph_nodes.get(i);
-            for (int y = i + 1; y < graph_nodes.size(); y++) {
-                Node secondary = graph_nodes.get(y);
-                boolean rnd_bool = rnd.nextBoolean();
-                if (main.getInputLinks().size() == (graph_nodes.size() - 2) && main.getOutputLinks().isEmpty()) {
-                    rnd_bool = true;
-                } else if (main.getOutputLinks().size() == (graph_nodes.size() - 2) && main.getInputLinks().isEmpty()) {
-                    rnd_bool = false;
+    public void generateLinkTable() throws UnitializedException {
+        if (graph_nodes != null) {
+            graph_links.clear();
+            Collections.shuffle(graph_nodes, rnd);
+            for (int i = 0; i < graph_nodes.size() - 1; i++) {
+                Node main = graph_nodes.get(i);
+                for (int y = i + 1; y < graph_nodes.size(); y++) {
+                    Node secondary = graph_nodes.get(y);
+                    boolean rnd_bool = rnd.nextBoolean();
+                    if (main.getInputLinks().size() == (graph_nodes.size() - 2) && main.getOutputLinks().isEmpty()) {
+                        rnd_bool = true;
+                    } else if (main.getOutputLinks().size() == (graph_nodes.size() - 2) && main.getInputLinks().isEmpty()) {
+                        rnd_bool = false;
+                    }
+                    Link l;
+                    if (rnd_bool) {
+                        l = generateLink(main, secondary);
+                    } else {
+                        l = generateLink(secondary, main);
+                    }
+                    graph_links.add(l);
                 }
-                Link l;
-                if (rnd_bool) {
-                    l = generateLink(main, secondary);
-                } else {
-                    l = generateLink(secondary, main);
-                }
-                graph_links.add(l);
             }
+            Collections.sort(graph_nodes);
+        } else {
+            throw new UnitializedException("I nodi non sono ancora stati inizializzati. Impossibile generare gli archi.");
         }
     }
 
