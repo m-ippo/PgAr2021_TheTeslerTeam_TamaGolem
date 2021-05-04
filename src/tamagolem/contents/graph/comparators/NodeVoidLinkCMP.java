@@ -29,12 +29,19 @@ public class NodeVoidLinkCMP implements Comparator<Node> {
     public int compare(Node o1, Node o2) {
         int val1 = o1.getVoidLinks();
         int val2 = o2.getVoidLinks();
-        if (val1 > val2) {
+        /*  if (val1 > val2) {
             return -1;
         } else if (val1 < val2) {
             return 1;
         }
-        return 0;
+        return 0;*/
+        if(val1 == 1){
+            return 1;
+        }
+        if(val2 == 1){
+            return -1;
+        }
+        return new NodeOutputsCMP().compare(o1, o2);
     }
 
 }
