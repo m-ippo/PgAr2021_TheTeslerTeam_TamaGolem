@@ -17,6 +17,8 @@ package tamagolem;
 
 import tamagolem.contents.graph.Graph;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author TTT
@@ -27,8 +29,18 @@ public class TamaGolem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
 
     }
-    
+
+    public static void provaCreazione() {
+
+        ArrayList<String> nomi = new ArrayList<String>();
+        nomi.add("A");
+        nomi.add("B");
+        nomi.add("C");
+        nomi.add("D");
+
+        Graph g = new Graph(20, nomi);
+        g.generateLinkValues();
+    }
 }
