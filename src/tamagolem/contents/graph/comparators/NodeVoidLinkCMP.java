@@ -27,8 +27,8 @@ public class NodeVoidLinkCMP implements Comparator<Node> {
 
     @Override
     public int compare(Node o1, Node o2) {
-        int val1 = o1.getVoidLinks();
-        int val2 = o2.getVoidLinks();
+        long val1 = o1.getVoidInputLinksCount();
+        long val2 = o2.getVoidInputLinksCount();
         /*  if (val1 > val2) {
             return -1;
         } else if (val1 < val2) {

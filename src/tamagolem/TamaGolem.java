@@ -40,10 +40,9 @@ public class TamaGolem {
         nomi.add("B");
         nomi.add("C");
         nomi.add("D");
-        //nomi.add("E");
+        nomi.add("E");
         //nomi.add("F");
         //nomi.add("G");
-
 
         Graph g = new Graph(20, nomi);
         try {
@@ -52,12 +51,12 @@ public class TamaGolem {
             e.printStackTrace();
         }
         stampaNodi(g);
-        //g.generateLinkValues();
-        //stampaNodi(g);
-
+        g.generateLinkValues();
+        stampaNodi(g);
+        g.stampaSomme();
     }
 
-    public static void stampaNodi(Graph g){
+    public static void stampaNodi(Graph g) {
         g.getGraph_links().forEach(l -> System.out.println(l.toString()));
         g.getNodes().forEach(n -> System.out.println(n.getInputSum() + "  " + n.getOutputSum()));
     }

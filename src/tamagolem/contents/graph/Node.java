@@ -62,7 +62,9 @@ public final class Node implements Comparable<Node> {
     public int getVoidLinks() {
         int to_ret = 0;
         for (Link l : links.values()) {
-            to_ret += l.hasValue() ? 0 : 1;
+            if (l.getFrom() == this && !l.isLocked()) {
+                to_ret += l.hasValue() ? 0 : 1;
+            }
         }
         return to_ret;
     }
@@ -74,7 +76,7 @@ public final class Node implements Comparable<Node> {
      */
     public Optional<Link> getFirstVoidLink() {
         for (Link l : links.values()) {
-            if (!l.hasValue()) {
+            if (!l.hasValue()  && !l.isLocked() && l.getFrom() == this) {
                 return Optional.of(l);
             }
         }
@@ -155,9 +157,10 @@ public final class Node implements Comparable<Node> {
 
     /**
      * Ritorna il numero di archi in entrata senza valore.
+     *
      * @return Il numero di archi.
      */
-    public long getVoidInputLinks(){
+    public long getVoidInputLinksCount() {
         return getInputLinks().stream().filter(link -> {
             return !link.hasValue();
         }).count();
@@ -165,12 +168,43 @@ public final class Node implements Comparable<Node> {
 
     /**
      * Ritorna il numero di archi in uscita senza valore.
+     *
      * @return Il numero di archi.
      */
-    public long getVoidOutputLinks(){
+    public long getVoidOutputLinksCount() {
         return getOutputLinks().stream().filter(link -> {
             return !link.hasValue();
         }).count();
+    }
+
+    /**
+     * Ritorna gli archi in entrata senza valore.
+     *
+     * @return Il numero di archi.
+     */
+    public List<Link> getVoidInputLinks() {
+        ArrayList<Link> to_ret = new ArrayList<>();
+        getInputLinks().stream().filter(link -> {
+            return !link.hasValue();
+        }).forEach((t) -> {
+            to_ret.add(t);
+        });
+        return Collections.unmodifiableList(to_ret);
+    }
+
+    /**
+     * Ritorna gli archi in uscita senza valore.
+     *
+     * @return Il numero di archi.
+     */
+    public List<Link> getVoidOutputLinks() {
+        ArrayList<Link> to_ret = new ArrayList<>();
+        getOutputLinks().stream().filter(link -> {
+            return !link.hasValue();
+        }).forEach((t) -> {
+            to_ret.add(t);
+        });
+        return Collections.unmodifiableList(to_ret);
     }
 
     /**

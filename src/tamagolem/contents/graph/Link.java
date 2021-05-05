@@ -116,7 +116,7 @@ public final class Link {
 
     @Override
     public String toString() {
-        return "LNK: " + from.getName() + (hasValue() ? " =" + power + "=> " : " => ") + to.getName();
+        return "LNK: " + from.getName() + /*(hasValue() ?*/ " =" + power + "=> " /*: " => ")*/ + to.getName();
     }
 
     @Override

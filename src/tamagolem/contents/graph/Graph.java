@@ -71,9 +71,11 @@ public class Graph {
                 for (int y = i + 1; y < graph_nodes.size(); y++) {
                     Node secondary = graph_nodes.get(y);
                     boolean direzione = rnd.nextBoolean();
-                    if (main.getInputLinks().size() == (graph_nodes.size() - 2) && main.getOutputLinks().isEmpty()) {
+                    if ((main.getInputLinks().size() == (graph_nodes.size() - 2) && main.getOutputLinks().isEmpty())
+                            || (secondary.getOutputLinks().size() == (graph_nodes.size() - 2) && secondary.getInputLinks().isEmpty())) {
                         direzione = true;
-                    } else if (main.getOutputLinks().size() == (graph_nodes.size() - 2) && main.getInputLinks().isEmpty()) {
+                    } else if ((main.getOutputLinks().size() == (graph_nodes.size() - 2) && main.getInputLinks().isEmpty())
+                            || (secondary.getInputLinks().size() == (graph_nodes.size() - 2) && secondary.getOutputLinks().isEmpty())) {
                         direzione = false;
                     }
                     Link l;
@@ -151,59 +153,121 @@ public class Graph {
         return Collections.unmodifiableList(graph_nodes);
     }
 
-    /**
-     * Genera i valori di ciascun arco.
-     */
+//    /**
+//     * Genera i valori di ciascun arco.
+//     */
+//    public void generateLinkValues() {
+//
+//        Link attuale = getAttractionLink();
+//        while (attuale != null) {
+//            if (attuale.getFrom().getInputSum() == null) { // caso generale
+//                attuale.setPower(rnd.nextInt(max_power) + 1);
+//            } else {
+//                if (attuale.getFrom().getVoidLinks() == 1) {  //ultimo valore da completare
+//                    Integer valore = attuale.getFrom().getOutputSum();
+//                    attuale.setPower(attuale.getFrom().getInputSum() - (valore == null ? 0 : valore));
+//                } else if (attuale.getTo().getOutputSum() == null) { // se il nodo to non ha uscite
+//                    attuale.setPower(rnd.nextInt(max_power) + 1);
+//                } else if (attuale.getFrom().getInputSum() != null && attuale.getFrom().getVoidOutputLinksCount() == 1) { //se from ha delle entrate e solo 1 uscita
+//                    Integer somma_entrate = attuale.getFrom().getInputSum(); // == null ? 0 : attuale.getTo().getInputSum();
+//                    Integer somma_uscite = attuale.getFrom().getOutputSum();  //potrebbere essere solo una e quindi = 0
+//                    long numero_entrate = attuale.getFrom().getVoidInputLinksCount();
+//                    attuale.setPower((int) (rnd.nextInt(max_power) + (somma_entrate + numero_entrate - (somma_uscite == null ? 0 : attuale.getTo().getOutputSum()))));
+//                } else if (attuale.getTo().getOutputSum() != null) { // se il nodo to ha delle uscite
+//                    Integer somma_entrate = attuale.getTo().getInputSum() == null ? 0 : attuale.getTo().getInputSum();
+//                    Integer somma_uscite = attuale.getTo().getOutputSum();
+//                    long numero_entrate = attuale.getTo().getVoidInputLinksCount();
+//                    attuale.setPower(rnd.nextInt((int) (somma_uscite - somma_entrate - numero_entrate + 1)) + 1);
+//                } else {
+//                    attuale.setPower(40);
+//                    System.out.println("ERRORE");
+//                }
+//
+//            }
+//
+//            if(attuale.getPower() != null){
+//                attuale.lock();
+//            }
+//            System.out.println("INTERNO : "+attuale);
+//            attuale = getAttractionLink();
+//        }
+//
+//
+//
+//    }
     public void generateLinkValues() {
-
         Link attuale = getAttractionLink();
-        if (attuale != null) {
-            if (attuale.getFrom().getInputSum() == null) { // caso generale
-                attuale.setPower(rnd.nextInt(max_power) + 1);
-            } else {
-                if (attuale.getFrom().getVoidLinks() == 1) {  //ultimo valore da completare
-                    Integer valore = attuale.getFrom().getOutputSum();
-                    attuale.setPower(attuale.getFrom().getInputSum() - (valore == null ? 0 : valore));
-                } else if (attuale.getTo().getOutputSum() == null) { // se il nodo to non ha uscite
-                    attuale.setPower(rnd.nextInt(max_power) + 1);
-                } else if (attuale.getFrom().getInputSum() != null && attuale.getFrom().getVoidOutputLinks() == 1) { //se from ha delle entrate e solo 1 uscita
-                    Integer somma_entrate = attuale.getFrom().getInputSum(); // == null ? 0 : attuale.getTo().getInputSum();
-                    Integer somma_uscite = attuale.getFrom().getOutputSum();  //potrebbere essere solo una e quindi = 0
-                    long numero_entrate = attuale.getFrom().getVoidInputLinks();
-                    attuale.setPower((int) (rnd.nextInt(max_power) + (somma_entrate + numero_entrate - (somma_uscite == null ? 0 : attuale.getTo().getOutputSum()))));
-                } else if (attuale.getTo().getOutputSum() != null) { // se il nodo to ha delle uscite
-                    Integer somma_entrate = attuale.getTo().getInputSum() == null ? 0 : attuale.getTo().getInputSum();
-                    Integer somma_uscite = attuale.getTo().getOutputSum();
-                    long numero_entrate = attuale.getTo().getVoidInputLinks();
-                    attuale.setPower(rnd.nextInt((int) (somma_uscite - somma_entrate - numero_entrate + 1)) + 1);
-                } else {
-                    attuale.setPower(40);
-                    System.out.println("ERRORE");
+        while (attuale != null) {
+            Node from = attuale.getFrom();
+            Node to = attuale.getTo();
+            if (from.getInputSum() == null) {//Nodo from non ha delle entrate
+                if (to.getVoidInputLinksCount() == 1 && to.getVoidOutputLinksCount() == 0) {//Se il nodo TO è completo (tranne quest'ultimo arco), allora calcolo per differenza
+                    Integer val = to.getInputSum();
+                    attuale.setPower(to.getOutputSum() - (val == null ? 0 : val));
+                } else if (to.getVoidOutputLinksCount() == 0 && to.getVoidInputLinksCount() > 1) {//se il nodo To è completo nelle uscite, ma non nelle entrate
+                    //[1 % (Somma uscite nodo To - Somma Entrate nodo To -(n°entrate To -1))]
+                    Integer in = to.getInputSum();
+                    int val = to.getOutputSum() - (in == null ? 0 : in) - ((int) to.getVoidInputLinksCount() - 1);
+                    if (val <= 0) {
+                        System.out.println("negat");
+                    }
+                    attuale.setPower(rnd.nextInt(val) + 1);
+                } else {//caso generale
+                    //[1 % M]
+                    int min = Math.max((to.getVoidInputLinksCount() == 1 ? (int) to.getVoidOutputLinksCount() : 1), (from.getVoidOutputLinksCount() == 1 ? (int) to.getVoidInputLinksCount() : 1));
+                    attuale.setPower(rnd.nextInt(max_power) + min);
                 }
-
+            } else {//Nodo from ha entrate.
+                if ((from.getVoidOutputLinksCount() == 1 && from.getVoidInputLinksCount() == 0) || (to.getVoidInputLinksCount() == 1 && to.getVoidOutputLinksCount() == 0)) {//Se FROM ha una solo uscita o TO ha una sola entrata 
+                    //calcolo per differenza
+                    if (from.getVoidOutputLinksCount() == 1) {//Se FROM ha una sola uscita
+                        Integer val = from.getOutputSum();
+                        attuale.setPower(from.getInputSum() - (val == null ? 0 : val));
+                    } else {
+                        Integer val = to.getInputSum();
+                        attuale.setPower(to.getOutputSum() - (val == null ? 0 : val));
+                    }
+                } else if (from.getVoidInputLinksCount() == 0) {//Nodo FROM ha TUTTE le entrate complete | si esclude il caso in cui è rimasta l'ultima uscita
+                    //[1 %  (Somma valori entrate FROM - somma valori uscite FROM - (n°uscite rimanenti FROM -1))]
+                    Integer out = from.getOutputSum();
+                    int max_from = from.getInputSum() - (out == null ? 0 : out) - ((int) from.getVoidOutputLinksCount() - 1);
+                    int min_to = (int) to.getVoidOutputLinksCount();
+                    if (max_from <= 0) {
+                        System.out.println("negat");
+                    }
+                    int val = (to.getVoidInputLinksCount() == 1 ? rnd.nextInt(max_from - min_to) + Math.max(min_to, 1) : rnd.nextInt(max_from) + 1);
+                    attuale.setPower(val);
+                } /*else if () {//Nodo TO non ha valori in uscita
+                    //caso generale
+                    //[1 % M]
+                }*/ else if (to.getVoidOutputLinksCount() == 0) {//Nodo TO ha TUTTE le uscite complete
+                    //[1 % (Somma valori uscite TO - somma valori entrare TO - (n°entrate rimanenti TO - 1))]
+                    Integer in = to.getInputSum();
+                    int val = to.getOutputSum() - (in == null ? 0 : in) - ((int) to.getVoidInputLinksCount() - 1);
+                    if (val <= 0) {
+                        System.out.println("negat");
+                    }
+                    attuale.setPower(rnd.nextInt(val) + 1);
+                } else {//caso generale
+                    //[1 % M]
+                    attuale.setPower(rnd.nextInt(max_power) + 1);
+                }
             }
-
-            if(attuale.getPower() != null){
+            if (attuale.getPower() != null) {
                 attuale.lock();
             }
-
+            System.out.println("GENERATO : " + attuale);
             attuale = getAttractionLink();
         }
-
-
-
     }
 
-    private boolean allLinksAreCompletated(){
-        for (Node graph_node : graph_nodes) {
-            if (graph_node.getVoidLinks() != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public ArrayList<Link> getGraph_links(){
+    public ArrayList<Link> getGraph_links() {
         return graph_links;
+    }
+
+    public void stampaSomme() {
+        graph_nodes.forEach(n -> {
+            System.out.println(n.getName() + "\tValore:" + (n.getInputSum() - n.getOutputSum()));
+        });
     }
 }
