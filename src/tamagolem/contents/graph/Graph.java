@@ -35,10 +35,17 @@ public class Graph {
     private final ArrayList<Link> graph_links = new ArrayList<>();
     private static ArrayList<Node> graph_nodes;
 
+    private final int max_power;
+
     private final Random rnd = new Random();
 
-    public Graph() {
-
+    public Graph(int MaxPower, ArrayList<String> names) {
+        generateNodes(names);
+        if (MaxPower > (graph_nodes.size() - 1)) {
+            max_power = MaxPower;
+        } else {
+            throw new IllegalArgumentException("La potenza massima minima è troppo minima.");
+        }
     }
 
     /**
@@ -63,14 +70,14 @@ public class Graph {
                 Node main = graph_nodes.get(i);
                 for (int y = i + 1; y < graph_nodes.size(); y++) {
                     Node secondary = graph_nodes.get(y);
-                    boolean rnd_bool = rnd.nextBoolean();
+                    boolean direzione = rnd.nextBoolean();
                     if (main.getInputLinks().size() == (graph_nodes.size() - 2) && main.getOutputLinks().isEmpty()) {
-                        rnd_bool = true;
+                        direzione = true;
                     } else if (main.getOutputLinks().size() == (graph_nodes.size() - 2) && main.getInputLinks().isEmpty()) {
-                        rnd_bool = false;
+                        direzione = false;
                     }
                     Link l;
-                    if (rnd_bool) {
+                    if (direzione) {
                         l = generateLink(main, secondary);
                     } else {
                         l = generateLink(secondary, main);
@@ -112,7 +119,7 @@ public class Graph {
      * @param to Il nodo a cui arriva (perdente).
      * @return Il link appena generato.
      */
-    public static Link generateLink(Node from, Node to) {
+    private static Link generateLink(Node from, Node to) {
         Link l = new Link(from, to);
         from.addLink(l);
         to.addLink(l);
@@ -126,7 +133,7 @@ public class Graph {
      * @param names Lista di nomi degli elementi.
      * @return Lista di nodi.
      */
-    public static List<Node> generateNodes(ArrayList<String> names) {
+    private static List<Node> generateNodes(ArrayList<String> names) {
         graph_nodes = new ArrayList<>();
         names.stream().forEach(name -> {
             Node n = new Node(name);
@@ -142,6 +149,10 @@ public class Graph {
      */
     public List<Node> getNodes() {
         return Collections.unmodifiableList(graph_nodes);
+    }
+
+    public void generateLinkValues() {
+        
     }
 
 }
