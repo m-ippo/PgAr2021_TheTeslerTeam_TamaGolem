@@ -15,6 +15,7 @@
  */
 package tamagolem;
 
+import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.Graph;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class TamaGolem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        provaCreazione();
     }
 
     public static void provaCreazione() {
@@ -41,6 +42,21 @@ public class TamaGolem {
         nomi.add("D");
 
         Graph g = new Graph(20, nomi);
+        try {
+            g.generateLinkTable();
+        } catch (UnitializedException e) {
+            e.printStackTrace();
+        }
+
+
+        stampaNodi(g);
         g.generateLinkValues();
+        stampaNodi(g);
+
+    }
+
+    public static void stampaNodi(Graph g){
+        g.getGraph_links().forEach(l -> System.out.println(l.toString()));
+        g.getNodes().forEach(n -> System.out.println(n.getInputSum() + "  " + n.getOutputSum()));
     }
 }

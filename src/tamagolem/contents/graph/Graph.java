@@ -151,6 +151,9 @@ public class Graph {
         return Collections.unmodifiableList(graph_nodes);
     }
 
+    /**
+     * Genera i valori di ciascun arco.
+     */
     public void generateLinkValues() {
 
         while(!allLinksAreCompletated()) { // continua fino a che tutti i links hanno un valore
@@ -159,11 +162,11 @@ public class Graph {
                 if (attuale.getFrom().getInputSum() == null) { // caso generale
                     attuale.setPower(rnd.nextInt(max_power) + 1);
                 } else {
-                    if (attuale.getTo().getOutputSum() == null) { // se il nodo to non ha uscite
-                        attuale.setPower(rnd.nextInt(max_power) + 1);
-                    } else if (attuale.getFrom().getVoidLinks() == 1) {  //ultimo valore da completare
+                    if (attuale.getFrom().getVoidLinks() == 1) {  //ultimo valore da completare
                         Integer valore = attuale.getFrom().getOutputSum();
                         attuale.setPower(attuale.getFrom().getInputSum() - (valore == null ? 0 : valore));
+                    } else if (attuale.getTo().getOutputSum() == null) { // se il nodo to non ha uscite
+                        attuale.setPower(rnd.nextInt(max_power) + 1);
                     } else if (attuale.getTo().getOutputSum() != null) { // se il nodo to ha delle uscite
                         Integer somma_entrate = attuale.getTo().getInputSum() == null ? 0 : attuale.getTo().getInputSum();
                         Integer somma_uscite = attuale.getTo().getOutputSum();
@@ -174,6 +177,8 @@ public class Graph {
                         Integer somma_uscite = attuale.getFrom().getOutputSum() == null ? 0 : attuale.getTo().getOutputSum(); //potrebbere essere solo una e quindi = 0
                         long numero_entrate = attuale.getFrom().getVoidInputLinks();
                         attuale.setPower((int) (rnd.nextInt(max_power) + (somma_entrate + numero_entrate - somma_uscite)));
+                    } else {
+                        attuale.setPower(3);
                     }
                     attuale.lock();
                 }
@@ -195,4 +200,7 @@ public class Graph {
         return true;
     }
 
+    public ArrayList<Link> getGraph_links(){
+        return graph_links;
+    }
 }
