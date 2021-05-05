@@ -17,11 +17,16 @@ package tamagolem.contents.balance;
 
 import tamagolem.contents.graph.Graph;
 
+import java.util.ArrayList;
+
 /**
  * Equilibrio.
  *
  * @author TTT
  */
 public class Balance extends Graph{
-    
+
+    public Balance(int MaxPower, ArrayList<String> names) {
+        super(MaxPower, names);
+    }
 }

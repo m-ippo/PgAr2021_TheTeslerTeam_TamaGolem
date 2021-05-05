@@ -154,6 +154,26 @@ public final class Node implements Comparable<Node> {
     }
 
     /**
+     * Ritorna il numero di archi in entrata senza valore.
+     * @return Il numero di archi.
+     */
+    public long getVoidInputLinks(){
+        return getInputLinks().stream().filter(link -> {
+            return !link.hasValue();
+        }).count();
+    }
+
+    /**
+     * Ritorna il numero di archi in uscita senza valore.
+     * @return Il numero di archi.
+     */
+    public long getVoidOutputLinks(){
+        return getOutputLinks().stream().filter(link -> {
+            return !link.hasValue();
+        }).count();
+    }
+
+    /**
      * Ritorna la lista chiave-valore di nodi e archi.
      *
      * @return Map non modificabile.

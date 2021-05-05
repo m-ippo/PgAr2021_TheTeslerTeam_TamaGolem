@@ -15,6 +15,8 @@
  */
 package tamagolem;
 
+import tamagolem.contents.graph.Graph;
+
 /**
  *
  * @author TTT
@@ -26,6 +28,7 @@ public class TamaGolem {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+
     }
     
 }

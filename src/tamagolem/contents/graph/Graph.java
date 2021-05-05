@@ -99,7 +99,7 @@ public class Graph {
      * @return L'Arco da completare secondo l'ordine. Ritorna {@code null} solo
      * quando non esistono più archi da completare.
      */
-    public Link getAttractionNode() {
+    public Link getAttractionLink() {
         ArrayList<Node> to_be_ordered = new ArrayList<>();
         graph_nodes.stream().filter((t) -> {
             return t.getVoidLinks() > 0;
@@ -152,7 +152,33 @@ public class Graph {
     }
 
     public void generateLinkValues() {
-        
+
+        Link attuale = getAttractionLink();
+        if(attuale != null){
+            if(attuale.getFrom().getInputSum() == null){ // caso generale
+                attuale.setPower(rnd.nextInt(max_power) + 1);
+            } else {
+                if(attuale.getFrom().getVoidLinks() == 1){  //ultimo valore da completare
+                    Integer valore = attuale.getFrom().getOutputSum();
+                    attuale.setPower(attuale.getFrom().getInputSum() - (valore == null ? 0 : valore));
+                } else if (attuale.getTo().getInputSum() != null || attuale.getTo().getOutputSum() != null){ // se il nodo to ha delle entrate e/o uscite
+                    Integer somma_entrate = attuale.getTo().getInputSum();
+                    Integer somma_uscite = attuale.getTo().getOutputSum();
+
+                    if(somma_uscite != null ){ // somma uscite to != 0 e dipende da valori from
+                        long numero_entrate = attuale.getTo().getVoidInputLinks();
+                        attuale.setPower(rnd.nextInt((int) (somma_uscite  - numero_entrate - 1)) + 1);
+                    }
+                }
+            }
+
+            attuale.lock();
+        }
+
+
+
+
+
     }
 
 }
