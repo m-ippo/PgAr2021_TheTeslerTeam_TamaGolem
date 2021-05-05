@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 TTT.
+ * Copyright 2021 gabri.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,29 +19,21 @@ import java.util.Comparator;
 import tamagolem.contents.graph.Node;
 
 /**
- * Controlla quale tra i due nodi ha più nodi vuoti.
  *
- * @author TTT
+ * @author gabri
  */
-public class NodeVoidLinkCMP implements Comparator<Node> {
+public class NodeVoidOutputLinkCMP implements Comparator<Node> {
 
     @Override
     public int compare(Node o1, Node o2) {
-        long val1 = o1.getVoidInputLinksCount();
-        long val2 = o2.getVoidInputLinksCount();
-        /*  if (val1 > val2) {
+        long val1 = o1.getVoidOutputLinksCount();
+        long val2 = o2.getVoidOutputLinksCount();
+        if (val1 > val2) {
             return -1;
         } else if (val1 < val2) {
             return 1;
         }
-        return 0;*/
-        if(val1 == 1){
-            return 1;
-        }
-        if(val2 == 1){
-            return -1;
-        }
-        return new NodeOutputsCMP().compare(o1, o2);
+        return 0;
     }
 
 }

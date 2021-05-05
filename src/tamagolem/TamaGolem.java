@@ -40,11 +40,11 @@ public class TamaGolem {
         nomi.add("B");
         nomi.add("C");
         nomi.add("D");
-        nomi.add("E");
+        //nomi.add("E");
         //nomi.add("F");
         //nomi.add("G");
 
-        Graph g = new Graph(20, nomi);
+        Graph g = new Graph(10, nomi);
         try {
             g.generateLinkTable();
         } catch (UnitializedException e) {

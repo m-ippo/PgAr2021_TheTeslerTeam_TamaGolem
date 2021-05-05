@@ -23,7 +23,7 @@ import java.util.Random;
 import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.comparators.NodeChainedComparator;
 import tamagolem.contents.graph.comparators.NodeOutputsCMP;
-import tamagolem.contents.graph.comparators.NodeVoidLinkCMP;
+import tamagolem.contents.graph.comparators.NodeVoidOutputLinkCMP;
 
 /**
  * Rappresenta un grafo.
@@ -88,6 +88,9 @@ public class Graph {
                 }
             }
             Collections.sort(graph_nodes);
+            
+            
+            
         } else {
             throw new UnitializedException("I nodi non sono ancora stati inizializzati. Impossibile generare gli archi.");
         }
@@ -98,17 +101,35 @@ public class Graph {
      * necessita di essere completato.<p>
      * L'ordine è secondo
      *
+     * @param previous
      * @return L'Arco da completare secondo l'ordine. Ritorna {@code null} solo
      * quando non esistono più archi da completare.
      */
-    public Link getAttractionLink() {
+    public Link getAttractionLink(Link previous) {
         ArrayList<Node> to_be_ordered = new ArrayList<>();
         graph_nodes.stream().filter((t) -> {
             return t.getVoidLinks() > 0;
         }).forEach((t) -> {
             to_be_ordered.add(t);
         });
-        NodeChainedComparator ncc = new NodeChainedComparator(new NodeVoidLinkCMP(), new NodeOutputsCMP());
+        if (previous != null && previous.getFrom().getVoidOutputLinksCount() > 0) {
+            for (Node n : to_be_ordered) {
+                if (n.getVoidInputLinksCount() == 1 || n.getVoidOutputLinksCount() == 1) {
+                    return n.getFirstVoidLink().get();
+                }
+            }
+            List<Link> archi_da_nodo_from_con_piu_output_vuoti = previous.getFrom().getVoidOutputLinks();
+            ArrayList<Node> nodi_connessi_a_nodo_from = new ArrayList<>();
+            archi_da_nodo_from_con_piu_output_vuoti.forEach(l -> nodi_connessi_a_nodo_from.add(l.getTo()));
+
+            ArrayList<Node> nodi_connessi_a_nodo_from_incompleti = new ArrayList<>();
+            nodi_connessi_a_nodo_from.stream().filter((t) -> {
+                return t.getVoidOutputLinksCount() > 0;
+            }).forEach(nodo_con_archi_incompleti -> nodi_connessi_a_nodo_from_incompleti.add(nodo_con_archi_incompleti));
+            Collections.sort(nodi_connessi_a_nodo_from_incompleti, new NodeVoidOutputLinkCMP());
+            return nodi_connessi_a_nodo_from_incompleti.get(0).getFirstVoidLink().get();
+        }
+        NodeChainedComparator ncc = new NodeChainedComparator(/*new NodeVoidOutputLinkCMP(),*/new NodeOutputsCMP());
         Collections.sort(to_be_ordered, ncc);
         Optional<Node> findFirst = to_be_ordered.stream().findFirst();
         return findFirst.isPresent() ? findFirst.get().getFirstVoidLink().orElse(null) : null;
@@ -153,50 +174,8 @@ public class Graph {
         return Collections.unmodifiableList(graph_nodes);
     }
 
-//    /**
-//     * Genera i valori di ciascun arco.
-//     */
-//    public void generateLinkValues() {
-//
-//        Link attuale = getAttractionLink();
-//        while (attuale != null) {
-//            if (attuale.getFrom().getInputSum() == null) { // caso generale
-//                attuale.setPower(rnd.nextInt(max_power) + 1);
-//            } else {
-//                if (attuale.getFrom().getVoidLinks() == 1) {  //ultimo valore da completare
-//                    Integer valore = attuale.getFrom().getOutputSum();
-//                    attuale.setPower(attuale.getFrom().getInputSum() - (valore == null ? 0 : valore));
-//                } else if (attuale.getTo().getOutputSum() == null) { // se il nodo to non ha uscite
-//                    attuale.setPower(rnd.nextInt(max_power) + 1);
-//                } else if (attuale.getFrom().getInputSum() != null && attuale.getFrom().getVoidOutputLinksCount() == 1) { //se from ha delle entrate e solo 1 uscita
-//                    Integer somma_entrate = attuale.getFrom().getInputSum(); // == null ? 0 : attuale.getTo().getInputSum();
-//                    Integer somma_uscite = attuale.getFrom().getOutputSum();  //potrebbere essere solo una e quindi = 0
-//                    long numero_entrate = attuale.getFrom().getVoidInputLinksCount();
-//                    attuale.setPower((int) (rnd.nextInt(max_power) + (somma_entrate + numero_entrate - (somma_uscite == null ? 0 : attuale.getTo().getOutputSum()))));
-//                } else if (attuale.getTo().getOutputSum() != null) { // se il nodo to ha delle uscite
-//                    Integer somma_entrate = attuale.getTo().getInputSum() == null ? 0 : attuale.getTo().getInputSum();
-//                    Integer somma_uscite = attuale.getTo().getOutputSum();
-//                    long numero_entrate = attuale.getTo().getVoidInputLinksCount();
-//                    attuale.setPower(rnd.nextInt((int) (somma_uscite - somma_entrate - numero_entrate + 1)) + 1);
-//                } else {
-//                    attuale.setPower(40);
-//                    System.out.println("ERRORE");
-//                }
-//
-//            }
-//
-//            if(attuale.getPower() != null){
-//                attuale.lock();
-//            }
-//            System.out.println("INTERNO : "+attuale);
-//            attuale = getAttractionLink();
-//        }
-//
-//
-//
-//    }
     public void generateLinkValues() {
-        Link attuale = getAttractionLink();
+        Link attuale = getAttractionLink(null);
         while (attuale != null) {
             Node from = attuale.getFrom();
             Node to = attuale.getTo();
@@ -214,8 +193,9 @@ public class Graph {
                     attuale.setPower(rnd.nextInt(val) + 1);
                 } else {//caso generale
                     //[1 % M]
-                    int min = Math.max((to.getVoidInputLinksCount() == 1 ? (int) to.getVoidOutputLinksCount() : 1), (from.getVoidOutputLinksCount() == 1 ? (int) to.getVoidInputLinksCount() : 1));
-                    attuale.setPower(rnd.nextInt(max_power) + min);
+                    //int min = Math.max((to.getVoidInputLinksCount() == 1 ? (int) to.getVoidOutputLinksCount() : 1), (from.getVoidOutputLinksCount() == 1 ? (int) to.getVoidInputLinksCount() : 1));
+                    //attuale.setPower(rnd.nextInt(max_power) + min);
+                    attuale.setPower(rnd.nextInt(max_power) + 1);
                 }
             } else {//Nodo from ha entrate.
                 if ((from.getVoidOutputLinksCount() == 1 && from.getVoidInputLinksCount() == 0) || (to.getVoidInputLinksCount() == 1 && to.getVoidOutputLinksCount() == 0)) {//Se FROM ha una solo uscita o TO ha una sola entrata 
@@ -230,13 +210,18 @@ public class Graph {
                 } else if (from.getVoidInputLinksCount() == 0) {//Nodo FROM ha TUTTE le entrate complete | si esclude il caso in cui è rimasta l'ultima uscita
                     //[1 %  (Somma valori entrate FROM - somma valori uscite FROM - (n°uscite rimanenti FROM -1))]
                     Integer out = from.getOutputSum();
-                    int max_from = from.getInputSum() - (out == null ? 0 : out) - ((int) from.getVoidOutputLinksCount() - 1);
+                    /*int max_from = from.getInputSum() - (out == null ? 0 : out) - ((int) from.getVoidOutputLinksCount() - 1);
                     int min_to = (int) to.getVoidOutputLinksCount();
                     if (max_from <= 0) {
                         System.out.println("negat");
                     }
                     int val = (to.getVoidInputLinksCount() == 1 ? rnd.nextInt(max_from - min_to) + Math.max(min_to, 1) : rnd.nextInt(max_from) + 1);
-                    attuale.setPower(val);
+                    attuale.setPower(val);*/
+                    int val = from.getInputSum() - (out == null ? 0 : out) - ((int) from.getVoidOutputLinksCount() - 1);
+                    if (val <= 0) {
+                        System.out.println("negat");
+                    }
+                    attuale.setPower(rnd.nextInt(val) + 1);
                 } /*else if () {//Nodo TO non ha valori in uscita
                     //caso generale
                     //[1 % M]
@@ -257,7 +242,7 @@ public class Graph {
                 attuale.lock();
             }
             System.out.println("GENERATO : " + attuale);
-            attuale = getAttractionLink();
+            attuale = getAttractionLink(attuale);
         }
     }
 

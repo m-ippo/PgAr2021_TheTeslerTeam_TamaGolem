@@ -18,15 +18,58 @@ package tamagolem.contents.balance;
 import tamagolem.contents.graph.Graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tamagolem.contents.exceptions.UnitializedException;
+import tamagolem.contents.graph.Node;
 
 /**
  * Equilibrio.
  *
  * @author TTT
  */
-public class Balance extends Graph{
+public class Balance extends Graph {
+
+    HashMap<Node, HashMap<Node, Integer>> matrice_zeri_uni = new HashMap<>();//array che rappresenta un array di righe ed ognuno contiene colonne
 
     public Balance(int MaxPower, ArrayList<String> names) {
         super(MaxPower, names);
+        init();
     }
+
+    List<Node> nodi_setup;
+
+    private void init() {
+        nodi_setup = getNodes();
+        for (Node n : getNodes()) {
+            HashMap<Node, Integer> riga_elemento = new HashMap<>();
+            for (int i = 0; i < getNodes().size(); i++) {
+                riga_elemento.put(getNodes().get(i), 0);
+            }
+            matrice_zeri_uni.put(n, riga_elemento);
+        }
+    }
+
+    public void blabla() {
+        try {
+            generateLinkTable();
+            getGraph_links().forEach((link_creato) -> {
+                Node from = link_creato.getFrom();
+                Node to = link_creato.getTo();
+                matrice_zeri_uni.get(from).put(to, 1);
+                matrice_zeri_uni.get(to).put(from, 0);
+            });
+            matrice_zeri_uni.keySet().forEach(n -> {
+                matrice_zeri_uni.get(n).keySet().forEach(n2 -> {
+                    System.out.print("" + matrice_zeri_uni.get(n).get(n2) + "  ");
+                });
+                System.out.println();
+            });
+        } catch (UnitializedException ex) {
+            Logger.getLogger(Balance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
