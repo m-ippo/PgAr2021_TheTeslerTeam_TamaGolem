@@ -156,38 +156,41 @@ public class Graph {
      */
     public void generateLinkValues() {
 
-        while(!allLinksAreCompletated()) { // continua fino a che tutti i links hanno un valore
-            Link attuale = getAttractionLink();
-            if (attuale != null) {
-                if (attuale.getFrom().getInputSum() == null) { // caso generale
+        Link attuale = getAttractionLink();
+        if (attuale != null) {
+            if (attuale.getFrom().getInputSum() == null) { // caso generale
+                attuale.setPower(rnd.nextInt(max_power) + 1);
+            } else {
+                if (attuale.getFrom().getVoidLinks() == 1) {  //ultimo valore da completare
+                    Integer valore = attuale.getFrom().getOutputSum();
+                    attuale.setPower(attuale.getFrom().getInputSum() - (valore == null ? 0 : valore));
+                } else if (attuale.getTo().getOutputSum() == null) { // se il nodo to non ha uscite
                     attuale.setPower(rnd.nextInt(max_power) + 1);
+                } else if (attuale.getFrom().getInputSum() != null && attuale.getFrom().getVoidOutputLinks() == 1) { //se from ha delle entrate e solo 1 uscita
+                    Integer somma_entrate = attuale.getFrom().getInputSum(); // == null ? 0 : attuale.getTo().getInputSum();
+                    Integer somma_uscite = attuale.getFrom().getOutputSum();  //potrebbere essere solo una e quindi = 0
+                    long numero_entrate = attuale.getFrom().getVoidInputLinks();
+                    attuale.setPower((int) (rnd.nextInt(max_power) + (somma_entrate + numero_entrate - (somma_uscite == null ? 0 : attuale.getTo().getOutputSum()))));
+                } else if (attuale.getTo().getOutputSum() != null) { // se il nodo to ha delle uscite
+                    Integer somma_entrate = attuale.getTo().getInputSum() == null ? 0 : attuale.getTo().getInputSum();
+                    Integer somma_uscite = attuale.getTo().getOutputSum();
+                    long numero_entrate = attuale.getTo().getVoidInputLinks();
+                    attuale.setPower(rnd.nextInt((int) (somma_uscite - somma_entrate - numero_entrate + 1)) + 1);
                 } else {
-                    if (attuale.getFrom().getVoidLinks() == 1) {  //ultimo valore da completare
-                        Integer valore = attuale.getFrom().getOutputSum();
-                        attuale.setPower(attuale.getFrom().getInputSum() - (valore == null ? 0 : valore));
-                    } else if (attuale.getTo().getOutputSum() == null) { // se il nodo to non ha uscite
-                        attuale.setPower(rnd.nextInt(max_power) + 1);
-                    } else if (attuale.getTo().getOutputSum() != null) { // se il nodo to ha delle uscite
-                        Integer somma_entrate = attuale.getTo().getInputSum() == null ? 0 : attuale.getTo().getInputSum();
-                        Integer somma_uscite = attuale.getTo().getOutputSum();
-                        long numero_entrate = attuale.getTo().getVoidInputLinks();
-                        attuale.setPower(rnd.nextInt((int) (somma_uscite - somma_entrate - numero_entrate - 1)) + 1);
-                    } else if (attuale.getFrom().getInputSum() != null && attuale.getFrom().getVoidOutputLinks() == 1) { //se from ha delle entrate e solo 1 uscita
-                        Integer somma_entrate = attuale.getFrom().getInputSum(); // == null ? 0 : attuale.getTo().getInputSum();
-                        Integer somma_uscite = attuale.getFrom().getOutputSum() == null ? 0 : attuale.getTo().getOutputSum(); //potrebbere essere solo una e quindi = 0
-                        long numero_entrate = attuale.getFrom().getVoidInputLinks();
-                        attuale.setPower((int) (rnd.nextInt(max_power) + (somma_entrate + numero_entrate - somma_uscite)));
-                    } else {
-                        attuale.setPower(3);
-                    }
-                    attuale.lock();
+                    attuale.setPower(40);
+                    System.out.println("ERRORE");
                 }
 
-                // ciclo che controlla se un nodo ha solo un valore da completare e lo completa
-                // ma non serve perche i comparatori ordinano i links
-
             }
+
+            if(attuale.getPower() != null){
+                attuale.lock();
+            }
+
+            attuale = getAttractionLink();
         }
+
+
 
     }
 

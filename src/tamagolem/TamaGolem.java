@@ -40,6 +40,10 @@ public class TamaGolem {
         nomi.add("B");
         nomi.add("C");
         nomi.add("D");
+        //nomi.add("E");
+        //nomi.add("F");
+        //nomi.add("G");
+
 
         Graph g = new Graph(20, nomi);
         try {
@@ -47,11 +51,9 @@ public class TamaGolem {
         } catch (UnitializedException e) {
             e.printStackTrace();
         }
-
-
         stampaNodi(g);
-        g.generateLinkValues();
-        stampaNodi(g);
+        //g.generateLinkValues();
+        //stampaNodi(g);
 
     }
 
