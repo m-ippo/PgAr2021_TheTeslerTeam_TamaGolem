@@ -53,7 +53,7 @@ public class Balance extends Graph {
         }
     }
 
-    public int[][] blabla() {
+    public int[][] generaMatriceValori() {
         try {
             generateLinkTable();
             getGraph_links().forEach((link_creato) -> {

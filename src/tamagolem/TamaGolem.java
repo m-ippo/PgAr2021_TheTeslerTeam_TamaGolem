@@ -32,27 +32,7 @@ public class TamaGolem {
      */
     public static void main(String[] args) {
 
-        ArrayList<String> nomi = new ArrayList<String>();
-        nomi.add("A");
-        nomi.add("B");
-        nomi.add("C");
-        nomi.add("D");
-        nomi.add("E");
-        nomi.add("F");
-        nomi.add("G");
-        nomi.add("H");
-        nomi.add("I");
 
-        Matrix m = new Matrix( nomi, 25);
-        m.stampa();
-
-        System.out.println("\n\n");
-
-        m.daiValori(25);
-
-        System.out.println("\n\n");
-
-        m.stampa();
 
     }
 
@@ -66,6 +46,8 @@ public class TamaGolem {
         nomi.add("E");
         nomi.add("F");
         nomi.add("G");
+        nomi.add("H");
+        nomi.add("I");
 
         Graph g = new Graph(10, nomi);
         try {
@@ -82,5 +64,29 @@ public class TamaGolem {
     public static void stampaNodi(Graph g) {
         g.getGraph_links().forEach(l -> System.out.println(l.toString()));
         g.getNodes().forEach(n -> System.out.println(n.getInputSum() + "  " + n.getOutputSum()));
+    }
+
+    public static void provaMatrice() {
+        ArrayList<String> nomi = new ArrayList<String>();
+        nomi.add("A");
+        nomi.add("B");
+        nomi.add("C");
+        nomi.add("D");
+        nomi.add("E");
+        nomi.add("F");
+        nomi.add("G");
+        nomi.add("H");
+        nomi.add("I");
+
+        Matrix m = new Matrix( nomi, 25);
+        m.stampa();
+
+        System.out.println("\n\n");
+
+        m.daiValori();
+
+        System.out.println("\n\n");
+
+        m.stampa();
     }
 }

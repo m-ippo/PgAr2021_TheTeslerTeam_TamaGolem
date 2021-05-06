@@ -1,6 +1,5 @@
 package tamagolem.contents.graph;
 
-import com.sun.source.tree.BreakTree;
 import tamagolem.contents.balance.Balance;
 import tamagolem.contents.exceptions.UnitializedException;
 
@@ -11,6 +10,7 @@ public class Matrix {
 
     private int[][] matrice;
     private Random random = new Random();
+    private int val_max;
 
     public Matrix (ArrayList<String> nomi, int val_max){
         Balance g = new Balance(val_max, nomi);
@@ -19,7 +19,8 @@ public class Matrix {
         } catch (UnitializedException e) {
             e.printStackTrace();
         }
-        matrice = g.blabla();
+        matrice = g.generaMatriceValori();
+        this.val_max = val_max;
 
 
     }
@@ -84,11 +85,6 @@ public class Matrix {
     }
 
     public int valoreCompletaRiga(int[] riga){
-        /*int ris = 0;
-        for(int i = 0; i < riga.length; i++){
-            ris += riga[i];
-        }
-        return ris;*/
         return sommaRiga(riga);
     }
 
@@ -112,10 +108,15 @@ public class Matrix {
         return ris-1; // non conta quello della diagonale
     }
 
-    public void daiValori(int val_max){
+    /**
+     * Metodo per assegnare i valori alla matrice, partendo dai valori di quella
+     * creata dalle direzioni degli archi.
+     *
+     */
+    public void daiValori(){
 
         int[][] nuova_matrice = new int[matrice.length][matrice.length];
-        for(int i = 0; i < matrice.length; i++){
+        for(int i = 0; i < matrice.length; i++){   // crea una nuova matrice di 0 da completare
             for(int j = 0; j < matrice.length; j++){
                 nuova_matrice[i][j] = 0;
             }
@@ -124,7 +125,7 @@ public class Matrix {
         for(int i = 0; i < matrice.length; i++){
             for(int j = 0; j < matrice.length; j++){
 
-                for(int l = 0; l < matrice.length; l++){
+                for(int l = 0; l < matrice.length; l++){ // controlla se ci sono righe da completare
                     if(rigaDaCompletare(matrice[l])){
                         for(int k = 0; k < matrice.length; k++){
                             if( (l != k) && (matrice[l][k] == 0 || matrice[l][k] == -1)){
@@ -151,8 +152,6 @@ public class Matrix {
                 }
             }
         }
-
         matrice = nuova_matrice;
-        //return nuova_matrice;
     }
 }
