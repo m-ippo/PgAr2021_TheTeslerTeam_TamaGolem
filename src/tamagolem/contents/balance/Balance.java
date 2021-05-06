@@ -15,6 +15,7 @@
  */
 package tamagolem.contents.balance;
 
+import com.sun.source.tree.BreakTree;
 import tamagolem.contents.graph.Graph;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class Balance extends Graph {
         }
     }
 
-    public void blabla() {
+    public int[][] blabla() {
         try {
             generateLinkTable();
             getGraph_links().forEach((link_creato) -> {
@@ -61,15 +62,28 @@ public class Balance extends Graph {
                 matrice_zeri_uni.get(from).put(to, 1);
                 matrice_zeri_uni.get(to).put(from, 0);
             });
-            matrice_zeri_uni.keySet().forEach(n -> {
-                matrice_zeri_uni.get(n).keySet().forEach(n2 -> {
-                    System.out.print("" + matrice_zeri_uni.get(n).get(n2) + "  ");
-                });
-                System.out.println();
-            });
+
+            int[][] matrice = new int[getNodes().size()][getNodes().size()];
+            for(int i = 0; i < matrice.length; i++){
+                for(int j = 0; j < matrice.length; j++){
+                    matrice[i][j] = -matrice_zeri_uni.get(getNodes().get(i)).get(getNodes().get(j));
+                }
+            }
+
+            return matrice;
+
+//            matrice_zeri_uni.keySet().forEach(n -> {
+//                matrice_zeri_uni.get(n).keySet().forEach(n2 -> {
+//                    System.out.print("" + matrice_zeri_uni.get(n).get(n2) + "  ");
+//                });
+//                System.out.println();
+//            });
         } catch (UnitializedException ex) {
             Logger.getLogger(Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return new int[0][0];
+
     }
+
 
 }

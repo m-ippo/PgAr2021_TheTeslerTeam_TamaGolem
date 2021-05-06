@@ -31,19 +31,26 @@ public class TamaGolem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Matrix m = new Matrix(5);
+
+        ArrayList<String> nomi = new ArrayList<String>();
+        nomi.add("A");
+        nomi.add("B");
+        nomi.add("C");
+        nomi.add("D");
+        nomi.add("E");
+        nomi.add("F");
+        nomi.add("G");
+
+        Matrix m = new Matrix( nomi, 25);
         m.stampa();
 
         System.out.println("\n\n");
-        int[][] matrice = m.daiValori(15);
+
+        m.daiValori(25);
 
         System.out.println("\n\n");
-        for(int i = 0; i < matrice.length; i++){
-            for(int j = 0; j < matrice.length; j++){
-                System.out.print(matrice[i][j] + "  ");
-            }
-            System.out.println();
-        }
+
+        m.stampa();
 
     }
 
