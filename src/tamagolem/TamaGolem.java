@@ -17,6 +17,7 @@ package tamagolem;
 
 import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.Graph;
+import tamagolem.contents.graph.Matrix;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,20 @@ public class TamaGolem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        provaCreazione();
+        Matrix m = new Matrix(5);
+        m.stampa();
+
+        System.out.println("\n\n");
+        int[][] matrice = m.daiValori(15);
+
+        System.out.println("\n\n");
+        for(int i = 0; i < matrice.length; i++){
+            for(int j = 0; j < matrice.length; j++){
+                System.out.print(matrice[i][j] + "  ");
+            }
+            System.out.println();
+        }
+
     }
 
     public static void provaCreazione() {
@@ -40,9 +54,9 @@ public class TamaGolem {
         nomi.add("B");
         nomi.add("C");
         nomi.add("D");
-        //nomi.add("E");
-        //nomi.add("F");
-        //nomi.add("G");
+        nomi.add("E");
+        nomi.add("F");
+        nomi.add("G");
 
         Graph g = new Graph(10, nomi);
         try {
