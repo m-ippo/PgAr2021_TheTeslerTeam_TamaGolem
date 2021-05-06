@@ -40,6 +40,8 @@ public class TamaGolem {
         nomi.add("E");
         nomi.add("F");
         nomi.add("G");
+        nomi.add("H");
+        nomi.add("I");
 
         Matrix m = new Matrix( nomi, 25);
         m.stampa();
