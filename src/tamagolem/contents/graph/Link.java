@@ -25,8 +25,8 @@ import java.util.Objects;
 public final class Link {
 
     private Integer power = null;
-    private final Node from;
-    private final Node to;
+    private Node from;
+    private Node to;
 
     private boolean unlocked = true;
 
@@ -72,6 +72,12 @@ public final class Link {
     public void setPower(Integer power) {
         if (unlocked) {
             this.power = power;
+            if (this.power < 0) {
+                Node tmp = to;
+                to = from;
+                from = tmp;
+                this.power = -this.power;
+            }
         }
     }
 

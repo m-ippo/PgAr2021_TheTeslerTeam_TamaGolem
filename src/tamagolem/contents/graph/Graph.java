@@ -87,10 +87,9 @@ public class Graph {
                     graph_links.add(l);
                 }
             }
-            Collections.sort(graph_nodes);
-            
-            
-            
+            Collections.sort(graph_nodes,(o1, o2) -> {
+                return o1.getName().compareTo(o2.getName()); //To change body of generated lambdas, choose Tools | Templates.
+            });
         } else {
             throw new UnitializedException("I nodi non sono ancora stati inizializzati. Impossibile generare gli archi.");
         }
@@ -104,7 +103,9 @@ public class Graph {
      * @param previous
      * @return L'Arco da completare secondo l'ordine. Ritorna {@code null} solo
      * quando non esistono più archi da completare.
+     * @deprecated Non più usato: troppo complesso.
      */
+    @Deprecated
     public Link getAttractionLink(Link previous) {
         ArrayList<Node> to_be_ordered = new ArrayList<>();
         graph_nodes.stream().filter((t) -> {
@@ -172,6 +173,15 @@ public class Graph {
      */
     public List<Node> getNodes() {
         return Collections.unmodifiableList(graph_nodes);
+    }
+
+    /**
+     * Ritorna il valore massimo generabile in modo casuale.
+     *
+     * @return Massimo randomico.
+     */
+    public int getMaxPower() {
+        return max_power;
     }
 
     public void generateLinkValues() {
@@ -250,7 +260,7 @@ public class Graph {
         return graph_links;
     }
 
-    public void stampaSomme() {
+    public void printSums() {
         graph_nodes.forEach(n -> {
             System.out.println(n.getName() + "\tValore:" + (n.getInputSum() - n.getOutputSum()));
         });

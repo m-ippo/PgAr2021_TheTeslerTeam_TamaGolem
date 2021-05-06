@@ -76,7 +76,7 @@ public final class Node implements Comparable<Node> {
      */
     public Optional<Link> getFirstVoidLink() {
         for (Link l : links.values()) {
-            if (!l.hasValue()  && !l.isLocked() && l.getFrom() == this) {
+            if (!l.hasValue() && !l.isLocked() && l.getFrom() == this) {
                 return Optional.of(l);
             }
         }
@@ -232,9 +232,9 @@ public final class Node implements Comparable<Node> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Entrano in \"").append(name).append("\":");
-        getInputLinks().forEach(l -> sb.append("\n\t-").append(l.getLinked(this).getName()));
+        getInputLinks().forEach(l -> sb.append("\n\t-").append(l.getLinked(this).getName()).append(" : ").append(l.getPower()));
         sb.append("\nEscono da \"").append(name).append("\":");
-        getOutputLinks().forEach(l -> sb.append("\n\t-").append(l.getLinked(this).getName()));
+        getOutputLinks().forEach(l -> sb.append("\n\t-").append(l.getLinked(this).getName()).append(" : ").append(l.getPower()));
         return sb.toString(); //To change body of generated methods, choose Tools | Templates.
     }
 

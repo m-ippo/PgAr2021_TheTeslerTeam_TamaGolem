@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tamagolem.contents.exceptions.UnitializedException;
+import tamagolem.contents.graph.Link;
 import tamagolem.contents.graph.Node;
 
 /**
@@ -33,14 +34,13 @@ import tamagolem.contents.graph.Node;
  */
 public class Balance extends Graph {
 
-    HashMap<Node, HashMap<Node, Integer>> matrice_zeri_uni = new HashMap<>();//array che rappresenta un array di righe ed ognuno contiene colonne
+    private HashMap<Node, HashMap<Node, Integer>> matrice_zeri_uni = new HashMap<>();//array che rappresenta un array di righe ed ognuno contiene colonne
+    private List<Node> nodi_setup;
 
     public Balance(int MaxPower, ArrayList<String> names) {
         super(MaxPower, names);
         init();
     }
-
-    List<Node> nodi_setup;
 
     private void init() {
         nodi_setup = getNodes();
@@ -53,7 +53,7 @@ public class Balance extends Graph {
         }
     }
 
-    public int[][] generaMatriceValori() {
+    public int[][] genMatrix() {
         try {
             generateLinkTable();
             getGraph_links().forEach((link_creato) -> {
@@ -63,27 +63,51 @@ public class Balance extends Graph {
                 matrice_zeri_uni.get(to).put(from, 0);
             });
 
-            int[][] matrice = new int[getNodes().size()][getNodes().size()];
-            for(int i = 0; i < matrice.length; i++){
-                for(int j = 0; j < matrice.length; j++){
-                    matrice[i][j] = -matrice_zeri_uni.get(getNodes().get(i)).get(getNodes().get(j));
+            int[][] matrice = new int[nodi_setup.size()][nodi_setup.size()];
+            //System.out.println(nodi_setup);
+            for (int i = 0; i < matrice.length; i++) {
+                for (int j = 0; j < matrice.length; j++) {
+                    matrice[i][j] = -matrice_zeri_uni.get(nodi_setup.get(i)).get(nodi_setup.get(j));
                 }
             }
-
             return matrice;
-
-//            matrice_zeri_uni.keySet().forEach(n -> {
-//                matrice_zeri_uni.get(n).keySet().forEach(n2 -> {
-//                    System.out.print("" + matrice_zeri_uni.get(n).get(n2) + "  ");
-//                });
-//                System.out.println();
-//            });
         } catch (UnitializedException ex) {
             Logger.getLogger(Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new int[0][0];
-
     }
 
+    @Override
+    public void generateLinkValues() {
+        Matrix m = new Matrix(this);
+        m.generateValues();
+        int[][] matrix = m.getMatrix();
+        m.print();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i + 1; j < matrix.length; j++) {
+                Link link = nodi_setup.get(i).to(nodi_setup.get(j));
+                int read_val = matrix[i][j];
+                System.out.println(link + " LETTO:" + read_val);
+                if (!link.isLocked()) {
+                    link.setPower(Math.abs(read_val));//Suppongo ch Nicholas non faccia mai inversione dei link con i valori negativi.
+                }
+            }
+        }
+        print();
+    }
+
+    public boolean checkBalance() {
+        for (Node n : nodi_setup) {
+            int val = n.getInputSum() - n.getOutputSum();
+            int empties = n.getVoidLinks();
+            int inputs = n.getInputLinks().size();
+            int outputs = n.getOutputLinks().size();
+            if (val != 0 || empties != 0 || inputs < 1 || outputs < 1) {
+                System.out.printf(n.toString() + "\nErrore nodo " + n.getName() + ":\n\tValore ris: %d\n\tVuoti rimasti:%d\n\tInputs:%d\n\tOutputs:%d", val, empties, inputs, outputs);
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

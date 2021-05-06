@@ -15,11 +15,10 @@
  */
 package tamagolem;
 
-import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.Graph;
-import tamagolem.contents.graph.Matrix;
 
 import java.util.ArrayList;
+import tamagolem.contents.balance.Balance;
 
 /**
  *
@@ -31,34 +30,7 @@ public class TamaGolem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-
-
-    }
-
-    public static void provaCreazione() {
-
-        ArrayList<String> nomi = new ArrayList<String>();
-        nomi.add("A");
-        nomi.add("B");
-        nomi.add("C");
-        nomi.add("D");
-        nomi.add("E");
-        nomi.add("F");
-        nomi.add("G");
-        nomi.add("H");
-        nomi.add("I");
-
-        Graph g = new Graph(10, nomi);
-        try {
-            g.generateLinkTable();
-        } catch (UnitializedException e) {
-            e.printStackTrace();
-        }
-        stampaNodi(g);
-        g.generateLinkValues();
-        stampaNodi(g);
-        g.stampaSomme();
+        provaMatrice();
     }
 
     public static void stampaNodi(Graph g) {
@@ -67,7 +39,7 @@ public class TamaGolem {
     }
 
     public static void provaMatrice() {
-        ArrayList<String> nomi = new ArrayList<String>();
+        ArrayList<String> nomi = new ArrayList<>();
         nomi.add("A");
         nomi.add("B");
         nomi.add("C");
@@ -78,15 +50,9 @@ public class TamaGolem {
         nomi.add("H");
         nomi.add("I");
 
-        Matrix m = new Matrix( nomi, 25);
-        m.stampa();
+        Balance b = new Balance(25, nomi);
+        b.generateLinkValues();
 
-        System.out.println("\n\n");
-
-        m.daiValori();
-
-        System.out.println("\n\n");
-
-        m.stampa();
+        System.out.println("Corretto? " + b.checkBalance());
     }
 }
