@@ -85,11 +85,15 @@ public class Balance extends Graph {
         m.print();
         for (int i = 0; i < matrix.length; i++) {
             for (int j = i + 1; j < matrix.length; j++) {
-                Link link = nodi_setup.get(i).to(nodi_setup.get(j));
+                Node main = nodi_setup.get(i);
+                Node secondary = nodi_setup.get(j);
+                Link link = main.to(secondary);
                 int read_val = matrix[i][j];
                 System.out.println(link + " LETTO:" + read_val);
                 if (!link.isLocked()) {
-                    link.setPower(Math.abs(read_val));//Suppongo ch Nicholas non faccia mai inversione dei link con i valori negativi.
+                    //se j+1 == matrix.length allora sono all'ultima colonna: qui ci può essere un cambio di verso dell'arco
+                    link.setPower(link.getFrom() == main ? read_val : Math.abs(read_val));
+                    link.lock();
                 }
             }
         }
