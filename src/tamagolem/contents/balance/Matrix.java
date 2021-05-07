@@ -13,18 +13,34 @@ public class Matrix {
         this.val_max = balance.getMaxPower();
     }
 
-    public int getNumRowColums() {
+    /**
+     * Ritorna il numero di righe, e trattandosi di una matrice quadrata
+     * corrisponde al numero di colonne.
+     *
+     * @return Il numero di righe (colonne).
+     */
+    public int getDimension() {
         return matrice.length;
     }
 
+    /**
+     * Ritorna la matrice associata a questa istanza. Per ogni istanza
+     * corrisponde una singola matrice.
+     *
+     * @return La matrice (delle direzioni, oppure se il metodo {@link Matrix#generateValues()
+     * } è già stato chiamato, i valori delle interazioni).
+     */
     public int[][] getMatrix() {
         return matrice;
     }
 
+    /**
+     * Stampa la matrice.
+     */
     public void print() {
         for (int[] matrice1 : matrice) {
             for (int j = 0; j < matrice.length; j++) {
-                System.out.printf("%4d",matrice1[j]);
+                System.out.printf("%4d", matrice1[j]);
             }
             System.out.println();
         }
@@ -36,6 +52,12 @@ public class Matrix {
         }*/
     }
 
+    /**
+     * Somma i valori di una riga e ne restituisce il conteggio.
+     *
+     * @param riga La riga su cui effettuare il conto.
+     * @return La somma dei valori.
+     */
     private int sumRow(int[] riga) {
         int ris = 0;
         for (int i = 0; i < riga.length; i++) {
@@ -44,6 +66,7 @@ public class Matrix {
         return ris;
     }
 
+    /*
     private int sumColumn(int colonna) {
         int ris = 0;
         for (int[] matrice1 : matrice) {
@@ -51,7 +74,14 @@ public class Matrix {
         }
         return ris;
     }
-
+     */
+    /**
+     * Controlla se una riga è già stata completata.
+     *
+     * @param riga La riga da controllare.
+     * @return {@code true} se la riga è ancora da completare, in caso contrario
+     * ritorna {@code false}.
+     */
     private boolean isRowToComplete(int[] riga) {
         int somma_zeri = 0;
         int somma_uni = 0;
@@ -65,28 +95,35 @@ public class Matrix {
         return (somma_zeri == 2 && somma_uni == 0) || (somma_zeri == 1 && somma_uni == 1);
     }
 
-    private int sumRowValue(int[] riga) {
-        return sumRow(riga);
+    private int countOccurrences(int[] riga, int val) {
+        int ris = 0;
+        for (int i = 0; i < riga.length; i++) {
+            if (riga[i] == val) {
+                ris++;
+            }
+        }
+        return ris;
     }
 
+    /**
+     * Controlla se su una riga esiste un solo valore che deve essere
+     * completato.
+     *
+     * @param riga La riga da controllare.
+     * @return {@code true} nel caso rimanga solo un valore da completare.
+     */
     private boolean thereIsOnlyOneOne(int[] riga) {
-        int ris = 0;
-        for (int i = 0; i < riga.length; i++) {
-            if (riga[i] == -1) {
-                ris++;
-            }
-        }
-        return ris == 1;
+        return countOccurrences(riga, -1) == 1;
     }
 
+    /**
+     * Conta quanti zero sono presenti su una singola riga.
+     *
+     * @param riga La riga da controllare.
+     * @return Il conteggio di quanti zeri rimangono nella riga.
+     */
     private int countZeros(int[] riga) {
-        int ris = 0;
-        for (int i = 0; i < riga.length; i++) {
-            if (riga[i] == 0) {
-                ris++;
-            }
-        }
-        return ris - 1; // non conta quello della diagonale
+        return countOccurrences(riga, 0) - 1; // non conta quello della diagonale
     }
 
     /**
@@ -109,7 +146,7 @@ public class Matrix {
                     if (isRowToComplete(matrice[l])) {
                         for (int k = 0; k < matrice.length; k++) {
                             if ((l != k) && (matrice[l][k] == 0 || matrice[l][k] == -1)) {
-                                nuova_matrice[l][k] = -sumRowValue(nuova_matrice[l]);
+                                nuova_matrice[l][k] = -sumRow(nuova_matrice[l]);
                                 nuova_matrice[k][l] = -nuova_matrice[l][k];
                                 matrice[k][l] = matrice[l][k] = 7;
                             }

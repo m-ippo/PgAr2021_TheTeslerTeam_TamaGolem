@@ -184,6 +184,7 @@ public class Graph {
         return max_power;
     }
 
+    @Deprecated
     public void generateLinkValues() {
         Link attuale = getAttractionLink(null);
         while (attuale != null) {
@@ -256,7 +257,7 @@ public class Graph {
         }
     }
 
-    public ArrayList<Link> getGraph_links() {
+    public ArrayList<Link> getGraphLinks() {
         return graph_links;
     }
 

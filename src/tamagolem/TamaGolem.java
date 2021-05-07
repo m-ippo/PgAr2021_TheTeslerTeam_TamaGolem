@@ -34,7 +34,7 @@ public class TamaGolem {
     }
 
     public static void stampaNodi(Graph g) {
-        g.getGraph_links().forEach(l -> System.out.println(l.toString()));
+        g.getGraphLinks().forEach(l -> System.out.println(l.toString()));
         g.getNodes().forEach(n -> System.out.println(n.getInputSum() + "  " + n.getOutputSum()));
     }
 
@@ -50,7 +50,8 @@ public class TamaGolem {
         nomi.add("H");
         nomi.add("I");
 
-        Balance b = new Balance(25, nomi);
+        Balance b = new Balance(5, nomi);
+        b.generateNodeInteractions();
         b.generateLinkValues();
 
         System.out.println("Corretto? " + b.checkBalance());
