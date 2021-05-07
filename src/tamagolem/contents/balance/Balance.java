@@ -92,7 +92,7 @@ public class Balance extends Graph {
                 System.out.println(link + " LETTO:" + read_val);
                 if (!link.isLocked()) {
                     //se j+1 == matrix.length allora sono all'ultima colonna: qui ci può essere un cambio di verso dell'arco
-                    link.setPower(link.getFrom() == main ? read_val : Math.abs(read_val));
+                    link.setPower(link.getFrom() == main ? read_val : -read_val);
                     link.lock();
                 }
             }
