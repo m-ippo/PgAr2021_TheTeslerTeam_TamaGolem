@@ -22,5 +22,32 @@
         <elemento>Vim</elemento>
         <elemento>MATLAB</elemento>
         <elemento>Atom</elemento>
+        <elemento>Eclipse</elemento>
+        <elemento>IntelliJ IDEA</elemento>
+        <elemento>Google Colab</elemento>
+        <elemento>Anaconda</elemento>
+        <elemento>NetBeans</elemento>
+    </nomi>
+    <nomi type="Pokemons">
+        <elemento>Normale</elemento>
+        <elemento>Fuoco</elemento>
+        <elemento>Lotta</elemento>
+        <elemento>Acqua</elemento>
+        <elemento>Volante</elemento>
+        <elemento>Erba</elemento>
+        <elemento>Veleno</elemento>
+        <elemento>Elettro</elemento>
+        <elemento>Terra</elemento>
+        <elemento>Psico</elemento>
+        <elemento>Roccia</elemento>
+        <elemento>Ghiaccio</elemento>
+        <elemento>Coleottero</elemento>
+        <elemento>Drago</elemento>
+        <elemento>Spettro</elemento>
+        <elemento>Buio</elemento>
+        <elemento>Acciaio</elemento>
+        <elemento>Folletto</elemento>
+        <elemento>Sconosciuto</elemento>
+        <elemento>Ombra</elemento>
     </nomi>
 </elementi>
