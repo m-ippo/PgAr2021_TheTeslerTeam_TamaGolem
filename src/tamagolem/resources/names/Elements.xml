@@ -9,6 +9,10 @@
         <elemento>Zdravo</elemento>
         <elemento>Moikka</elemento>
         <elemento>Ahoj</elemento>
+        <elemento>Mvaramutse</elemento>
+        <elemento>Salam</elemento>
+        <elemento>Pershendete</elemento>
+        <elemento>Namaste</elemento>
     </nomi>
     <nomi type="IDEs">
         <elemento>Jupyter</elemento>
@@ -49,5 +53,88 @@
         <elemento>Folletto</elemento>
         <elemento>Sconosciuto</elemento>
         <elemento>Ombra</elemento>
+    </nomi>
+    <nomi type="Triste">
+        <elemento>A</elemento>
+        <elemento>B</elemento>
+        <elemento>C</elemento>
+        <elemento>D</elemento>
+        <elemento>E</elemento>
+        <elemento>F</elemento>
+        <elemento>G</elemento>
+        <elemento>H</elemento>
+        <elemento>I</elemento>
+        <elemento>J</elemento>
+        <elemento>K</elemento>
+        <elemento>L</elemento>
+        <elemento>M</elemento>
+        <elemento>N</elemento>
+        <elemento>O</elemento>
+        <elemento>P</elemento>
+        <elemento>Q</elemento>
+        <elemento>R</elemento>
+        <elemento>S</elemento>
+        <elemento>T</elemento>
+        <elemento>U</elemento>
+        <elemento>V</elemento>
+        <elemento>W</elemento>
+        <elemento>X</elemento>
+        <elemento>Y</elemento>
+        <elemento>Z</elemento>
+    </nomi>
+    <nomi type="Brands">
+        <elemento>Google</elemento>
+        <elemento>Apple</elemento>
+        <elemento>Amazon</elemento>
+        <elemento>AT&T</elemento>
+        <elemento>Microsoft</elemento>
+        <elemento>Samsung</elemento>
+        <elemento>Verizon</elemento>
+        <elemento>Walmart</elemento>
+        <elemento>Facebook</elemento>
+        <elemento>ICBC</elemento>
+        <elemento>Toyota</elemento>
+        <elemento>BMW</elemento>
+        <elemento>Shell</elemento>
+        <elemento>IBM</elemento>
+        <elemento>Mercedes</elemento>
+        <elemento>General Electric</elemento>
+        <elemento>Alibaba</elemento>
+        <elemento>Alibaba</elemento>
+    </nomi>
+    <nomi type="Siti">
+        <elemento>Google Search</elemento>
+        <elemento>YouTube</elemento>
+        <elemento>Tmall</elemento>
+        <elemento>Baidu</elemento>
+        <elemento>Tencent QQ</elemento>
+        <elemento>Sohu</elemento>
+        <elemento>Facebook</elemento>
+        <elemento>Taobao</elemento>
+        <elemento>Haosou</elemento>
+        <elemento>Amazon</elemento>
+        <elemento>Yahoo!</elemento>
+        <elemento>Jingdong Mall</elemento>
+        <elemento>Wikipedia</elemento>
+        <elemento>Zoom Video Communications</elemento>
+        <elemento>Sina Weibo</elemento>
+        <elemento>Sina Corp</elemento>
+        <elemento>Xinhua News Agency</elemento>
+        <elemento>Windows Live</elemento>
+        <elemento>Reddit</elemento>
+        <elemento>Netflix</elemento>
+        <elemento>Microsoft</elemento>
+        <elemento>Panda TV</elemento>
+        <elemento>Zhanqi TV</elemento>
+        <elemento>Okezone</elemento>
+        <elemento>Alipay</elemento>
+        <elemento>Microsoft Office</elemento>
+        <elemento>Instagram</elemento>
+        <elemento>VK</elemento>
+        <elemento>CSDN</elemento>
+        <elemento>Shopify</elemento>
+        <elemento>Bing</elemento>
+        <elemento>Twitch</elemento>
+        <elemento>AliExpress</elemento>
     </nomi>
 </elementi>
