@@ -95,6 +95,13 @@ public class Matrix {
         return (somma_zeri == 2 && somma_uni == 0) || (somma_zeri == 1 && somma_uni == 1);
     }
 
+    /**
+     * Conta le occorrenze di un valore in una riga e ne ritorna il conteggio.
+     *
+     * @param riga La riga da controllare.
+     * @param val Il valore da cercare.
+     * @return Il conteggio delle occorrenze.
+     */
     private int countOccurrences(int[] riga, int val) {
         int ris = 0;
         for (int i = 0; i < riga.length; i++) {

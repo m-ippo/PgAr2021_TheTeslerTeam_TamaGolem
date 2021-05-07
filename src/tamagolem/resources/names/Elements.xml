@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elementi quanti="3" colore="rosso">
+    <nomi type="Saluti" >
+        <elemento>Ciao</elemento>
+        <elemento>Hello</elemento>
+        <elemento>Bounjour</elemento>
+        <elemento>Hola</elemento>
+        <elemento>Hej</elemento>
+        <elemento>Zdravo</elemento>
+        <elemento>Moikka</elemento>
+        <elemento>Ahoj</elemento>
+    </nomi>
+    <nomi type="IDEs">
+        <elemento>Jupyter</elemento>
+        <elemento>Visual Studio</elemento>
+        <elemento>Visual Studio Code</elemento>
+        <elemento>RStudio</elemento>
+        <elemento>PyCharm</elemento>
+        <elemento>Notepad++</elemento>
+        <elemento>Spyder</elemento>
+        <elemento>Sublime Text</elemento>
+        <elemento>Vim</elemento>
+        <elemento>MATLAB</elemento>
+        <elemento>Atom</elemento>
+    </nomi>
+</elementi>
