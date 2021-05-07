@@ -18,7 +18,8 @@ package tamagolem;
 import tamagolem.contents.graph.Graph;
 
 import java.util.ArrayList;
-import tamagolem.contents.balance.Balance;
+import tamagolem.contents.structure.balance.Balance;
+import tamagolem.game.MainMenu;
 
 /**
  *
@@ -30,7 +31,8 @@ public class TamaGolem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        provaMatrice();
+        MainMenu mm = new MainMenu();
+        //provaMatrice();
     }
 
     public static void stampaNodi(Graph g) {

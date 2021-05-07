@@ -1,4 +1,4 @@
-package tamagolem.contents.balance;
+package tamagolem.contents.structure.balance;
 
 import java.util.Random;
 

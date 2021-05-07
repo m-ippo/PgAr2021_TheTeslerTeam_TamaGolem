@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.contents.balance;
+package tamagolem.contents.structure.balance;
 
 import tamagolem.contents.graph.Graph;
 

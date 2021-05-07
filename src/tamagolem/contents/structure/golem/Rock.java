@@ -13,27 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.contents.graph.comparators;
-
-import java.util.Comparator;
-import tamagolem.contents.graph.Node;
+package tamagolem.contents.structure.golem;
 
 /**
  *
  * @author TTT
  */
-public class NodeVoidOutputLinkCMP implements Comparator<Node> {
-
-    @Override
-    public int compare(Node o1, Node o2) {
-        long val1 = o1.getVoidOutputLinksCount();
-        long val2 = o2.getVoidOutputLinksCount();
-        if (val1 > val2) {
-            return -1;
-        } else if (val1 < val2) {
-            return 1;
-        }
-        return 0;
-    }
-
+public class Rock {
+    
 }

@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.contents.graph.comparators;
+package tamagolem.contents.structure.validators;
 
-import java.util.Comparator;
-import tamagolem.contents.graph.Node;
+import ttt.utils.console.input.interfaces.Validator;
 
 /**
  *
  * @author TTT
  */
-public class NodeVoidOutputLinkCMP implements Comparator<Node> {
+public class NameValidator implements Validator<String> {
+
+    public NameValidator() {
+    }
 
     @Override
-    public int compare(Node o1, Node o2) {
-        long val1 = o1.getVoidOutputLinksCount();
-        long val2 = o2.getVoidOutputLinksCount();
-        if (val1 > val2) {
-            return -1;
-        } else if (val1 < val2) {
-            return 1;
+    public void validate(String value) throws IllegalArgumentException {
+        if (value == null || value.isEmpty() || "".equals(value.trim())) {
+            throw new IllegalArgumentException("Il nome non è valido");
         }
-        return 0;
     }
 
 }
