@@ -114,7 +114,7 @@ public class MainMenu {
     }
 
     private void selectDifficulty() {
-        Menu<Difficulty> difficolta_menu = new Menu<>("{Seleziona difficolta' : " + difficolta.toString() + "}") {
+        Menu<Difficulty> difficolta_menu = new Menu<>("{Seleziona difficoltà : " + difficolta.toString() + "}") {
         };
         difficolta_menu.removeOption(1);
         difficolta_menu.autoPrintSpaces(false);
