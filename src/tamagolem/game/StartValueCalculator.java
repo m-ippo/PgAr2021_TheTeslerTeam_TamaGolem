@@ -32,11 +32,43 @@ public class StartValueCalculator {
         generateGolemLife();
     }
 
+    public int getElements_number() {
+        return elements_number;
+    }
+
+    public int getRocks_number() {
+        return rocks_number;
+    }
+
+    public int getGolem_life() {
+        return golem_life;
+    }
+
+    public int getGolems_number() {
+        return golems_number;
+    }
+
+    public int getCommon_rocks() {
+        return common_rocks;
+    }
+
+    public int getSum_of_power() {
+        return sum_of_power;
+    }
+
+    public int getRocks_per_element() {
+        return rocks_per_element;
+    }
+
+    public Balance getBalance() {
+        return balance;
+    }
+
     /**
      * Genera il numero di pietre.
      */
     private void generateRocksNumb(){
-        this.rocks_number = Math.round(((elements_number + 1) / 3) + 1);
+        this.rocks_number = Math.round(((float)(elements_number + 1) / 3) + 1);
     }
 
     /**
@@ -50,7 +82,7 @@ public class StartValueCalculator {
      * Genera il numero di pietre per ciascun elemento.
      */
     private void generateRocksPerElements(){
-        this.rocks_per_element = Math.round(golems_number * 2 / elements_number * rocks_number );
+        this.rocks_per_element = Math.round( (float)golems_number * 2 / (float)elements_number * (float)rocks_number );
     }
 
     /**
@@ -76,5 +108,10 @@ public class StartValueCalculator {
      */
     private void generateGolemLife(){
         this.golem_life = this.sum_of_power;
+    }
+
+    public String toString(){
+        return "N = " + elements_number + "\nP = " + rocks_number + "\nV = " + golem_life + "\nG = " + golems_number +
+                "\nS = " + common_rocks + "\nW = " + sum_of_power + "\nNumero pietre per elemento = " + rocks_per_element;
     }
 }

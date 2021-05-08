@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import tamagolem.contents.structure.balance.Balance;
 import tamagolem.game.MainMenu;
 import tamagolem.game.ReadXML;
+import tamagolem.game.StartValueCalculator;
 import ttt.utils.xml.document.XMLDocument;
 
 
@@ -34,8 +35,10 @@ public class TamaGolem {
      * @param args the command line arguments
      */
      public static void main(String[] args) {
-       MainMenu mm = new MainMenu();
+       //MainMenu mm = new MainMenu();
         //provaMatrice();
+        provaValori();
+
     }
 
     public static void stampaNodi(Graph g) {
@@ -60,5 +63,20 @@ public class TamaGolem {
         b.generateLinkValues();
 
         System.out.println("Corretto? " + b.checkBalance());
+    }
+
+    public static void provaValori(){
+        ArrayList<String> nomi = new ArrayList<>();
+        nomi.add("A");
+        nomi.add("B");
+        nomi.add("C");
+        nomi.add("D");
+        nomi.add("E");
+
+        Balance b = new Balance(20, nomi);
+        b.generateNodeInteractions();
+        b.generateLinkValues();
+        StartValueCalculator calcolatore = new StartValueCalculator(5, b);
+        System.out.println(calcolatore.toString());
     }
 }
