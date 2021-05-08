@@ -1,5 +1,6 @@
 package tamagolem.game;
 
+import tamagolem.contents.graph.Node;
 import tamagolem.contents.structure.balance.Balance;
 
 /**
@@ -16,8 +17,9 @@ public class StartValueCalculator {
     private int rocks_per_element;
     private Balance balance;
 
-    public StartValueCalculator(int elements_number){
+    public StartValueCalculator(int elements_number, Balance balance){
         this.elements_number = elements_number;
+        this.balance = balance;
         init();
     }
 
@@ -62,13 +64,17 @@ public class StartValueCalculator {
      * Genera la somma della potenza dei valori della pietre.
      */
     private void generateSumOfPower(){
-
+        int sum = 0;
+        for(Node n : balance.getNodes()){
+            sum += n.getOutputSum() == null ? 0 : n.getOutputSum();
+        }
+        this.sum_of_power = sum;
     }
 
     /**
      * Genera la vita di ciascun TamaGolem.
      */
     private void generateGolemLife(){
-
+        this.golem_life = this.sum_of_power;
     }
 }
