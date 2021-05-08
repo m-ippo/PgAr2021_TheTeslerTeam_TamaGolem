@@ -20,6 +20,8 @@ import tamagolem.contents.graph.Graph;
 import java.util.ArrayList;
 import tamagolem.contents.structure.balance.Balance;
 import tamagolem.game.MainMenu;
+import tamagolem.game.ReadXML;
+import ttt.utils.xml.document.XMLDocument;
 
 /**
  *
@@ -30,8 +32,8 @@ public class TamaGolem {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        MainMenu mm = new MainMenu();
+     public static void main(String[] args) {
+       MainMenu mm = new MainMenu();
         //provaMatrice();
     }
 
