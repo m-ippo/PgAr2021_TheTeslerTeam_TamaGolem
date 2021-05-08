@@ -16,10 +16,13 @@
 package tamagolem.game;
 
 import tamagolem.contents.structure.Player;
+import tamagolem.contents.xml.elements.ElementoPrincipale;
+import tamagolem.contents.xml.elements.Nome;
 import ttt.utils.ProjectSettings;
 import ttt.utils.console.input.ObjectInputEngine;
 import ttt.utils.console.menu.Menu;
 import ttt.utils.console.output.GeneralFormatter;
+import ttt.utils.xml.engine.interfaces.IXMLElement;
 
 /**
  *
@@ -29,6 +32,9 @@ public class MainMenu {
 
     private final Menu<Void> main;
     private Difficulty difficolta;
+    private ElementoPrincipale elenco_nomi_disponibili;
+    private Nome elenco_nomi_nodi;
+
 
     public static enum Difficulty {
         FACILE(3, 5), NORMALE(6, 8), DIFFICILE(9, 10), HARDCORE(11, 13), ESTREMA(14, 16);
@@ -78,6 +84,7 @@ public class MainMenu {
             return null;
         });
         //Caricare file XML e impostare valori default.
+        elenco_nomi_disponibili = (ElementoPrincipale) ReadXML.loadNomi().getFirstElement("elementi");
         main.setDefaultSpaces(1);
         main.paintMenu();
     }
@@ -107,11 +114,11 @@ public class MainMenu {
     }
 
     private void selectDifficulty() {
-        Menu<Difficulty> difficolta_menu = new Menu<>("{Seleziona difficolta' : " + difficolta.toString() + "}") {
+        Menu<Difficulty> difficolta_menu = new Menu<>("{Seleziona difficoltà : " + difficolta.toString() + "}") {
         };
         difficolta_menu.removeOption(1);
         difficolta_menu.autoPrintSpaces(false);
-        for (Difficulty d : Difficulty.values()) {
+        for (Difficulty d : Difficulty.values()) {//[FACILE,NORMALE,DIFFICILE,...]
             difficolta_menu.addOption(d.toString(), () -> {
                 this.difficolta = d;
                 GeneralFormatter.printOut("Difficolta' impostata a: " + d.toString(), true, false);
@@ -128,6 +135,22 @@ public class MainMenu {
 
     private void selectElements() {
         //Selezione degli elementi da quelli letti nel file XML
+        Menu<Nome> selezione_nomi_elementi = new Menu<>("{Scegli nome elementi}") {};
+        selezione_nomi_elementi.removeOption(1);
+        selezione_nomi_elementi.autoPrintSpaces(false);
+        for(IXMLElement nome_elemento : elenco_nomi_disponibili.getElements()){
+            Nome opzione = (Nome) nome_elemento;
+            selezione_nomi_elementi.addOption(opzione.getType(),()->{
+                GeneralFormatter.printOut("I nomi degli elementi sono presi dalla lista:"+opzione.getType(),true,false);
+                selezione_nomi_elementi.quit();
+                return opzione;
+            });
+        }
+        selezione_nomi_elementi.addOption("Indietro",()->{
+            selezione_nomi_elementi.quit();
+            return elenco_nomi_nodi;
+        });
+        this.elenco_nomi_nodi = selezione_nomi_elementi.showAndWait();
     }
 
     private void setPlayers() {

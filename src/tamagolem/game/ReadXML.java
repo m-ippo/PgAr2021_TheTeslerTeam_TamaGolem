@@ -13,7 +13,8 @@ import java.io.IOException;
 public class ReadXML {
 
     public static XMLDocument loadNomi(){
-        XMLReader xmlReader = new XMLReader(new File("src/tamagolem/resources/names/Elements.xml"));
+        String path = "src"+File.separatorChar+"tamagolem"+File.separatorChar+"resources"+File.separatorChar+"names"+File.separatorChar+"Elements.xml";
+        XMLReader xmlReader = new XMLReader(new File(path));
         try {
             XMLDocument documento = xmlReader.readDocument();
             XMLEngine xmle = new XMLEngine(documento, ElementoPrincipale.class, Nome.class, ElementoSecondario.class);
