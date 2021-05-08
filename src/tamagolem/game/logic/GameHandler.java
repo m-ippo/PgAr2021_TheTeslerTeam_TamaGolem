@@ -13,31 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.contents.structure.golem;
+package tamagolem.game.logic;
 
-import tamagolem.contents.graph.Node;
+import tamagolem.contents.structure.Player;
 
 /**
+ * Gestisce un gioco.
  *
  * @author TTT
  */
-public class Rock {
+public class GameHandler {
 
-    public Node type;
+    private Player p1;
+    private Player p2;
 
-    public Rock(Node type) {
-        this.type = type;
-    }
-
-    public int against(Rock r) {
-        return type.to(r.type).getPower();
-    }
-
-    public boolean winsAgainst(Rock r) {
-        return type.to(r.type).getFrom() == type;
-    }
-
-    public String getTypeName() {
-        return type.getName();
-    }
 }

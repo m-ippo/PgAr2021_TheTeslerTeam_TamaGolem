@@ -15,6 +15,7 @@
  */
 package tamagolem.game;
 
+import tamagolem.game.support.ReadXML;
 import tamagolem.contents.structure.Player;
 import tamagolem.contents.xml.elements.ElementoPrincipale;
 import tamagolem.contents.xml.elements.Nome;
@@ -34,7 +35,6 @@ public class MainMenu {
     private Difficulty difficolta;
     private ElementoPrincipale elenco_nomi_disponibili;
     private Nome elenco_nomi_nodi;
-
 
     public static enum Difficulty {
         FACILE(3, 5), NORMALE(6, 8), DIFFICILE(9, 10), HARDCORE(11, 13), ESTREMA(14, 16);
@@ -98,12 +98,14 @@ public class MainMenu {
             GeneralFormatter.incrementIndents();
             selectElements();
             GeneralFormatter.decrementIndents();
+            impostazioni.consoleSpaces(1);
             return null;
         });
         impostazioni.addOption("Difficolta'", () -> {
             GeneralFormatter.incrementIndents();
             selectDifficulty();
             GeneralFormatter.decrementIndents();
+            impostazioni.consoleSpaces(1);
             return null;
         });
         impostazioni.addOption("Indietro", () -> {
@@ -135,18 +137,19 @@ public class MainMenu {
 
     private void selectElements() {
         //Selezione degli elementi da quelli letti nel file XML
-        Menu<Nome> selezione_nomi_elementi = new Menu<>("{Scegli nome elementi}") {};
+        Menu<Nome> selezione_nomi_elementi = new Menu<>("{Scegli nome elementi}") {
+        };
         selezione_nomi_elementi.removeOption(1);
         selezione_nomi_elementi.autoPrintSpaces(false);
-        for(IXMLElement nome_elemento : elenco_nomi_disponibili.getElements()){
+        for (IXMLElement nome_elemento : elenco_nomi_disponibili.getElements()) {
             Nome opzione = (Nome) nome_elemento;
-            selezione_nomi_elementi.addOption(opzione.getType(),()->{
-                GeneralFormatter.printOut("I nomi degli elementi sono presi dalla lista:"+opzione.getType(),true,false);
+            selezione_nomi_elementi.addOption(opzione.getType(), () -> {
+                GeneralFormatter.printOut("I nomi degli elementi sono presi dalla lista:" + opzione.getType(), true, false);
                 selezione_nomi_elementi.quit();
                 return opzione;
             });
         }
-        selezione_nomi_elementi.addOption("Indietro",()->{
+        selezione_nomi_elementi.addOption("Indietro", () -> {
             selezione_nomi_elementi.quit();
             return elenco_nomi_nodi;
         });

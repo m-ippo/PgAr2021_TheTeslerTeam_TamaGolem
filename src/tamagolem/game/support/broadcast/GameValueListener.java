@@ -13,31 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.contents.structure.golem;
-
-import tamagolem.contents.graph.Node;
+package tamagolem.game.support.broadcast;
 
 /**
  *
  * @author TTT
  */
-public class Rock {
+public interface GameValueListener {
 
-    public Node type;
-
-    public Rock(Node type) {
-        this.type = type;
-    }
-
-    public int against(Rock r) {
-        return type.to(r.type).getPower();
-    }
-
-    public boolean winsAgainst(Rock r) {
-        return type.to(r.type).getFrom() == type;
-    }
-
-    public String getTypeName() {
-        return type.getName();
-    }
+    public void onUpdate(String key);
 }

@@ -90,7 +90,7 @@
         <elemento>Google</elemento>
         <elemento>Apple</elemento>
         <elemento>Amazon</elemento>
-        <elemento>AT&T</elemento>
+        <elemento>AT&amp;T</elemento>
         <elemento>Microsoft</elemento>
         <elemento>Samsung</elemento>
         <elemento>Verizon</elemento>
@@ -140,5 +140,45 @@
         <elemento>Bing</elemento>
         <elemento>Twitch</elemento>
         <elemento>AliExpress</elemento>
+    </nomi>
+    <nomi type="Elementari">
+        <elemento>Acqua</elemento>
+        <elemento>Fuoco</elemento>
+        <elemento>Terra</elemento>
+        <elemento>Aria</elemento>
+        <elemento>Etere</elemento>
+        <elemento>Foresta</elemento>
+        <elemento>Luce</elemento>
+        <elemento>Tenebre</elemento>
+        <elemento>Magma</elemento>
+        <elemento>Vuoto</elemento>
+    </nomi>
+    <nomi type="Progetto Arnaldo">
+        <elemento>TripleTeslas</elemento>
+        <elemento>404IQNotFound</elemento>
+        <elemento>Artefici</elemento>
+        <elemento>Burglars</elemento>
+        <elemento>Ctrl Space Squad</elemento>
+        <elemento>CuoriSolitari</elemento>
+        <elemento>Dark Light</elemento>
+        <elemento>Exception</elemento>
+        <elemento>Geriatric Park</elemento>
+        <elemento>Gli Axolotl</elemento>
+        <elemento>gli_sprogrammatori</elemento>
+        <elemento>FSociety</elemento>
+        <elemento>ThePasswordCreckers</elemento>
+        <elemento>But it works</elemento>
+        <elemento>TesteAnnidate</elemento>
+        <elemento>MissingNo</elemento>
+        <elemento>i JA_VAccinati</elemento>
+        <elemento>Il Triumvirato</elemento>
+        <elemento>programmazione di fondamenti</elemento>
+        <elemento>Runtime Terrors</elemento>
+        <elemento>SumatraScript</elemento>
+        <elemento>Team 8Bit</elemento>
+        <elemento>The Fight Club</elemento>
+        <elemento winner="true">The Tesler Team</elemento>
+        <elemento>The Trinity</elemento>
+        <elemento>toBdefined</elemento>
     </nomi>
 </elementi>
