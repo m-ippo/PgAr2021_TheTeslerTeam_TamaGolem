@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<elementi quanti="3" colore="rosso">
-    <nomi type="Saluti" >
+<elementi>
+    <nomi type="Saluti">
         <elemento>Ciao</elemento>
         <elemento>Hello</elemento>
         <elemento>Bounjour</elemento>
@@ -58,7 +58,7 @@
         <elemento>Sconosciuto</elemento>
         <elemento>Ombra</elemento>
     </nomi>
-    <nomi type="Triste">
+    <nomi type="Alfabeto">
         <elemento>A</elemento>
         <elemento>B</elemento>
         <elemento>C</elemento>
