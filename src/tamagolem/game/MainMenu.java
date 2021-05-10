@@ -94,6 +94,8 @@ public class MainMenu {
                 op_ = false;
                 main.addLazyExecutable(() -> {
                     main.addOption("Inizia una nuova partita", () -> {
+                        Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_DIFFICULTY, difficolta, gm);
+                        Broadcast.broadcastGameState(Broadcast.GAME_NODES, elenco_nomi_nodi, gm);
                         gm.start();
                         /*main.addLazyExecutable(() -> {
                             main.removeOption(main.optionLookup("Inizia una nuova partita") + 1);
@@ -119,9 +121,6 @@ public class MainMenu {
             @Override
             public void onStart(GameHandler gh) {
                 GeneralFormatter.printOut("La battaglia inizia!", true, false);
-                Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_DIFFICULTY, difficolta, gm);
-                Broadcast.broadcastGameState(Broadcast.GAME_NODES, elenco_nomi_nodi, gm);
-                
             }
 
             @Override

@@ -38,9 +38,10 @@ public class GameHandler {
 
     private final Player p1;
     private final Player p2;
-    ArrayList<String> nodes_names;
-    Difficulty diff;
-    Balance b;
+    private ArrayList<String> nodes_names;
+    private Difficulty diff;
+    private Balance b;
+    private StartValueCalculator svc;
 
     private boolean finished = false;
     private GameStates current = GameStates.VOID;
@@ -52,6 +53,15 @@ public class GameHandler {
     }
 
     private void init() {
+        Broadcast.broadcastGameState(Broadcast.LOSER_PLAYER, null, this);
+        Broadcast.broadcastGameState(Broadcast.WINNER_PLAYER, null, this);
+        Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_HANDLER, this, this);
+    }
+
+    /**
+     * Avvia la partita e avverte tutte le istanze in ascolto.
+     */
+    public void start() {
         diff = (Difficulty) Broadcast.askForGameState(Broadcast.CURRENT_GAME_DIFFICULTY);
         Nome n = (Nome) Broadcast.askForGameState(Broadcast.GAME_NODES);
         nodes_names = new ArrayList<>();
@@ -63,19 +73,11 @@ public class GameHandler {
         Collections.shuffle(tmp);
         Random r = new Random(new Date().getTime());
         int maxNodes = r.nextInt(diff.getMax() - diff.getMin()) + diff.getMin();
-        for(int i=0;i<maxNodes;i++){
+        for (int i = 0; i < maxNodes; i++) {
             nodes_names.add(tmp.get(i));
         }
         b = new Balance(5 * diff.getMin(), nodes_names);
-        Broadcast.broadcastGameState(Broadcast.LOSER_PLAYER, null, this);
-        Broadcast.broadcastGameState(Broadcast.WINNER_PLAYER, null, this);
-        Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_HANDLER, this, this);
-    }
-
-    /**
-     * Avvia la partita e avverte tutte le istanze in ascolto.
-     */
-    public void start() {
+        svc = new StartValueCalculator(b);
         //Prima di annunciare l'inizio partita
         current = GameStates.STARTED;
         Broadcast.forceBroadcastGameState(this);
