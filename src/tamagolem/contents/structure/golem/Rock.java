@@ -15,9 +15,11 @@
  */
 package tamagolem.contents.structure.golem;
 
+import tamagolem.contents.graph.Link;
 import tamagolem.contents.graph.Node;
 
 /**
+ * Rappresenta una pietra.
  *
  * @author TTT
  */
@@ -29,14 +31,39 @@ public class Rock {
         this.type = type;
     }
 
+    /**
+     * Ritorna il valore dell'arco associato all'elemento di questa pietra
+     * contro un'altra pietra.
+     *
+     * @param r La pietra contro con cui andare.
+     * @return Il valore d'interazione se esiste il link, nel caso questa pietra
+     * perda viene ritornato il valore d'interazione negativo. Nel caso non
+     * esista un'interazione viene ritornato 0.
+     */
     public int against(Rock r) {
-        return type.to(r.type).getPower();
+        Link l = type.to(r.type);
+        return l != null && l.getPower() != null ? (l.getFrom() == type ? l.getPower() : -l.getPower()) : 0;
     }
 
+    /**
+     * Controlla se una pietra vince contro un'altra.
+     *
+     * @param r La pietra di controllare.
+     * @return {@code true} nel caso la pietra corrente vinca.
+     */
     public boolean winsAgainst(Rock r) {
-        return type.to(r.type).getFrom() == type;
+        if (r != null) {
+            Link l = type.to(r.type);
+            return l != null ? l.getFrom() == type : false;
+        }
+        return false;
     }
 
+    /**
+     * Ritorna il nome dell'elementare.
+     *
+     * @return Il nome dell'elementare.
+     */
     public String getTypeName() {
         return type.getName();
     }

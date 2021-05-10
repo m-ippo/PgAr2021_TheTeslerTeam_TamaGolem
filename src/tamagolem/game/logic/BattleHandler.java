@@ -16,9 +16,10 @@
 package tamagolem.game.logic;
 
 /**
+ * Gestisce le battaglie tra golems.
  *
  * @author TTT
  */
 public class BattleHandler {
-    
+
 }

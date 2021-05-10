@@ -19,6 +19,9 @@ import tamagolem.game.support.ReadXML;
 import tamagolem.contents.structure.Player;
 import tamagolem.contents.xml.elements.ElementoPrincipale;
 import tamagolem.contents.xml.elements.Nome;
+import tamagolem.game.logic.GameHandler;
+import tamagolem.game.support.Broadcast;
+import tamagolem.game.support.broadcast.GameStateListener;
 import ttt.utils.ProjectSettings;
 import ttt.utils.console.input.ObjectInputEngine;
 import ttt.utils.console.menu.Menu;
@@ -26,6 +29,7 @@ import ttt.utils.console.output.GeneralFormatter;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 
 /**
+ * Menù principale del gioco.
  *
  * @author TTT
  */
@@ -35,6 +39,7 @@ public class MainMenu {
     private Difficulty difficolta;
     private ElementoPrincipale elenco_nomi_disponibili;
     private Nome elenco_nomi_nodi;
+    private GameHandler gm = null;
 
     public static enum Difficulty {
         FACILE(3, 5), NORMALE(6, 8), DIFFICILE(9, 10), HARDCORE(11, 13), ESTREMA(14, 16);
@@ -68,6 +73,10 @@ public class MainMenu {
         init();
     }
 
+    private Player player1;
+    private Player player2;
+    private boolean op_ = true;
+
     private void init() {
         ProjectSettings.PROGRAM_DEFAULT_OBJECT_OUTPUT_PHRASE = false;
         ProjectSettings.PROGRAM_SHOW_OBJECT_INPUT = false;
@@ -81,12 +90,49 @@ public class MainMenu {
             GeneralFormatter.incrementIndents();
             setPlayers();
             GeneralFormatter.decrementIndents();
+            if (op_) {
+                op_ = false;
+                main.addLazyExecutable(() -> {
+                    main.addOption("Inizia una nuova partita", () -> {
+                        gm.start();
+                        /*main.addLazyExecutable(() -> {
+                            main.removeOption(main.optionLookup("Inizia una nuova partita") + 1);
+                            return null;
+                        });*/
+                        return null;
+                    });
+                    return null;
+                });
+            }
             return null;
         });
         //Caricare file XML e impostare valori default.
         elenco_nomi_disponibili = (ElementoPrincipale) ReadXML.loadNomi().getFirstElement("elementi");
+        elenco_nomi_nodi = (Nome) elenco_nomi_disponibili.getFirstElement("nomi");
+        initListeners();
         main.setDefaultSpaces(1);
         main.paintMenu();
+    }
+
+    private void initListeners() {
+        Broadcast.addGameStateListener(new GameStateListener() {
+            @Override
+            public void onStart(GameHandler gh) {
+                GeneralFormatter.printOut("La battaglia inizia!", true, false);
+                Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_DIFFICULTY, difficolta, gm);
+                Broadcast.broadcastGameState(Broadcast.GAME_NODES, elenco_nomi_nodi, gm);
+                
+            }
+
+            @Override
+            public void onNextRound(GameHandler gh) {
+            }
+
+            @Override
+            public void onFinish(GameHandler gh) {
+                GeneralFormatter.printOut("La battaglia e' conclusa!", true, false);
+            }
+        });
     }
 
     private void showSettings() {
@@ -137,7 +183,7 @@ public class MainMenu {
 
     private void selectElements() {
         //Selezione degli elementi da quelli letti nel file XML
-        Menu<Nome> selezione_nomi_elementi = new Menu<>("{Scegli nome elementi}") {
+        Menu<Nome> selezione_nomi_elementi = new Menu<>("{Scegli nome elementi : " + elenco_nomi_nodi.getType() + "}") {
         };
         selezione_nomi_elementi.removeOption(1);
         selezione_nomi_elementi.autoPrintSpaces(false);
@@ -157,8 +203,15 @@ public class MainMenu {
     }
 
     private void setPlayers() {
-        Player player1 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 1");
-        Player player2 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 2");
+        player1 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 1");
+        player2 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 2");
+        if (gm != null && !gm.isFinished()) {
+            if (!gm.rageQuit()) {
+                return;
+            }
+        }
+        Broadcast.forceBroadcastGameState(gm);
+        gm = new GameHandler(player1, player2);
     }
 
 }

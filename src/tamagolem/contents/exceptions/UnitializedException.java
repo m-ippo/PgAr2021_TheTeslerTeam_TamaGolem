@@ -16,13 +16,14 @@
 package tamagolem.contents.exceptions;
 
 /**
+ * Viene lanciata quando un valore non è ancora stato inizializzato.
  *
  * @author TTT
  */
 public class UnitializedException extends Exception {
-    
+
     public UnitializedException(String message) {
         super(message);
     }
-    
+
 }

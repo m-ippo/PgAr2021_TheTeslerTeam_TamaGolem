@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <elementi>
+    <nomi type="Alfabeto">
+        <elemento>A</elemento>
+        <elemento>B</elemento>
+        <elemento>C</elemento>
+        <elemento>D</elemento>
+        <elemento>E</elemento>
+        <elemento>F</elemento>
+        <elemento>G</elemento>
+        <elemento>H</elemento>
+        <elemento>I</elemento>
+        <elemento>J</elemento>
+        <elemento>K</elemento>
+        <elemento>L</elemento>
+        <elemento>M</elemento>
+        <elemento>N</elemento>
+        <elemento>O</elemento>
+        <elemento>P</elemento>
+        <elemento>Q</elemento>
+        <elemento>R</elemento>
+        <elemento>S</elemento>
+        <elemento>T</elemento>
+        <elemento>U</elemento>
+        <elemento>V</elemento>
+        <elemento>W</elemento>
+        <elemento>X</elemento>
+        <elemento>Y</elemento>
+        <elemento>Z</elemento>
+    </nomi>
     <nomi type="Saluti">
         <elemento>Ciao</elemento>
         <elemento>Hello</elemento>
@@ -57,34 +85,6 @@
         <elemento>Folletto</elemento>
         <elemento>Sconosciuto</elemento>
         <elemento>Ombra</elemento>
-    </nomi>
-    <nomi type="Alfabeto">
-        <elemento>A</elemento>
-        <elemento>B</elemento>
-        <elemento>C</elemento>
-        <elemento>D</elemento>
-        <elemento>E</elemento>
-        <elemento>F</elemento>
-        <elemento>G</elemento>
-        <elemento>H</elemento>
-        <elemento>I</elemento>
-        <elemento>J</elemento>
-        <elemento>K</elemento>
-        <elemento>L</elemento>
-        <elemento>M</elemento>
-        <elemento>N</elemento>
-        <elemento>O</elemento>
-        <elemento>P</elemento>
-        <elemento>Q</elemento>
-        <elemento>R</elemento>
-        <elemento>S</elemento>
-        <elemento>T</elemento>
-        <elemento>U</elemento>
-        <elemento>V</elemento>
-        <elemento>W</elemento>
-        <elemento>X</elemento>
-        <elemento>Y</elemento>
-        <elemento>Z</elemento>
     </nomi>
     <nomi type="Brands">
         <elemento>Google</elemento>

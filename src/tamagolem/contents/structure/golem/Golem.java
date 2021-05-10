@@ -20,6 +20,7 @@ import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.structure.events.GolemListener;
 
 /**
+ * Crea un nuovo golem.
  *
  * @author TTT
  */
@@ -35,17 +36,19 @@ public class Golem {
         this.rset = r;
     }
 
-    public Golem(int life, Rock r1, Rock r2, Rock r3) throws UnitializedException {
-        this(life, new Rockset(r1, r2, r3));
-    }
-
     public Golem(int life, Rock... rs) throws UnitializedException {
         this(life, new Rockset(rs));
     }
 
+    /**
+     * Decrementa la vita del golem di un certo valore.
+     *
+     * @param value Quantità da togliere, nel caso il valore sia negativo verrà
+     * cambiato di segno.
+     */
     public void decrementLifeBy(Integer value) {
         if (value != null && !dead) {
-            life -= value;
+            life -= value < 0 ? -value : value;
             if (life <= 0) {
                 dead = true;
                 dead();
@@ -53,18 +56,38 @@ public class Golem {
         }
     }
 
+    /**
+     * Ritorna la prossima pietra nel set del golem.
+     *
+     * @return La prossima pietra.
+     */
     public Rock getRock() {
         return rset.next();
     }
 
+    /**
+     * Controlla se il golem è morto.
+     *
+     * @return {@code true} nel caso sia morto.
+     */
     public boolean isDead() {
         return dead;
     }
 
+    /**
+     * Aggiungi un listener al golem.
+     *
+     * @param listener Il listener da mettere in ascolto.
+     */
     public void addListener(GolemListener listener) {
         listeners.add(listener);
     }
 
+    /**
+     * Rimuovi listener dal golem.
+     *
+     * @param listener Il listener in ascolto.
+     */
     public void removeListener(GolemListener listener) {
         listeners.remove(listener);
     }

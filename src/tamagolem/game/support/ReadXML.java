@@ -14,6 +14,11 @@ import java.util.logging.Logger;
 
 public class ReadXML {
 
+    /**
+     * Legge e carica i nomi dei nomi tra cui l'utente può scegliere.
+     *
+     * @return Il documento caricato.
+     */
     public static XMLDocument loadNomi() {
         InputStream in = ReadXML.class.getResourceAsStream("/tamagolem/resources/names/Elements.xml");
         //String path = "src" + File.separatorChar + "tamagolem" + File.separatorChar + "resources" + File.separatorChar + "names" + File.separatorChar + "Elements.xml";

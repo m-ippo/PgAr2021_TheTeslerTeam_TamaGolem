@@ -40,6 +40,7 @@ public final class Node implements Comparable<Node> {
 
     private void init() {
         cycle = new Link(this, this);
+        cycle.setPower(0);
         cycle.lock();
     }
 
@@ -129,14 +130,9 @@ public final class Node implements Comparable<Node> {
      */
     public List<Link> getOutputLinks() {
         ArrayList<Link> to_ret = new ArrayList<>();
-//        links.values().stream().filter((l) -> {
-//            return l.getFrom() == this; 
-//        }).forEach(l -> to_ret.add(l));
-        for (Link l : links.values()) {
-            if (l.getFrom() == this) {
-                to_ret.add(l);
-            }
-        }
+        links.values().stream().filter((l) -> {
+            return l.getFrom() == this; 
+        }).forEach(l -> to_ret.add(l));
         return Collections.unmodifiableList(to_ret);
     }
 
@@ -147,11 +143,10 @@ public final class Node implements Comparable<Node> {
      */
     public List<Link> getInputLinks() {
         ArrayList<Link> to_ret = new ArrayList<>();
-        for (Link l : links.values()) {
-            if (l.getTo() == this) {
+        links.values().stream().filter(l -> (l.getTo() == this))
+            .forEachOrdered(l -> {
                 to_ret.add(l);
-            }
-        }
+            });
         return Collections.unmodifiableList(to_ret);
     }
 

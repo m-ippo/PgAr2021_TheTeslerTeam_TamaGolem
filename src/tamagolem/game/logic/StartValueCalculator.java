@@ -32,40 +32,7 @@ class StartValueCalculator {
         generateSumOfPower();
         generateGolemLife();
     }
-
-    /*
-    public int getElements_number() {
-        return elements_number;
-    }
-
-    public int getRocks_number() {
-        return rocks_number;
-    }
-
-    public int getGolem_life() {
-        return golem_life;
-    }
-
-    public int getGolems_number() {
-        return golems_number;
-    }
-
-    public int getCommon_rocks() {
-        return common_rocks;
-    }
-
-    public int getSum_of_power() {
-        return sum_of_power;
-    }
-
-    public int getRocks_per_element() {
-        return rocks_per_element;
-    }
-
-    public Balance getBalance() {
-        return balance;
-    }
-     */
+    
     /**
      * Genera il numero di pietre.
      */
