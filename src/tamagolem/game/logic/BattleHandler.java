@@ -53,6 +53,11 @@ public class BattleHandler {
         }
     }
 
+    // aggiornare i golem (set)
+
+    // + far partire la battaglia
+
+
     /**
      * Ferma il programma per la qta di millisecondi passati per parametro.
      * @param millisecons Millisecondi da aspettare.
@@ -82,7 +87,9 @@ public class BattleHandler {
     }
 
     public void setG1(Golem g1) {
-        this.g1 = g1;
+        if(g1 != null) {
+            this.g1 = g1;
+        }
     }
 
     public Golem getG2() {
@@ -90,8 +97,11 @@ public class BattleHandler {
     }
 
     public void setG2(Golem g2) {
-        this.g2 = g2;
+        if(g2 != null){
+            this.g2 = g2;
+        }
     }
+
 
 
 }

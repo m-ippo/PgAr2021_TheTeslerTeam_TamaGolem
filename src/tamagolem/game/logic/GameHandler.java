@@ -105,6 +105,8 @@ public class GameHandler {
         System.out.println();
         generateGolem(p2);
         GeneralFormatter.decrementIndents();
+
+        // generare BattleHandler
     }
 
     /**
