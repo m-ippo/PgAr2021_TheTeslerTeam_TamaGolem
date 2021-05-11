@@ -15,9 +15,12 @@
  */
 package tamagolem;
 
+import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.Graph;
 
 import java.util.ArrayList;
+
+import tamagolem.contents.graph.Node;
 import tamagolem.contents.structure.balance.Balance;
 import tamagolem.game.MainMenu;
 
@@ -31,9 +34,10 @@ public class TamaGolem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MainMenu mm = new MainMenu();
+        //MainMenu mm = new MainMenu();
         //provaMatrice();
         //provaValori();
+        provaValoriGraph();
     }
 
     public static void stampaNodi(Graph g) {
@@ -73,5 +77,49 @@ public class TamaGolem {
         b.generateLinkValues();
         /*StartValueCalculator calcolatore = new StartValueCalculator(b);
         System.out.println(calcolatore.toString());*/
+    }
+
+    public static void provaValoriGraph() {
+        ArrayList<String> nomi = new ArrayList<>();
+        nomi.add("A");
+        nomi.add("B");
+        nomi.add("C");
+        nomi.add("D");
+//        nomi.add("E");
+//        nomi.add("F");
+//        nomi.add("G");
+//        nomi.add("H");
+//        nomi.add("I");
+
+        int giusti = 0;
+        for (int i = 0; i < 1000; i++){
+            Graph g = new Graph(25, nomi);
+            try {
+                g.generateLinkTable();
+            } catch (UnitializedException e) {
+                e.printStackTrace();
+            }
+
+            g.daiValori();
+
+            boolean ris = true;
+
+            for(Node n : g.getNodes()){
+                int in = n.getInputSum() == null ? 0 : n.getInputSum();
+                int out = n.getOutputSum() == null ? 0 : n.getOutputSum();
+                if(in - out != 0){
+                    ris = false;
+                    g.print();
+                    g.printSums();
+                }
+            }
+            if(ris){
+                giusti++;
+            }
+        }
+
+        System.out.println(giusti);
+
+
     }
 }

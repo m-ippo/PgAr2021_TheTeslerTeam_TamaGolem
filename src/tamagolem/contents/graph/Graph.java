@@ -266,4 +266,64 @@ public class Graph {
             System.out.println(n.getName() + "\tValore:" + (n.getInputSum() - n.getOutputSum()));
         });
     }
+
+    /**
+     * Ritorna il valore della somma dei valori in uscita di uno nodo, se null
+     * ritorna 0.
+     * @param n Nodo
+     * @return Somma valori in uscita dal nodo.
+     */
+    private int getIntegerOutputSum(Node n){
+        return n.getOutputSum() == null ? 0 : n.getOutputSum();
+    }
+
+    /**
+     * Ritorna il valore della somma dei valori in entrata di uno nodo, se null
+     * ritorna 0.
+     * @param n Nodo
+     * @return Somma valori in entarta nel nodo.
+     */
+    private int getIntegerInputSum(Node n){
+        return n.getInputSum() == null ? 0 : n.getInputSum();
+    }
+
+    public void daiValori(){
+
+        for(Node nd : graph_nodes) {
+
+            while(nd.getVoidOutputLinksCount() != 0) {
+
+                for (Node n : graph_nodes) {
+                    if (n.getVoidOutputLinksCount() == 1 && n.getVoidInputLinksCount() == 0) {
+                        int out_sum = getIntegerOutputSum(n);
+                        int in_sum = getIntegerInputSum(n);
+                        Link daSettare = n.getVoidOutputLinks().get(0);
+                        daSettare.setPower(in_sum - out_sum);
+                        System.out.println("Generato A" + daSettare.toString() + " " + daSettare.getPower());
+                    } else if (n.getVoidOutputLinksCount() == 0 && n.getVoidInputLinksCount() == 1) {
+                        int out_sum = getIntegerOutputSum(n);
+                        int in_sum = getIntegerInputSum(n);
+                        Link daSettare = n.getVoidInputLinks().get(0);
+                        daSettare.setPower(out_sum - in_sum);
+                        System.out.println("Generato B" + daSettare.toString() + " " + daSettare.getPower());
+                    }
+                }
+
+                if (nd.getVoidOutputLinksCount() != 0) {
+                    Link daSettare = nd.getVoidOutputLinks().get(0);
+                    if (nd.getVoidOutputLinksCount() == 1) {
+                        int min = (int) nd.getVoidInputLinksCount();
+                        daSettare.setPower(rnd.nextInt(max_power) + min);
+                        System.out.println("Generato C" + daSettare.toString() + " " + daSettare.getPower());
+                    } else {
+                        daSettare.setPower(rnd.nextInt(max_power) + 1);
+                        System.out.println("Generato D" + daSettare.toString() + " " + daSettare.getPower());
+                    }
+                }
+            }
+        }
+
+
+
+    }
 }

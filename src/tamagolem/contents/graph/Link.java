@@ -120,6 +120,12 @@ public final class Link {
         return !unlocked;
     }
 
+    /*public void changeDirection(){
+        Node temp = this.to;
+        this.to = this.from;
+        this.from = temp;
+    }*/
+
     @Override
     public String toString() {
         return "LNK: " + from.getName() + /*(hasValue() ?*/ " =" + power + "=> " /*: " => ")*/ + to.getName();
