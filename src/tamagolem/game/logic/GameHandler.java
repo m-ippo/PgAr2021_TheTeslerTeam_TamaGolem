@@ -108,6 +108,10 @@ public class GameHandler {
         }
     }
 
+    public void generateRockset(Golem g) {
+        
+    }
+
     private Player getOpponent(Player p) {
         return p == p1 ? p2 : p1;
     }
@@ -133,6 +137,8 @@ public class GameHandler {
         finished = to_quit;
         if (to_quit) {
             //mostra pseudo-risultato
+            //Azzera tutto
+            Broadcast.resetAll();
         }
         return to_quit;
     }

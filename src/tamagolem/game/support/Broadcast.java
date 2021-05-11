@@ -202,4 +202,8 @@ public class Broadcast {
     }
 
 //</editor-fold>
+    public static void resetAll() {
+        game_values.clear();
+        game_statuses.clear();
+    }
 }
