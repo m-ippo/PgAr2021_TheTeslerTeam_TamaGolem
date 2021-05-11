@@ -20,6 +20,8 @@ import tamagolem.contents.structure.golem.Golem;
 import tamagolem.contents.structure.golem.Rock;
 import ttt.utils.console.output.GeneralFormatter;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Gestisce le battaglie tra golems.
  *
@@ -36,20 +38,28 @@ public class BattleHandler {
     }
 
     public void rockBattle() {
-        Rock r1 = g1.getRock();
-        Rock r2 = g2.getRock();
-        if(r1.winsAgainst(r2)){
-            g2.decrementLifeBy(r1.against(r2));
-            GeneralFormatter.incrementIndents();
-            GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
-            GeneralFormatter.decrementIndents();
-            wait(500);
-        } else {
-            g1.decrementLifeBy(r2.against(r1));
-            GeneralFormatter.incrementIndents();
-            GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
-            GeneralFormatter.decrementIndents();
-            wait(500);
+        AtomicBoolean finished = new AtomicBoolean(false);
+        GolemListener golemListener = () -> {
+            finished.set(true);
+        };
+        g1.addListener(golemListener);
+        g2.addListener(golemListener);
+        while (!finished.get()) {
+            Rock r1 = g1.getRock();
+            Rock r2 = g2.getRock();
+            if (r1.winsAgainst(r2)) {
+                g2.decrementLifeBy(r1.against(r2));
+                GeneralFormatter.incrementIndents();
+                GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
+                GeneralFormatter.decrementIndents();
+                wait(500);
+            } else {
+                g1.decrementLifeBy(r2.against(r1));
+                GeneralFormatter.incrementIndents();
+                GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
+                GeneralFormatter.decrementIndents();
+                wait(500);
+            }
         }
     }
 
