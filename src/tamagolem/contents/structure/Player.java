@@ -35,6 +35,10 @@ public class Player implements InputObject {
     public Player() {
     }
 
+    public Player(String name) {
+        this.name = name;
+    }
+
     @Order(Priority = 0)
     @InputElement(Name = "Nome giocatore", Type = String.class, Validator = NameValidator.class)
     public void setName(String value) {
