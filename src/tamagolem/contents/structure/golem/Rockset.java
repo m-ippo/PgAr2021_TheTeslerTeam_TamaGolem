@@ -15,6 +15,7 @@
  */
 package tamagolem.contents.structure.golem;
 
+import java.util.Arrays;
 import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.game.support.Broadcast;
 
@@ -101,6 +102,29 @@ public final class Rockset {
         if (i != null && i > 0 && (current + i) < rocks.length) {
             current += i;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Rockset) {
+            Rockset r = (Rockset) obj;
+            if (r.rocks.length == rocks.length) {
+                for (Rock rock : rocks) {
+                    if (r.next() != rock) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Arrays.deepHashCode(this.rocks);
+        return hash;
     }
 
 }

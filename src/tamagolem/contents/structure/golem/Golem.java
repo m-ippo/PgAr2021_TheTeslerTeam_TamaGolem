@@ -96,4 +96,13 @@ public class Golem {
         listeners.forEach(l -> l.onDeath());
     }
 
+    /**
+     * Ritorna il set di pietre di questo golem. Usare con molta cautela.
+     *
+     * @return Il Rockset associato.
+     */
+    public Rockset getRockset() {
+        return rset;
+    }
+
 }

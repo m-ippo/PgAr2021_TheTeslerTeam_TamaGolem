@@ -126,6 +126,15 @@ public class GameHandler {
                         GeneralFormatter.decrementIndents();
                         g = new Golem(Broadcast.askForGameValue(Broadcast.MAX_GOLEM_LIFE), crs.flushOrder());
                         player.setGolem(g);
+                        Golem opponents_golem = getOpponent(player).getGolem();
+                        if (opponents_golem != null) {
+                            if (opponents_golem.getRockset().equals(g.getRockset())) {
+                                g.getRockset().addOffset(1);
+                                GeneralFormatter.incrementIndents();
+                                GeneralFormatter.printOut("Le pietre corrispondono a quelle del golem avversario: sono stato spostate di un ciclo.", true, false);
+                                GeneralFormatter.decrementIndents();
+                            }
+                        }
                     } catch (UnitializedException ex) {
                         Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                     }
