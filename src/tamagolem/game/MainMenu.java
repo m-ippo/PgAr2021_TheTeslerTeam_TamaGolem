@@ -46,6 +46,10 @@ public class MainMenu {
     private Nome elenco_nomi_nodi;
     private GameHandler gm = null;
 
+    /**
+     * Le difficoltà possibili, alcune possono anche modificare le impostazioni
+     * di gioco.
+     */
     public static enum Difficulty {
         FACILE(3, 5, () -> {
             return null;
@@ -119,9 +123,9 @@ public class MainMenu {
                     main.addOption("Inizia una nuova partita", () -> {
                         try {
                             if (gm != null
-                                    && (gm.getCurrentState() == GameStates.STARTED
-                                    || gm.getCurrentState() == GameStates.NEXT_ROUND
-                                    || gm.getCurrentState() == GameStates.GOLEM_GENERATION) && !gm.isFinished()) {
+                                    && (gm.getCurrentState().ordinal() > GameStates.VOID.ordinal()
+                                    && gm.getCurrentState().ordinal() < GameStates.FINISHED.ordinal())
+                                    && !gm.isFinished()) {
                                 if (!gm.rageQuit()) {
                                     return null;
                                 } else {
@@ -267,7 +271,10 @@ public class MainMenu {
     private void setPlayers() {
         player1 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 1");
         player2 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 2");
-        if (gm != null && !gm.isFinished()) {
+        if (gm != null
+                && (gm.getCurrentState().ordinal() > GameStates.VOID.ordinal()
+                && gm.getCurrentState().ordinal() < GameStates.FINISHED.ordinal())
+                && !gm.isFinished()) {
             if (!gm.rageQuit()) {
                 return;
             }
