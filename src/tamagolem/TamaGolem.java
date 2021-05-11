@@ -25,7 +25,8 @@ public class TamaGolem {
 
 
     public static void main(String[] args) {
-        MainMenu mm = new MainMenu();
+        //MainMenu mm = new MainMenu();
+
     }
 
     public static void stampaNodi(Graph g) {

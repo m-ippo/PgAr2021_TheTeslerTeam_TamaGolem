@@ -50,7 +50,8 @@ class StartValueCalculator {
      * Genera il numero di pietre.
      */
     private void generateRocksNumb() {
-        this.rocks_number = Math.round(((float) (elements_number + 1) / 3) + 1);
+        //this.rocks_number = Math.round(((float) (elements_number + 1) / 3) + 1);
+        this.rocks_number = (int) (Math.ceil(((double) elements_number + 1.0) / 3.0)) + 1;
         Broadcast.broadcastGameValue(Broadcast.MAX_ROCKS_PER_GOLEM, rocks_number);
     }
 
@@ -58,7 +59,9 @@ class StartValueCalculator {
      * Genera il numero di TamaGolem della partita.
      */
     private void generateGolemNumber() {
-        this.golems_number = Math.round((elements_number - 2) * (elements_number - 1) / (rocks_number * 2));
+        //this.golems_number = Math.round((elements_number - 2) * (elements_number - 1) / (rocks_number * 2));
+        double el_num = elements_number;
+        this.golems_number = (int) Math.ceil((el_num - 2.0) * (el_num - 1.0) / ((double) rocks_number * 2.0));
         Broadcast.broadcastGameValue(Broadcast.MAX_GOLEM_AMOUNT, golems_number);
     }
 
@@ -66,7 +69,8 @@ class StartValueCalculator {
      * Genera il numero di pietre per ciascun elemento.
      */
     private void generateRocksPerElements() {
-        this.rocks_per_element = Math.round((float) golems_number * 2 / (float) elements_number * (float) rocks_number);
+        //this.rocks_per_element = Math.round((float) golems_number * 2 / (float) elements_number * (float) rocks_number);
+        rocks_per_element = (int) Math.ceil((double)golems_number * 2.0 / (double) elements_number * (double) rocks_per_element);
         Broadcast.broadcastGameValue(Broadcast.MAX_ROCKS_PER_ELEMENT, rocks_per_element);
     }
 
