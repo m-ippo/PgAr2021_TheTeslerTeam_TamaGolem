@@ -182,7 +182,7 @@ public class MainMenu {
         GeneralFormatter.printOut("- Vita massima di un golem          : " + Broadcast.askForGameValue(Broadcast.MAX_GOLEM_LIFE), true, false);
         GeneralFormatter.printOut("- Numero elementi disponibili       : " + Broadcast.askForGameValue(Broadcast.GAME_NODES), true, false);
         GeneralFormatter.printOut("- Numero massimo di golem giocabili : " + Broadcast.askForGameValue(Broadcast.MAX_GOLEM_AMOUNT), true, false);
-        GeneralFormatter.printOut("- Numero massimo di pietre comuni   : " + Broadcast.askForGameValue(Broadcast.MAX_ROCKS_PER_ELEMENT), true, false);
+        GeneralFormatter.printOut("- Numero massimo di pietre comuni   : " + Broadcast.askForGameValue(Broadcast.COMMON_ROCKS_AVAILABLE), true, false);
         GeneralFormatter.printOut("- Numero massimo di pietre per golem: " + Broadcast.askForGameValue(Broadcast.MAX_ROCKS_PER_GOLEM), true, false);
         GeneralFormatter.decrementIndents();
         System.out.println();

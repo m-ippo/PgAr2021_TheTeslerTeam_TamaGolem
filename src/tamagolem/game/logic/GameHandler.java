@@ -25,6 +25,7 @@ import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.Node;
 import tamagolem.contents.structure.Player;
 import tamagolem.contents.structure.balance.Balance;
+import tamagolem.contents.structure.events.GolemListener;
 import tamagolem.contents.structure.golem.Golem;
 import tamagolem.contents.xml.elements.ElementoSecondario;
 import tamagolem.contents.xml.elements.Nome;
@@ -83,7 +84,7 @@ public class GameHandler {
         });
         Collections.shuffle(tmp);
         Random r = new Random(new Date().getTime());
-        int maxNodes = r.nextInt(diff.getMax() - diff.getMin()) + diff.getMin();
+        int maxNodes = r.nextInt(diff.getMax() - diff.getMin() + 1) + diff.getMin();
         for (int i = 0; i < maxNodes; i++) {
             nodes_names.add(tmp.get(i));
         }
@@ -135,6 +136,13 @@ public class GameHandler {
                                 GeneralFormatter.decrementIndents();
                             }
                         }
+                        g.addListener(() -> {
+                            GeneralFormatter.incrementIndents();
+                            GeneralFormatter.printOut("Il golem di " + player.getName() + "è morto...", true, false);
+                            GeneralFormatter.decrementIndents();
+                            generateGolem(player);
+                        }
+                        );
                     } catch (UnitializedException ex) {
                         Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                     }

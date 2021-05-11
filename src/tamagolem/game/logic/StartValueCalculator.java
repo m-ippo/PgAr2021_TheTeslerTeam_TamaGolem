@@ -70,7 +70,10 @@ class StartValueCalculator {
      */
     private void generateRocksPerElements() {
         //this.rocks_per_element = Math.round((float) golems_number * 2 / (float) elements_number * (float) rocks_number);
-        rocks_per_element = (int) Math.ceil((double)golems_number * 2.0 / (double) elements_number * (double) rocks_per_element);
+        double g_n = golems_number;
+        double e_n = elements_number;
+        double r_n = rocks_number;
+        rocks_per_element = (int) Math.ceil((g_n * 2 * r_n) / e_n);
         Broadcast.broadcastGameValue(Broadcast.MAX_ROCKS_PER_ELEMENT, rocks_per_element);
     }
 
