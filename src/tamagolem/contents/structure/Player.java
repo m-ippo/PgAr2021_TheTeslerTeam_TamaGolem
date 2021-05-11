@@ -15,20 +15,28 @@
  */
 package tamagolem.contents.structure;
 
+import tamagolem.contents.structure.golem.Golem;
 import tamagolem.contents.structure.validators.NameValidator;
 import ttt.utils.console.input.annotations.InputElement;
 import ttt.utils.console.input.annotations.Order;
 import ttt.utils.console.input.interfaces.InputObject;
 
 /**
+ * Rappresenta un giocatore.
  *
  * @author TTT
  */
 public class Player implements InputObject {
 
     private String name;
+    private Golem golem;
+    private int usedGolems = 0;
 
     public Player() {
+    }
+
+    public Player(String name) {
+        this.name = name;
     }
 
     @Order(Priority = 0)
@@ -39,6 +47,19 @@ public class Player implements InputObject {
 
     public String getName() {
         return name;
+    }
+
+    public void setGolem(Golem golem) {
+        this.golem = golem;
+        usedGolems++;
+    }
+
+    public Golem getGolem() {
+        return golem;
+    }
+
+    public int getUsedGolems() {
+        return usedGolems;
     }
 
 }

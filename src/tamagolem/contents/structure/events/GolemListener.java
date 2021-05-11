@@ -16,9 +16,15 @@
 package tamagolem.contents.structure.events;
 
 /**
+ * Listener che viene chiamato quando al golem succede qualcosa che dev'essere
+ * notificato.
  *
  * @author TTT
  */
 public interface GolemListener {
+
+    /**
+     * Chiamato quando un golem muore.
+     */
     public void onDeath();
 }

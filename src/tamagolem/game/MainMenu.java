@@ -15,17 +15,26 @@
  */
 package tamagolem.game;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.game.support.ReadXML;
 import tamagolem.contents.structure.Player;
 import tamagolem.contents.xml.elements.ElementoPrincipale;
 import tamagolem.contents.xml.elements.Nome;
+import tamagolem.game.logic.GameHandler;
+import tamagolem.game.logic.GameStates;
+import tamagolem.game.support.Broadcast;
+import tamagolem.game.support.broadcast.GameStateListener;
 import ttt.utils.ProjectSettings;
 import ttt.utils.console.input.ObjectInputEngine;
 import ttt.utils.console.menu.Menu;
+import ttt.utils.console.menu.utils.FutureAction;
 import ttt.utils.console.output.GeneralFormatter;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 
 /**
+ * Menù principale del gioco.
  *
  * @author TTT
  */
@@ -35,15 +44,34 @@ public class MainMenu {
     private Difficulty difficolta;
     private ElementoPrincipale elenco_nomi_disponibili;
     private Nome elenco_nomi_nodi;
+    private GameHandler gm = null;
 
+    /**
+     * Le difficoltà possibili, alcune possono anche modificare le impostazioni
+     * di gioco.
+     */
     public static enum Difficulty {
-        FACILE(3, 5), NORMALE(6, 8), DIFFICILE(9, 10), HARDCORE(11, 13), ESTREMA(14, 16);
+        FACILE(3, 5, () -> {
+            return null;
+        }), NORMALE(6, 8, () -> {
+            return null;
+        }), DIFFICILE(9, 10, () -> {
+            return null;
+        }), HARDCORE(9, 10, () -> {
+            Broadcast.broadcastGameValue(Broadcast.MAX_GOLEM_AMOUNT, Broadcast.askForGameValue(Broadcast.MAX_GOLEM_AMOUNT) - 2);
+            return null;
+        }), ESTREMA(11, 12, () -> {
+            Broadcast.broadcastGameValue(Broadcast.MAX_GOLEM_AMOUNT, Broadcast.askForGameValue(Broadcast.MAX_GOLEM_AMOUNT) - 4);
+            return null;
+        });
         int min;
         int max;
+        FutureAction<Void> act;
 
-        private Difficulty(int min, int max) {
+        private Difficulty(int min, int max, FutureAction<Void> act) {
             this.min = min;
             this.max = max;
+            this.act = act;
         }
 
         public int getMin() {
@@ -52,6 +80,10 @@ public class MainMenu {
 
         public int getMax() {
             return max;
+        }
+
+        public void exec() {
+            act.onSelected();
         }
 
         @Override
@@ -68,6 +100,10 @@ public class MainMenu {
         init();
     }
 
+    private Player player1;
+    private Player player2;
+    private boolean op_ = true;
+
     private void init() {
         ProjectSettings.PROGRAM_DEFAULT_OBJECT_OUTPUT_PHRASE = false;
         ProjectSettings.PROGRAM_SHOW_OBJECT_INPUT = false;
@@ -81,14 +117,81 @@ public class MainMenu {
             GeneralFormatter.incrementIndents();
             setPlayers();
             GeneralFormatter.decrementIndents();
+            if (op_) {
+                op_ = false;
+                main.addLazyExecutable(() -> {
+                    main.addOption("Inizia una nuova partita", () -> {
+                        try {
+                            if (gm != null
+                                    && (gm.getCurrentState().ordinal() > GameStates.VOID.ordinal()
+                                    && gm.getCurrentState().ordinal() < GameStates.FINISHED.ordinal())
+                                    && !gm.isFinished()) {
+                                if (!gm.rageQuit()) {
+                                    return null;
+                                } else {
+                                    player1 = new Player(player1.getName());
+                                    player2 = new Player(player2.getName());
+                                    gm = new GameHandler(player1, player2);
+                                }
+                            }
+                            Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_DIFFICULTY, difficolta, gm);
+                            Broadcast.broadcastGameState(Broadcast.GAME_NODES, elenco_nomi_nodi, gm);
+                            gm.start();
+                        } catch (UnitializedException ex) {
+                            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        return null;
+                    });
+                    return null;
+                });
+            }
             return null;
         });
         //Caricare file XML e impostare valori default.
         elenco_nomi_disponibili = (ElementoPrincipale) ReadXML.loadNomi().getFirstElement("elementi");
+        elenco_nomi_nodi = (Nome) elenco_nomi_disponibili.getFirstElement("nomi");
+        initListeners();
         main.setDefaultSpaces(1);
         main.paintMenu();
     }
 
+    private void initListeners() {
+        Broadcast.addGameStateListener(new GameStateListener() {
+            @Override
+            public void onStart(GameHandler gh) {
+                GeneralFormatter.printOut("Sfidanti, prepararsi per la battaglia!", true, false);
+                printOutVals();
+            }
+
+            @Override
+            public void onNextRound(GameHandler gh) {
+            }
+
+            @Override
+            public void onFinish(GameHandler gh) {
+                GeneralFormatter.printOut("La battaglia e' conclusa!", true, false);
+            }
+        });
+    }
+
+    private void printOutVals() {
+        System.out.println();
+        GeneralFormatter.printOut("In quest partita sono state disposte le seguenti regole:", true, false);
+        GeneralFormatter.incrementIndents();
+        GeneralFormatter.printOut("- Difficolta'                       : " + difficolta.toString(), true, false);
+        GeneralFormatter.printOut("- Vita massima di un golem          : " + Broadcast.askForGameValue(Broadcast.MAX_GOLEM_LIFE), true, false);
+        GeneralFormatter.printOut("- Numero elementi disponibili       : " + Broadcast.askForGameValue(Broadcast.GAME_NODES), true, false);
+        GeneralFormatter.printOut("- Numero massimo di golem giocabili : " + Broadcast.askForGameValue(Broadcast.MAX_GOLEM_AMOUNT), true, false);
+        GeneralFormatter.printOut("- Numero massimo di pietre comuni   : " + Broadcast.askForGameValue(Broadcast.MAX_ROCKS_PER_ELEMENT), true, false);
+        GeneralFormatter.printOut("- Numero massimo di pietre per golem: " + Broadcast.askForGameValue(Broadcast.MAX_ROCKS_PER_GOLEM), true, false);
+        GeneralFormatter.decrementIndents();
+        System.out.println();
+        System.out.println();
+    }
+
+    /**
+     * Mostra il menù delle impostazioni del programma.
+     */
     private void showSettings() {
         Menu<Void> impostazioni = new Menu<Void>("{Impostazioni}") {
         };
@@ -115,6 +218,9 @@ public class MainMenu {
         impostazioni.paintMenu();
     }
 
+    /**
+     * Mostra il menù per la selezione della difficoltà.
+     */
     private void selectDifficulty() {
         Menu<Difficulty> difficolta_menu = new Menu<>("{Seleziona difficoltà : " + difficolta.toString() + "}") {
         };
@@ -135,9 +241,12 @@ public class MainMenu {
         difficolta = difficolta_menu.showAndWait();
     }
 
+    /**
+     * Mostra il menù per la selezione dei nomi degli elementi.
+     */
     private void selectElements() {
         //Selezione degli elementi da quelli letti nel file XML
-        Menu<Nome> selezione_nomi_elementi = new Menu<>("{Scegli nome elementi}") {
+        Menu<Nome> selezione_nomi_elementi = new Menu<>("{Scegli nome elementi : " + elenco_nomi_nodi.getType() + "}") {
         };
         selezione_nomi_elementi.removeOption(1);
         selezione_nomi_elementi.autoPrintSpaces(false);
@@ -156,9 +265,22 @@ public class MainMenu {
         this.elenco_nomi_nodi = selezione_nomi_elementi.showAndWait();
     }
 
+    /**
+     * Imposta i giocatori.
+     */
     private void setPlayers() {
-        Player player1 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 1");
-        Player player2 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 2");
+        player1 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 1");
+        player2 = ObjectInputEngine.readNewObject(Player.class, "Imposta giocatore 2");
+        if (gm != null
+                && (gm.getCurrentState().ordinal() > GameStates.VOID.ordinal()
+                && gm.getCurrentState().ordinal() < GameStates.FINISHED.ordinal())
+                && !gm.isFinished()) {
+            if (!gm.rageQuit()) {
+                return;
+            }
+        }
+        Broadcast.forceBroadcastGameState(gm);
+        gm = new GameHandler(player1, player2);
     }
 
 }

@@ -15,11 +15,20 @@
  */
 package tamagolem.game.support.broadcast;
 
+import tamagolem.game.support.Broadcast;
+
 /**
+ * Listener dei valori in {@link Broadcast}.
  *
  * @author TTT
  */
 public interface GameValueListener {
 
-    public void onUpdate(String key);
+    /**
+     * Viene chiamato ogni volta che nella classe {@link Broadcast} viene
+     * aggiornato un valore di gioco.
+     *
+     * @param key La chiave che corrisponde al valore aggiornato.
+     */
+    public void onUpdate(Integer key);
 }

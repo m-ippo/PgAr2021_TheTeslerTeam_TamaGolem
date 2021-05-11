@@ -1,5 +1,6 @@
 package tamagolem.game.logic;
 
+import java.util.Objects;
 import tamagolem.contents.graph.Node;
 import tamagolem.contents.structure.balance.Balance;
 import tamagolem.game.support.Broadcast;
@@ -31,41 +32,20 @@ class StartValueCalculator {
         generateCommonRocks();
         generateSumOfPower();
         generateGolemLife();
+        Broadcast.addGameValueListener((key) -> {
+            if (Objects.equals(key, Broadcast.MAX_GOLEM_AMOUNT)) {
+                recalc();
+            }
+        });
     }
 
-    /*
-    public int getElements_number() {
-        return elements_number;
+    private void recalc() {
+        generateRocksPerElements();
+        generateCommonRocks();
+        generateSumOfPower();
+        generateGolemLife();
     }
 
-    public int getRocks_number() {
-        return rocks_number;
-    }
-
-    public int getGolem_life() {
-        return golem_life;
-    }
-
-    public int getGolems_number() {
-        return golems_number;
-    }
-
-    public int getCommon_rocks() {
-        return common_rocks;
-    }
-
-    public int getSum_of_power() {
-        return sum_of_power;
-    }
-
-    public int getRocks_per_element() {
-        return rocks_per_element;
-    }
-
-    public Balance getBalance() {
-        return balance;
-    }
-     */
     /**
      * Genera il numero di pietre.
      */

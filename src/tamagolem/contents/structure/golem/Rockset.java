@@ -15,11 +15,13 @@
  */
 package tamagolem.contents.structure.golem;
 
+import java.util.Arrays;
 import tamagolem.contents.exceptions.UnitializedException;
-import tamagolem.game.logic.GameHandler;
 import tamagolem.game.support.Broadcast;
 
 /**
+ * Rappresenta l'insieme di pietre disponibili per un golem ed offre i metodi
+ * minimi per la rotazione delle pietre.
  *
  * @author TTT
  */
@@ -45,6 +47,11 @@ public final class Rockset {
         }
     }
 
+    /**
+     * Inserisce una nuova pietra al set.
+     *
+     * @param r La pietra da aggiungere.
+     */
     public void pushRock(Rock r) {
         if (filler < rocks.length && r != null) {
             rocks[filler] = r;
@@ -52,6 +59,11 @@ public final class Rockset {
         }
     }
 
+    /**
+     * Ritorna la pietra successiva e passa alla prossima pietra.
+     *
+     * @return La pietra successiva.
+     */
     public Rock next() {
         if (current > rocks.length - 1) {
             current = 0;
@@ -59,10 +71,21 @@ public final class Rockset {
         return rocks[current++];
     }
 
+    /**
+     * Ritorna il set di rocce.
+     *
+     * @return L'array ordinato secondo i valori iniziali e non secondo il
+     * corrente ordine.
+     */
     public Rock[] getRockset() {
         return rocks;
     }
 
+    /**
+     * Ritorna alla pietra precedente.
+     *
+     * @return La pietra precedente
+     */
     public Rock previous() {
         if (current < 0) {
             current = rocks.length - 1;
@@ -70,10 +93,38 @@ public final class Rockset {
         return rocks[current--];
     }
 
+    /**
+     * Sposta la rotazione di "I" passi.
+     *
+     * @param i I passi da eseguire.
+     */
     public void addOffset(Integer i) {
         if (i != null && i > 0 && (current + i) < rocks.length) {
             current += i;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Rockset) {
+            Rockset r = (Rockset) obj;
+            if (r.rocks.length == rocks.length) {
+                for (Rock rock : rocks) {
+                    if (r.next() != rock) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Arrays.deepHashCode(this.rocks);
+        return hash;
     }
 
 }

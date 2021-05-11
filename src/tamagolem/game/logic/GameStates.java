@@ -13,25 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.contents.structure.validators;
-
-import ttt.utils.console.input.interfaces.Validator;
+package tamagolem.game.logic;
 
 /**
- * Serve per validare i nomi inseriti in input.
+ * Stati possibili di una partita.
  *
  * @author TTT
  */
-public class NameValidator implements Validator<String> {
-
-    public NameValidator() {
-    }
-
-    @Override
-    public void validate(String value) throws IllegalArgumentException {
-        if (value == null || value.isEmpty() || "".equals(value.trim())) {
-            throw new IllegalArgumentException("Il nome non è valido");
-        }
-    }
-
+public enum GameStates {
+    /**
+     * Partita non ancora iniziata.
+     */
+    VOID,
+    /**
+     * Generazione di un golem (gioco in pausa).
+     */
+    GOLEM_GENERATION,
+    /**
+     * Partita iniziata.
+     */
+    STARTED,
+    /**
+     * Round iniziato.
+     */
+    NEXT_ROUND,
+    /**
+     * Partita conclusa.
+     */
+    FINISHED
 }

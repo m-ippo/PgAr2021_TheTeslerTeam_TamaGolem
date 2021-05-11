@@ -111,7 +111,6 @@ public class Balance extends Graph {
     @Override
     public void generateLinkValues() {
         int[][] matrix = m.getMatrix();
-        m.print();
         for (int i = 0; i < matrix.length; i++) {
             for (int j = i + 1; j < matrix.length; j++) {
                 Node main = nodi_setup.get(i);
@@ -125,7 +124,6 @@ public class Balance extends Graph {
                 }
             }
         }
-        //print();
     }
 
     /**
