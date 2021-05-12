@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phrases>
+    <battle>
+        <elemento>La battaglia è iniziata!</elemento>
+        <elemento>I golem hanno iniziato a lanciarsi delle pietre.</elemento>
+    </battle>
+    <generazione>
+        <elemento>
+
+        </elemento>
+    </generazione>
+    <round>
+        <elemento>Il golem di %giocatore ha subito del %d danno.</elemento>
+    </round>
+</phrases>

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <elementi>
+    <nomi type="Elementari">
+        <elemento>Acqua</elemento>
+        <elemento>Fuoco</elemento>
+        <elemento>Terra</elemento>
+        <elemento>Aria</elemento>
+        <elemento>Etere</elemento>
+        <elemento>Foresta</elemento>
+        <elemento>Luce</elemento>
+        <elemento>Tenebre</elemento>
+        <elemento>Magma</elemento>
+        <elemento>Vuoto</elemento>
+    </nomi>
     <nomi type="Alfabeto">
         <elemento>A</elemento>
         <elemento>B</elemento>
@@ -141,18 +153,7 @@
         <elemento>Twitch</elemento>
         <elemento>AliExpress</elemento>
     </nomi>
-    <nomi type="Elementari">
-        <elemento>Acqua</elemento>
-        <elemento>Fuoco</elemento>
-        <elemento>Terra</elemento>
-        <elemento>Aria</elemento>
-        <elemento>Etere</elemento>
-        <elemento>Foresta</elemento>
-        <elemento>Luce</elemento>
-        <elemento>Tenebre</elemento>
-        <elemento>Magma</elemento>
-        <elemento>Vuoto</elemento>
-    </nomi>
+
     <nomi type="Progetto Arnaldo">
         <elemento>TripleTeslas</elemento>
         <elemento>404IQNotFound</elemento>
