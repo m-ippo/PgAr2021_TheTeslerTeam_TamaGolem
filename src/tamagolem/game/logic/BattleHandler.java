@@ -19,6 +19,7 @@ import tamagolem.contents.structure.Player;
 import tamagolem.contents.structure.events.GolemListener;
 import tamagolem.contents.structure.golem.Golem;
 import tamagolem.contents.structure.golem.Rock;
+import tamagolem.game.support.PhrasePicker;
 import ttt.utils.console.output.GeneralFormatter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -30,38 +31,37 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class BattleHandler {
 
-    private Player g1;
-    private Player g2;
+    private Player player1;
+    private Player player2;
 
-    public BattleHandler(Player g1, Player g2) {
-        this.g1 = g1;
-        this.g2 = g2;
+    public BattleHandler(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public void rockBattle() {
-        Golem golem1 = g1.getGolem();
-        Golem golem2 = g2.getGolem();
+        Golem golem1 = player1.getGolem();
+        Golem golem2 = player2.getGolem();
         AtomicBoolean finished = new AtomicBoolean(false);
         GolemListener golemListener = () -> {
             finished.set(true);
         };
         golem2.addListener(golemListener);
         golem1.addListener(golemListener);
-
-
-
         while (!finished.get()) {
             Rock r1 = golem1.getRock();
             Rock r2 = golem2.getRock();
             if (r1.winsAgainst(r2)) {
                 GeneralFormatter.incrementIndents();
                 GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
+                System.out.println(PhrasePicker.getInstance().getRoundString(player2, r1.against(r2)));
                 GeneralFormatter.decrementIndents();
                 wait(1000);
                 golem2.decrementLifeBy(r1.against(r2));
             } else {
                 GeneralFormatter.incrementIndents();
                 GeneralFormatter.printOut("Il golem ha subito danno pari a " + r2.against(r1), true, false);
+                System.out.println(PhrasePicker.getInstance().getRoundString(player1, r2.against(r1)));
                 GeneralFormatter.decrementIndents();
                 wait(1000);
                 golem1.decrementLifeBy(r2.against(r1));

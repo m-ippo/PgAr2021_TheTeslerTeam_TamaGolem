@@ -2,14 +2,14 @@
 <phrases>
     <battle>
         <elemento>La battaglia è iniziata!</elemento>
-        <elemento>I golem hanno iniziato a lanciarsi delle pietre.</elemento>
+        <elemento>Pare che i golem abbiano iniziato a lanciarsi delle pietre...</elemento>
     </battle>
     <generazione>
-        <elemento>
-
-        </elemento>
+        <elemento> È il momento di creare un nuovo tamagolem!</elemento>
+        <elemento>Bisogna dare le pietre ad un nuovo golem!</elemento>
     </generazione>
     <round>
         <elemento>Il golem di %giocatore ha subito del %d danno.</elemento>
+        <elemento>%giocatore ha subito %d di danno dal suo nemico.</elemento>
     </round>
 </phrases>

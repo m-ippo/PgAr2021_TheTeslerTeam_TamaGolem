@@ -4,6 +4,7 @@ import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.Graph;
 import tamagolem.contents.graph.Node;
 import tamagolem.contents.structure.balance.Balance;
+import tamagolem.contents.structure.golem.Rock;
 
 import java.util.ArrayList;
 
@@ -84,6 +85,28 @@ public class Test {
 
         System.out.println(giusti);
 
+
+    }
+
+    public static void r(){
+        ArrayList<String> nomi = new ArrayList<>();
+        nomi.add("A");
+        nomi.add("B");
+        nomi.add("C");
+        nomi.add("D");
+        Balance b = new Balance(36, nomi);
+        b.generateNodeInteractions();
+        b.generateLinkValues();
+
+        b.print();
+        System.out.println("\n\n\n");
+        System.out.println(b.getNodes().get(0));
+        System.out.println(b.getNodes().get(1));
+
+        Rock r1 = new Rock(b.getNodes().get(0));
+        Rock r2 = new Rock(b.getNodes().get(1));
+
+        System.out.println(r2.winsAgainst(r1));
 
     }
 

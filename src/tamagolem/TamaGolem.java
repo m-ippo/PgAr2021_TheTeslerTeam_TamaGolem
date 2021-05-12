@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 package tamagolem;
+
 import tamagolem.contents.graph.Graph;
 import tamagolem.game.MainMenu;
-import tamagolem.game.support.PhrasePicker;
 
 /**
  *
@@ -27,6 +27,8 @@ public class TamaGolem {
 
     public static void main(String[] args) {
         MainMenu mm = new MainMenu();
+
+        //////// Controllare caso in cui il set di pietre è tutto uguale (3 fuoco per g1 e 3 fuoco per g2)
     }
 
     public static void stampaNodi(Graph g) {
