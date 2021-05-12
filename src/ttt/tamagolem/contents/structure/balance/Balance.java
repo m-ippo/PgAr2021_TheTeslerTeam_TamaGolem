@@ -145,4 +145,8 @@ public class Balance extends Graph {
         return true;
     }
 
+    public Matrix getMatrix(){
+        return this.m;
+    }
+
 }

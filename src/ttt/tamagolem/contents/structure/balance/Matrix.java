@@ -66,7 +66,6 @@ public class Matrix {
         return ris;
     }
 
-    /*
     private int sumColumn(int colonna) {
         int ris = 0;
         for (int[] matrice1 : matrice) {
@@ -74,7 +73,7 @@ public class Matrix {
         }
         return ris;
     }
-     */
+
     /**
      * Controlla se una riga è già stata completata.
      *
@@ -163,19 +162,50 @@ public class Matrix {
 
                 if (i != j) { //perche non deve dare valori sulla diagonale
                     if (matrice[i][j] == -1) {
-                        if (thereIsOnlyOneOne(matrice[i])) {
-                            nuova_matrice[i][j] = random.nextInt(val_max) + countZeros(matrice[i]);
-                            nuova_matrice[j][i] = -nuova_matrice[i][j];
-                            matrice[i][j] = matrice[j][i] = 7;
-                        } else {
-                            nuova_matrice[i][j] = random.nextInt(val_max) + 1;
-                            nuova_matrice[j][i] = -nuova_matrice[i][j];
-                            matrice[i][j] = matrice[j][i] = 7;
+                        // se quel valore è l'ultimo in uscita sia nella riga che nella colonna e rimane solo
+                        // un'entrata sia nella riga che nella colonna
+                        if(contaUniColonna(j) == 1 && contaZeriColonna(j) == 1 && thereIsOnlyOneOne(matrice[i]) && countZeros(matrice[i]) == 1){
+                            int min = Math.max(Math.abs(sumColumn(j)), Math.abs(sumRow(nuova_matrice[i])));
+                            nuova_matrice[i][j] = random.nextInt(val_max/2) + (min);
+                        } // se il valore è l'ultimo in uscita nella colonna e rimane solo un entrata nella colonna
+                        else if(contaUniColonna(j) == 1 && contaZeriColonna(j) == 1){
+                            nuova_matrice[i][j] = random.nextInt(val_max/2) + (1 + Math.abs(sumColumn(j)));
+                        } // se il valore è l'ultimo in uscita nella riga e rimane solo un entrata nella riga
+                        else if (thereIsOnlyOneOne(matrice[i]) && countZeros(matrice[i]) == 1){
+                            nuova_matrice[i][j] = random.nextInt(val_max/2) + (1 + Math.abs(sumRow(matrice[i])));
+                        } // se il valore è l'ultimo in uscita nella riga ma ci sono altre entrate
+                        else if (thereIsOnlyOneOne(matrice[i])) {
+                            nuova_matrice[i][j] = random.nextInt(val_max/2) + countZeros(matrice[i]);
                         }
+                        else {
+                            nuova_matrice[i][j] = random.nextInt(val_max) + 1;
+                        }
+                        nuova_matrice[j][i] = -nuova_matrice[i][j];
+                        matrice[i][j] = matrice[j][i] = 7;
                     }
                 }
             }
         }
         matrice = nuova_matrice;
+    }
+
+    private int contaZeriColonna(int colonna){
+        int ris = 0;
+        for(int i = 0; i < matrice.length; i++){
+            if(matrice[i][colonna] == 0){
+                ris++;
+            }
+        }
+        return ris-1;
+    }
+
+    private int contaUniColonna(int colonna){
+        int ris = 0;
+        for(int i = 0; i < matrice.length; i++){
+            if(matrice[i][colonna] == -1){
+                ris++;
+            }
+        }
+        return ris;
     }
 }
