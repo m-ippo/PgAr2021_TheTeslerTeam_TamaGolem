@@ -24,6 +24,7 @@ import tamagolem.contents.exceptions.UnitializedException;
 import tamagolem.contents.graph.comparators.NodeChainedComparator;
 import tamagolem.contents.graph.comparators.NodeOutputsCMP;
 import tamagolem.contents.graph.comparators.NodeVoidOutputLinkCMP;
+import ttt.utils.console.output.GeneralFormatter;
 
 /**
  * Rappresenta un grafo.
@@ -52,7 +53,7 @@ public class Graph {
      * Stampa relazioni tra i nodi.
      */
     public void print() {
-        graph_links.forEach(l -> System.out.println(l.toString()));
+        graph_links.forEach(l -> GeneralFormatter.printOut(l.toString(), true, false));
     }
 
     /**

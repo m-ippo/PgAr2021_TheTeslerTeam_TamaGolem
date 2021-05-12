@@ -18,6 +18,7 @@ package tamagolem.game;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tamagolem.contents.exceptions.UnitializedException;
+import tamagolem.contents.structure.balance.Balance;
 import tamagolem.game.support.ReadXML;
 import tamagolem.contents.structure.Player;
 import tamagolem.contents.xml.elements.ElementoPrincipale;
@@ -165,11 +166,14 @@ public class MainMenu {
 
             @Override
             public void onNextRound(GameHandler gh) {
+                GeneralFormatter.printOut("I golem stanno iniziando a combattere!", true, false);
+                main.consoleSpaces(2);
             }
 
             @Override
             public void onFinish(GameHandler gh) {
                 GeneralFormatter.printOut("La battaglia e' conclusa!", true, false);
+                printEndBattle();
             }
         });
     }
@@ -281,6 +285,17 @@ public class MainMenu {
         }
         Broadcast.forceBroadcastGameState(gm);
         gm = new GameHandler(player1, player2);
+    }
+
+    private void printEndBattle(){
+        Player winner = (Player) Broadcast.askForGameState(Broadcast.WINNER_PLAYER);
+        Player loser = (Player) Broadcast.askForGameState(Broadcast.LOSER_PLAYER);
+        Balance b = (Balance) Broadcast.askForGameState(Broadcast.GAME_BALANCE);
+        GeneralFormatter.printOut("Il giocatore " + winner.getName() + " ha sconfitto il suo avversario " + loser.getName() + "!", true,false);
+        main.consoleSpaces(3);
+        GeneralFormatter.printOut("RIVELAZIONE EQUILIBRIO DELLA PARTITA", true, false);
+        main.consoleSpaces(2);
+        b.print();
     }
 
 }

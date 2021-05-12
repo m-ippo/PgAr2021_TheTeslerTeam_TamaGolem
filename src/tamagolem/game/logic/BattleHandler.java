@@ -15,6 +15,7 @@
  */
 package tamagolem.game.logic;
 
+import tamagolem.contents.structure.Player;
 import tamagolem.contents.structure.events.GolemListener;
 import tamagolem.contents.structure.golem.Golem;
 import tamagolem.contents.structure.golem.Rock;
@@ -29,44 +30,44 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class BattleHandler {
 
-    private Golem g1;
-    private Golem g2;
+    private Player g1;
+    private Player g2;
 
-    public BattleHandler(Golem g1, Golem g2) {
+    public BattleHandler(Player g1, Player g2) {
         this.g1 = g1;
         this.g2 = g2;
     }
 
     public void rockBattle() {
+        Golem golem1 = g1.getGolem();
+        Golem golem2 = g2.getGolem();
         AtomicBoolean finished = new AtomicBoolean(false);
         GolemListener golemListener = () -> {
             finished.set(true);
         };
-        g1.addListener(golemListener);
-        g2.addListener(golemListener);
+        golem2.addListener(golemListener);
+        golem1.addListener(golemListener);
+
+
+
         while (!finished.get()) {
-            Rock r1 = g1.getRock();
-            Rock r2 = g2.getRock();
+            Rock r1 = golem1.getRock();
+            Rock r2 = golem2.getRock();
             if (r1.winsAgainst(r2)) {
-                g2.decrementLifeBy(r1.against(r2));
                 GeneralFormatter.incrementIndents();
                 GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
                 GeneralFormatter.decrementIndents();
-                wait(500);
+                wait(1000);
+                golem2.decrementLifeBy(r1.against(r2));
             } else {
-                g1.decrementLifeBy(r2.against(r1));
                 GeneralFormatter.incrementIndents();
-                GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
+                GeneralFormatter.printOut("Il golem ha subito danno pari a " + r2.against(r1), true, false);
                 GeneralFormatter.decrementIndents();
-                wait(500);
+                wait(1000);
+                golem1.decrementLifeBy(r2.against(r1));
             }
         }
     }
-
-    // aggiornare i golem (set)
-
-    // + far partire la battaglia
-
 
     /**
      * Ferma il programma per la qta di millisecondi passati per parametro.
@@ -88,29 +89,6 @@ public class BattleHandler {
         System.out.println();
     }
 
-    public boolean aGolemIsDead(){
-        return g1.isDead() || g2.isDead();
-    }
-
-    public Golem getG1() {
-        return g1;
-    }
-
-    public void setG1(Golem g1) {
-        if(g1 != null) {
-            this.g1 = g1;
-        }
-    }
-
-    public Golem getG2() {
-        return g2;
-    }
-
-    public void setG2(Golem g2) {
-        if(g2 != null){
-            this.g2 = g2;
-        }
-    }
 
 
 

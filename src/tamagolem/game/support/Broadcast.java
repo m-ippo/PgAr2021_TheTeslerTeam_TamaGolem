@@ -124,6 +124,10 @@ public class Broadcast {
      * Chiave del valore della lista di nodi.
      */
     public final static Integer GAME_NODES = 4;
+    /**
+     * Chiave del valore dell'equilibrio della partita.
+     */
+    public final static Integer GAME_BALANCE = 5;
 
     private final static HashMap<Integer, Object> game_statuses = new HashMap<>();
     private static final ArrayList<GameStateListener> state_listeners = new ArrayList<>();

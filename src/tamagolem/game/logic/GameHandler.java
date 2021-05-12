@@ -52,6 +52,7 @@ public class GameHandler {
     private Balance b;
     private StartValueCalculator svc;
     private CommonRocksetStore crs;
+    private BattleHandler battle_handler;
 
     private boolean finished = false;
     private GameStates current = GameStates.VOID;
@@ -105,8 +106,11 @@ public class GameHandler {
         System.out.println();
         generateGolem(p2);
         GeneralFormatter.decrementIndents();
-
         // generare BattleHandler
+        battle_handler = new BattleHandler(p1, p2);
+        current = GameStates.NEXT_ROUND;
+        Broadcast.forceBroadcastGameState(this);
+        battle_handler.rockBattle();
     }
 
     /**
@@ -129,6 +133,7 @@ public class GameHandler {
                         GeneralFormatter.decrementIndents();
                         g = new Golem(Broadcast.askForGameValue(Broadcast.MAX_GOLEM_LIFE), crs.flushOrder());
                         player.setGolem(g);
+                        Broadcast.forceBroadcastGameState(this);
                         Golem opponents_golem = getOpponent(player).getGolem();
                         if (opponents_golem != null) {
                             if (opponents_golem.getRockset().equals(g.getRockset())) {
@@ -143,13 +148,18 @@ public class GameHandler {
                             GeneralFormatter.printOut("Il golem di " + player.getName() + "è morto...", true, false);
                             GeneralFormatter.decrementIndents();
                             generateGolem(player);
+                        });
+                        if(battle_handler != null){
+                            current = GameStates.NEXT_ROUND;
+                            Broadcast.forceBroadcastGameState(this);
+                            battle_handler.rockBattle();
                         }
-                        );
                     } catch (UnitializedException ex) {
                         Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else {
-                    //Questo giocatore ha perso
+                } else { //Questo giocatore ha perso
+                    GeneralFormatter.printOut("Il giocatore "+ player.getName() + " ha finito i golem...", true, false);
+                    Broadcast.broadcastGameState(Broadcast.GAME_BALANCE, b, this);
                     Broadcast.broadcastGameState(Broadcast.LOSER_PLAYER, player, this);
                     Broadcast.broadcastGameState(Broadcast.WINNER_PLAYER, getOpponent(player), this);
                     current = GameStates.FINISHED;

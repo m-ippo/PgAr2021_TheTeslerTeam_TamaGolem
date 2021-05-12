@@ -101,6 +101,7 @@ public final class Rockset {
     public void addOffset(Integer i) {
         if (i != null && i > 0 && (current + i) < rocks.length) {
             current += i;
+            System.out.println("[CURRENT] " +current);
         }
     }
 
@@ -108,12 +109,15 @@ public final class Rockset {
     public boolean equals(Object obj) {
         if (obj instanceof Rockset) {
             Rockset r = (Rockset) obj;
+            int crr_i = r.current;
             if (r.rocks.length == rocks.length) {
                 for (Rock rock : rocks) {
                     if (!rock.equals(r.next())) {
+                        r.current = crr_i;
                         return false;
                     }
                 }
+                r.current = crr_i;
                 return true;
             }
         }
