@@ -15,6 +15,7 @@
  */
 package tamagolem.contents.structure.golem;
 
+import java.util.Objects;
 import tamagolem.contents.graph.Link;
 import tamagolem.contents.graph.Node;
 
@@ -67,4 +68,21 @@ public class Rock {
     public String getTypeName() {
         return type.getName();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Rock) {
+            Rock r = (Rock) obj;
+            return r.type == type;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.type);
+        return hash;
+    }
+
 }

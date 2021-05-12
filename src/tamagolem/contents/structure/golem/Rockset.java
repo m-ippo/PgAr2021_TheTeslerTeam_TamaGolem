@@ -110,7 +110,7 @@ public final class Rockset {
             Rockset r = (Rockset) obj;
             if (r.rocks.length == rocks.length) {
                 for (Rock rock : rocks) {
-                    if (r.next() != rock) {
+                    if (!rock.equals(r.next())) {
                         return false;
                     }
                 }
