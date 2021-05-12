@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tamagolem.game.logic;
+package ttt.tamagolem.game.logic;
 
-import tamagolem.contents.structure.Player;
-import tamagolem.contents.structure.events.GolemListener;
-import tamagolem.contents.structure.golem.Golem;
-import tamagolem.contents.structure.golem.Rock;
-import tamagolem.game.support.PhrasePicker;
+import ttt.tamagolem.contents.structure.Player;
+import ttt.tamagolem.contents.structure.events.GolemListener;
+import ttt.tamagolem.contents.structure.golem.Golem;
+import ttt.tamagolem.contents.structure.golem.Rock;
+import ttt.tamagolem.game.support.PhrasePicker;
 import ttt.utils.console.output.GeneralFormatter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+
 
 /**
  * Gestisce le battaglie tra golems.

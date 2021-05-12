@@ -1,7 +1,7 @@
-package tamagolem.game.support;
+package ttt.tamagolem.game.support;
 
-import tamagolem.contents.structure.Player;
-import tamagolem.contents.xml.elements.Phrase;
+import ttt.tamagolem.contents.structure.Player;
+import ttt.tamagolem.contents.xml.elements.Phrase;
 import ttt.utils.console.output.ObjectOutputEngine;
 import ttt.utils.console.output.interfaces.PrintableObject;
 import ttt.utils.xml.document.XMLDocument;
