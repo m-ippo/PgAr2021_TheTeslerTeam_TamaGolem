@@ -40,6 +40,10 @@ public class BattleHandler {
         this.player2 = player2;
     }
 
+    /**
+     * Gestisce una battaglia tra due golem. Dura finché uno dei due sfidanti
+     * non muore.
+     */
     public void rockBattle() {
         Golem golem1 = player1.getGolem();
         Golem golem2 = player2.getGolem();
@@ -82,6 +86,13 @@ public class BattleHandler {
         }
     }
 
+    /**
+     * Stampa punti di attesa:<br>
+     * .<br>
+     * ..<br>
+     * ...<br>
+     * Aggiungendo un punto sulla stessa riga.
+     */
     public void printPuntini(){
         for(int i = 0; i < 3; i++) {
             System.out.print(". ");
