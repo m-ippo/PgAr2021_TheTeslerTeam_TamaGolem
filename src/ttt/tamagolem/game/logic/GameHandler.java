@@ -31,6 +31,7 @@ import ttt.tamagolem.contents.xml.elements.Nome;
 import ttt.tamagolem.game.MainMenu.Difficulty;
 import ttt.tamagolem.game.logic.commons.CommonRocksetStore;
 import ttt.tamagolem.game.support.Broadcast;
+import ttt.tamagolem.game.support.PhrasePicker;
 import ttt.utils.console.input.ConsoleInput;
 import ttt.utils.console.menu.Menu;
 import ttt.utils.console.menu.utils.FutureAction;
@@ -77,7 +78,7 @@ public class GameHandler {
     public void start() throws UnitializedException {
         //Prendo i valori comuni al gioco.
         diff = (Difficulty) Broadcast.askForGameState(Broadcast.CURRENT_GAME_DIFFICULTY);
-        Nome n = (Nome) Broadcast.askForGameState(Broadcast.GAME_NODES);
+        Nome n = (Nome) Broadcast.askForGameState(Broadcast.GAME_NODE_NAMES);
         //Genero i nomi dei nodi
         nodes_names = new ArrayList<>();
         ArrayList<String> tmp = new ArrayList<>();
@@ -88,6 +89,7 @@ public class GameHandler {
         Collections.shuffle(tmp);
         Random r = new Random(new Date().getTime());
         int maxNodes = r.nextInt(diff.getMax() - diff.getMin() + 1) + diff.getMin();
+        Broadcast.broadcastGameValue(Broadcast.NODES_COUNT, maxNodes);
         for (int i = 0; i < maxNodes; i++) {
             nodes_names.add(tmp.get(i));
         }
@@ -133,6 +135,7 @@ public class GameHandler {
                 current = GameStates.GOLEM_GENERATION;
                 if (player.getUsedGolems() < Broadcast.askForGameValue(Broadcast.MAX_GOLEM_AMOUNT)) {
                     try {
+                        GeneralFormatter.printOut(PhrasePicker.getInstance().getGenerationString(player), true, false);
                         GeneralFormatter.printOut("[ GENERA GOLEM PER: " + player.getName() + " ]", true, false);
                         System.out.println();
                         GeneralFormatter.incrementIndents();
@@ -152,7 +155,7 @@ public class GameHandler {
                         }
                         g.addListener(() -> {
                             GeneralFormatter.incrementIndents();
-                            GeneralFormatter.printOut("Il golem di " + player.getName() + "è morto...", true, false);
+                            GeneralFormatter.printOut("Il golem di " + player.getName() + " è morto...", true, false);
                             GeneralFormatter.decrementIndents();
                             generateGolem(player);
                         });

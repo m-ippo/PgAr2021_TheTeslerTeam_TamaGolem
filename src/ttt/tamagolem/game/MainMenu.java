@@ -137,7 +137,7 @@ public class MainMenu {
                             gm = new GameHandler(player1, player2);
 
                             Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_DIFFICULTY, difficolta, gm);
-                            Broadcast.broadcastGameState(Broadcast.GAME_NODES, elenco_nomi_nodi, gm);
+                            Broadcast.broadcastGameState(Broadcast.GAME_NODE_NAMES, elenco_nomi_nodi, gm);
                             gm.start();
                         } catch (UnitializedException ex) {
                             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,7 +191,7 @@ public class MainMenu {
         GeneralFormatter.incrementIndents();
         GeneralFormatter.printOut("- Difficolta'                       : " + difficolta.toString(), true, false);
         GeneralFormatter.printOut("- Vita massima di un golem          : " + Broadcast.askForGameValue(Broadcast.MAX_GOLEM_LIFE), true, false);
-        GeneralFormatter.printOut("- Numero elementi disponibili       : " + Broadcast.askForGameValue(Broadcast.GAME_NODES), true, false);
+        GeneralFormatter.printOut("- Numero elementi disponibili       : " + Broadcast.askForGameValue(Broadcast.NODES_COUNT), true, false);
         GeneralFormatter.printOut("- Numero massimo di golem giocabili : " + Broadcast.askForGameValue(Broadcast.MAX_GOLEM_AMOUNT), true, false);
         GeneralFormatter.printOut("- Numero massimo di pietre comuni   : " + Broadcast.askForGameValue(Broadcast.COMMON_ROCKS_AVAILABLE), true, false);
         GeneralFormatter.printOut("- Numero massimo di pietre per golem: " + Broadcast.askForGameValue(Broadcast.MAX_ROCKS_PER_GOLEM), true, false);
