@@ -123,18 +123,23 @@ public class MainMenu {
                 main.addLazyExecutable(() -> {
                     main.addOption("Inizia una nuova partita", () -> {
                         try {
-                            if (gm != null
-                                    && (gm.getCurrentState().ordinal() > GameStates.VOID.ordinal()
-                                    && gm.getCurrentState().ordinal() < GameStates.FINISHED.ordinal())
-                                    && !gm.isFinished()) {
-                                if (!gm.rageQuit()) {
-                                    return null;
-                                } else {
-                                    player1 = new Player(player1.getName());
-                                    player2 = new Player(player2.getName());
-                                    gm = new GameHandler(player1, player2);
-                                }
-                            }
+//                            if (gm != null
+//                                    && (gm.getCurrentState().ordinal() > GameStates.VOID.ordinal()
+//                                    && gm.getCurrentState().ordinal() <= GameStates.FINISHED.ordinal())
+//                                    && !gm.isFinished()) {
+//                                if (!gm.rageQuit()) {
+//                                    return null;
+//                                } else {
+//                                    player1 = new Player(player1.getName());
+//                                    player2 = new Player(player2.getName());
+//                                    gm = new GameHandler(player1, player2);
+//                                }
+//                            }
+
+                            player1.reset();
+                            player2.reset();
+                            gm = new GameHandler(player1, player2);
+
                             Broadcast.broadcastGameState(Broadcast.CURRENT_GAME_DIFFICULTY, difficolta, gm);
                             Broadcast.broadcastGameState(Broadcast.GAME_NODES, elenco_nomi_nodi, gm);
                             gm.start();

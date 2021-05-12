@@ -158,6 +158,7 @@ public class GameHandler {
                         Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else { //Questo giocatore ha perso
+                    crs.closeSet();
                     GeneralFormatter.printOut("Il giocatore "+ player.getName() + " ha finito i golem...", true, false);
                     Broadcast.broadcastGameState(Broadcast.GAME_BALANCE, b, this);
                     Broadcast.broadcastGameState(Broadcast.LOSER_PLAYER, player, this);

@@ -1,8 +1,6 @@
 package tamagolem.game.support;
 
-import tamagolem.contents.xml.elements.ElementoPrincipale;
-import tamagolem.contents.xml.elements.ElementoSecondario;
-import tamagolem.contents.xml.elements.Nome;
+import tamagolem.contents.xml.elements.*;
 import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.engine.XMLEngine;
 import ttt.utils.xml.io.XMLReader;
@@ -31,6 +29,21 @@ public class ReadXML {
             return docConvertito;
         } catch (IOException ex) {
             Logger.getLogger(ReadXML.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static XMLDocument loadPhrases(){
+        InputStream in = ReadXML.class.getResourceAsStream("/tamagolem/resources/phrases/phrases.xml");
+        XMLReader xmlr = new XMLReader(in);
+        try {
+            XMLDocument doc = xmlr.readDocument();
+            XMLEngine xmle = new XMLEngine(doc, Phrase.class, Battle.class, Round.class, ElementoSecondario.class);
+            XMLDocument docConvertito = new XMLDocument(null);
+            xmle.morph(docConvertito);
+            return docConvertito;
+        } catch (IOException e) {
+            Logger.getLogger(ReadXML.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }

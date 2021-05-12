@@ -20,13 +20,15 @@ import tamagolem.contents.structure.validators.NameValidator;
 import ttt.utils.console.input.annotations.InputElement;
 import ttt.utils.console.input.annotations.Order;
 import ttt.utils.console.input.interfaces.InputObject;
+import ttt.utils.console.output.annotations.Printable;
+import ttt.utils.console.output.interfaces.PrintableObject;
 
 /**
  * Rappresenta un giocatore.
  *
  * @author TTT
  */
-public class Player implements InputObject {
+public class Player implements InputObject, PrintableObject {
 
     private String name;
     private Golem golem;
@@ -45,6 +47,7 @@ public class Player implements InputObject {
         name = value;
     }
 
+    @Printable(replace = "giocatore")
     public String getName() {
         return name;
     }
@@ -60,6 +63,11 @@ public class Player implements InputObject {
 
     public int getUsedGolems() {
         return usedGolems;
+    }
+
+    public void reset(){
+        usedGolems = 0;
+        golem = null;
     }
 
 }

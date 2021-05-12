@@ -16,6 +16,7 @@
 package tamagolem;
 import tamagolem.contents.graph.Graph;
 import tamagolem.game.MainMenu;
+import tamagolem.game.support.PhrasePicker;
 
 /**
  *
@@ -26,7 +27,6 @@ public class TamaGolem {
 
     public static void main(String[] args) {
         MainMenu mm = new MainMenu();
-
     }
 
     public static void stampaNodi(Graph g) {
