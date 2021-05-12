@@ -220,7 +220,7 @@ public class Matrix {
                     nuova_matrice[i][j] = -sumRow(nuova_matrice[i]);
                 } else if (quanti_ne_mancano == 2) {
                     int valore = (random.nextInt(val_max) + 1) * (matrice[i][j] == -1 ? 1 : -1);
-                    valore = sumRow(nuova_matrice[i]) + valore == 0 ? (sumColumn(nuova_matrice, j) - valore == 0 ? -valore - (-valore == 2 ? 1:2) : -valore) : (sumColumn(nuova_matrice, j) + valore == 0 ? (sumRow(nuova_matrice[i]) - valore == 0 ? -valore - (-valore == 2 ? 1:2) : -valore) : valore);
+                    valore = sumRow(nuova_matrice[i]) + valore == 0 ? (sumColumn(nuova_matrice, j) - valore == 0 ? -valore - (-valore == 2 ? 1 : 2) : -valore) : (sumColumn(nuova_matrice, j) + valore == 0 ? (sumRow(nuova_matrice[i]) - valore == 0 ? -valore - (-valore == 2 ? 1 : 2) : -valore) : valore);
                     nuova_matrice[i][j] = valore;
                 } else {
                     nuova_matrice[i][j] = (random.nextInt(val_max) + 1) * (matrice[i][j] == -1 ? 1 : -1);

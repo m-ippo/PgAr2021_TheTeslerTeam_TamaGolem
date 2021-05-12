@@ -10,14 +10,12 @@ import ttt.tamagolem.game.MainMenu;
 public class TamaGolem {
 
     public static void main(String[] args) {
-        //MainMenu mm = new MainMenu();
-        //////// Controllare caso in cui il set di pietre è tutto uguale (3 fuoco per g1 e 3 fuoco per g2)
+        MainMenu mm = new MainMenu();
     }
 
     public static void stampaNodi(Graph g) {
         g.getGraphLinks().forEach(l -> System.out.println(l.toString()));
         g.getNodes().forEach(n -> System.out.println(n.getInputSum() + "  " + n.getOutputSum()));
     }
-
 
 }
