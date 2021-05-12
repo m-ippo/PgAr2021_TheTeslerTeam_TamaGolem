@@ -23,7 +23,7 @@ public class ReadXML {
      * @return Il documento caricato.
      */
     public static XMLDocument loadNomi() {
-        InputStream in = ReadXML.class.getResourceAsStream("/tamagolem/resources/names/Elements.xml");
+        InputStream in = ReadXML.class.getResourceAsStream("/ttt/tamagolem/resources/names/Elements.xml");
         //String path = "src" + File.separatorChar + "tamagolem" + File.separatorChar + "resources" + File.separatorChar + "names" + File.separatorChar + "Elements.xml";
         XMLReader xmlReader = new XMLReader(in /*new File(path)*/);
         try {
@@ -39,7 +39,7 @@ public class ReadXML {
     }
 
     public static XMLDocument loadPhrases(){
-        InputStream in = ReadXML.class.getResourceAsStream("/tamagolem/resources/phrases/phrases.xml");
+        InputStream in = ReadXML.class.getResourceAsStream("/ttt/tamagolem/resources/phrases/phrases.xml");
         XMLReader xmlr = new XMLReader(in);
         try {
             XMLDocument doc = xmlr.readDocument();
