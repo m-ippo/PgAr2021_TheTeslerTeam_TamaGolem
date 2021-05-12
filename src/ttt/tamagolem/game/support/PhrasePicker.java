@@ -50,7 +50,7 @@ public class PhrasePicker {
 
     }
 
-    public String r(PrintableObject ... po){
+    public String r(Object ... po){
         String temp = lista_round.pop();
         lista_round.add(0, temp);
         return  ObjectOutputEngine.printAll(temp, po);
