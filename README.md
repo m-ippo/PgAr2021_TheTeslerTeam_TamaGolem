@@ -15,7 +15,7 @@ Il programma permetter di scegliere tra ben 5 difficoltà:
 
 ### Capacità
 L'algoritmo di generazione dell'equilibrio ha una capacità di successo del 100% oltre ad una velocità elevata:
-  <br>Media del tempo di generazione di 10.000 equilibri con:
+  <br>Media del tempo di generazione di 10.000 equilibri con: [*nodi : tempo per generare 10.000 equilibri* ]
   >3 nodi: 43.0ms<br>
   >4 nodi: 55.0ms<br>
   >5 nodi: 100.0ms<br>
