@@ -154,6 +154,12 @@ public class CommonRocksetStore {
      * ancora state inizializzate.
      */
     public Rockset flushOrder() throws UnitializedException {
+        Rockset rs = previewOrder();
+        retain.clear();
+        return rs;
+    }
+
+    public Rockset previewOrder() throws UnitializedException {
         Rock[] rocks = new Rock[retain.size()];
         int cnt = 0;
         for (Pair<Node, Rock> pr : retain) {
@@ -161,8 +167,14 @@ public class CommonRocksetStore {
             cnt++;
         }
         Rockset rs = new Rockset(rocks);
-        retain.clear();
         return rs;
+    }
+    
+    public void deleteOrder(){
+        retain.forEach(p -> {
+            available_rocks.get(p.getKey()).push(p.getValue());
+        });
+        retain.clear();
     }
 
     /**
