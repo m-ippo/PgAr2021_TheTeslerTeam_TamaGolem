@@ -1,9 +1,9 @@
 package Test;
 
-import tamagolem.contents.exceptions.UnitializedException;
-import tamagolem.contents.graph.Graph;
-import tamagolem.contents.graph.Node;
-import tamagolem.contents.structure.balance.Balance;
+import ttt.tamagolem.contents.exceptions.UnitializedException;
+import ttt.tamagolem.contents.graph.Graph;
+import ttt.tamagolem.contents.graph.Node;
+import ttt.tamagolem.contents.structure.balance.Balance;
 
 import java.util.ArrayList;
 
