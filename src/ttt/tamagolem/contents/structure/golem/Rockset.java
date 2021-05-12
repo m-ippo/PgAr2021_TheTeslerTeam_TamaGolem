@@ -101,8 +101,22 @@ public final class Rockset {
     public void addOffset(Integer i) {
         if (i != null && i > 0 && (current + i) < rocks.length) {
             current += i;
-            System.out.println("[CURRENT] " +current);
+            System.out.println("[CURRENT] " + current);
         }
+    }
+
+    /**
+     * Controlla se le pietre scelte sono tutte della stessa categoria.
+     *
+     * @return {@code true} se e solo se sono tutte uguali.
+     */
+    public boolean allSame() {
+        for (int i = 1; i < rocks.length; i++) {
+            if (rocks[i - 1].type != rocks[i].type) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

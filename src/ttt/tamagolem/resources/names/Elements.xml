@@ -11,6 +11,9 @@
         <elemento>Tenebre</elemento>
         <elemento>Magma</elemento>
         <elemento>Vuoto</elemento>
+        <elemento>Pieno</elemento>
+        <elemento>Mezzo vuoto</elemento>
+        <elemento>Mezzo pieno</elemento>
     </nomi>
     <nomi type="Alfabeto">
         <elemento>A</elemento>

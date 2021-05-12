@@ -97,6 +97,7 @@ public class GameHandler {
         b = new Balance(5 * diff.getMin(), nodes_names);
         b.generateNodeInteractions();
         b.generateLinkValues();
+        b.getMatrix().print();
         //Eseguo i calcoli
         svc = new StartValueCalculator(b);
         diff.exec();
@@ -141,10 +142,19 @@ public class GameHandler {
                         GeneralFormatter.incrementIndents();
                         generateRockset();
                         GeneralFormatter.decrementIndents();
+                        Golem opponents_golem = getOpponent(player).getGolem();
+                        while (crs.previewOrder().allSame()
+                                && (opponents_golem != null ? crs.previewOrder().equals(opponents_golem.getRockset()) : false)) {
+                            crs.deleteOrder();
+                            GeneralFormatter.incrementIndents();
+                            GeneralFormatter.printOut("Le pietre corrispondono a quelle del golem avversario e sono tutte uguali: rifare il set.", true, false);
+                            GeneralFormatter.decrementIndents();
+                            generateRockset();
+                        }
                         g = new Golem(Broadcast.askForGameValue(Broadcast.MAX_GOLEM_LIFE), crs.flushOrder());
                         player.setGolem(g);
                         Broadcast.forceBroadcastGameState(this);
-                        Golem opponents_golem = getOpponent(player).getGolem();
+
                         if (opponents_golem != null) {
                             if (opponents_golem.getRockset().equals(g.getRockset())) {
                                 g.getRockset().addOffset(1);
@@ -194,6 +204,7 @@ public class GameHandler {
         generator.removeOption(1);
         generator.autoPrintSpaces(false);
         complete_rockset = new Pair<>("Conferma set", () -> {
+
             generator.quit();
             return null;
         });

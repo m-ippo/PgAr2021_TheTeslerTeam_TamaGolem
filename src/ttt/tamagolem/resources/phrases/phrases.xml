@@ -9,7 +9,7 @@
         <elemento>Bisogna dare le pietre ad un nuovo golem!</elemento>
         <elemento>%giocatore deve evocare un nuovo golem!</elemento>
         <elemento>Dopo la penosa sconfitta %giocatore deve generare un nuovo sfidante...</elemento>
-        <elemento>%giocatore è stato battuto... L'evocazione di un nuovo golem potrebbe portarlo alla vittoria?F</elemento>
+        <elemento>%giocatore è stato battuto... L'evocazione di un nuovo golem potrebbe portarlo alla vittoria?</elemento>
     </generazione>
     <round>
         <elemento>Il golem di %giocatore ha subito del %d danno.</elemento>
@@ -18,6 +18,6 @@
         <elemento>Un danno di %d al golem di %giocatore fa cambiare il corso della partita...</elemento>
         <elemento>%giocatore ha subito un gran colpo!</elemento>
         <elemento>%giocatore deve correre ai ripari!!</elemento>
-        <elemento>L'oscuro equilibrio che governa la partita infligge fa sì che %giocatore subisca un danno pari a %d!</elemento>
+        <elemento>L'oscuro equilibrio che governa la partita fa sì che %giocatore subisca un danno pari a %d!</elemento>
     </round>
 </phrases>
