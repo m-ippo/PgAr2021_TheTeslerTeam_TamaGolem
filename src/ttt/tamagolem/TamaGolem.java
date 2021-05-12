@@ -1,6 +1,5 @@
 package ttt.tamagolem;
 
-import Test.Test;
 import ttt.tamagolem.contents.graph.Graph;
 import ttt.tamagolem.game.MainMenu;
 
@@ -12,7 +11,6 @@ public class TamaGolem {
 
     public static void main(String[] args) {
         //MainMenu mm = new MainMenu();
-        Test.r();
         //////// Controllare caso in cui il set di pietre è tutto uguale (3 fuoco per g1 e 3 fuoco per g2)
     }
 

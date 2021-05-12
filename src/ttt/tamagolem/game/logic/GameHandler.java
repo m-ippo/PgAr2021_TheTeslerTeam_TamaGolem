@@ -97,7 +97,6 @@ public class GameHandler {
         b = new Balance(5 * diff.getMin(), nodes_names);
         b.generateNodeInteractions();
         b.generateLinkValues();
-        b.getMatrix().print();
         //Eseguo i calcoli
         svc = new StartValueCalculator(b);
         diff.exec();
