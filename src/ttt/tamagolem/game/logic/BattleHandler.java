@@ -30,14 +30,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class BattleHandler {
 
-    private Player g1;
-    private Player g2;
+    private final Player g1;
+    private final Player g2;
 
     public BattleHandler(Player g1, Player g2) {
         this.g1 = g1;
         this.g2 = g2;
     }
 
+    /**
+     * Gestisce una battaglia tra due golem. Dura finché uno dei due sfidanti
+     * non muore.
+     */
     public void rockBattle() {
         Golem golem1 = g1.getGolem();
         Golem golem2 = g2.getGolem();
@@ -47,8 +51,6 @@ public class BattleHandler {
         };
         golem2.addListener(golemListener);
         golem1.addListener(golemListener);
-
-
 
         while (!finished.get()) {
             Rock r1 = golem1.getRock();
@@ -71,25 +73,29 @@ public class BattleHandler {
 
     /**
      * Ferma il programma per la qta di millisecondi passati per parametro.
+     *
      * @param millisecons Millisecondi da aspettare.
      */
-    public void wait(int millisecons){
+    public void wait(int millisecons) {
         try {
             Thread.sleep(millisecons);
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
-    public void printPuntini(){
-        for(int i = 0; i < 3; i++) {
+    /**
+     * Stampa punti di attesa:<br>
+     * .<br>
+     * ..<br>
+     * ...<br>
+     * Aggiungendo un punto sulla stessa riga.
+     */
+    public void printPuntini() {
+        for (int i = 0; i < 3; i++) {
             System.out.print(". ");
             wait(500);
         }
         System.out.println();
     }
-
-
-
 
 }

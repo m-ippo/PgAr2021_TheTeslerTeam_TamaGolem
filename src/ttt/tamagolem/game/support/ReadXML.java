@@ -24,8 +24,7 @@ public class ReadXML {
      */
     public static XMLDocument loadNomi() {
         InputStream in = ReadXML.class.getResourceAsStream("/ttt/tamagolem/resources/names/Elements.xml");
-        //String path = "src" + File.separatorChar + "tamagolem" + File.separatorChar + "resources" + File.separatorChar + "names" + File.separatorChar + "Elements.xml";
-        XMLReader xmlReader = new XMLReader(in /*new File(path)*/);
+        XMLReader xmlReader = new XMLReader(in);
         try {
             XMLDocument documento = xmlReader.readDocument();
             XMLEngine xmle = new XMLEngine(documento, ElementoPrincipale.class, Nome.class, ElementoSecondario.class);
@@ -38,7 +37,12 @@ public class ReadXML {
         }
     }
 
-    public static XMLDocument loadPhrases(){
+    /**
+     * Carico le frasi da dire durante la partita.
+     *
+     * @return Il documento caricato.
+     */
+    public static XMLDocument loadPhrases() {
         InputStream in = ReadXML.class.getResourceAsStream("/ttt/tamagolem/resources/phrases/phrases.xml");
         XMLReader xmlr = new XMLReader(in);
         try {

@@ -67,6 +67,12 @@ public class MainMenu {
         });
         int min;
         int max;
+        /**
+         * Azione che viene eseguita prima dell'inizio della partita. Può
+         * forzare il ricalcolo dei valori di gioco (modifica le difficoltà
+         * subito dopo aver iniziato la partita ma prima di generare i golem
+         * iniziali).
+         */
         FutureAction<Void> act;
 
         private Difficulty(int min, int max, FutureAction<Void> act) {
@@ -94,6 +100,9 @@ public class MainMenu {
 
     }
 
+    /**
+     * Inizializza un nuovo menù.
+     */
     public MainMenu() {
         this.difficolta = Difficulty.NORMALE;
         main = new Menu<>("TAMA-GOLEM") {
@@ -118,24 +127,11 @@ public class MainMenu {
             GeneralFormatter.incrementIndents();
             setPlayers();
             GeneralFormatter.decrementIndents();
-            if (op_) {
+            if (op_) {//Solo dopo aver impostato per la prima volta i valori rendo disponibile l'inizio partita
                 op_ = false;
                 main.addLazyExecutable(() -> {
                     main.addOption("Inizia una nuova partita", () -> {
                         try {
-//                            if (gm != null
-//                                    && (gm.getCurrentState().ordinal() > GameStates.VOID.ordinal()
-//                                    && gm.getCurrentState().ordinal() <= GameStates.FINISHED.ordinal())
-//                                    && !gm.isFinished()) {
-//                                if (!gm.rageQuit()) {
-//                                    return null;
-//                                } else {
-//                                    player1 = new Player(player1.getName());
-//                                    player2 = new Player(player2.getName());
-//                                    gm = new GameHandler(player1, player2);
-//                                }
-//                            }
-
                             player1.reset();
                             player2.reset();
                             gm = new GameHandler(player1, player2);
@@ -161,6 +157,9 @@ public class MainMenu {
         main.paintMenu();
     }
 
+    /**
+     * Il menù rimane in ascolto per gli eventi della partita.
+     */
     private void initListeners() {
         Broadcast.addGameStateListener(new GameStateListener() {
             @Override
@@ -183,6 +182,9 @@ public class MainMenu {
         });
     }
 
+    /**
+     * Stampa i parametri di gioco.
+     */
     private void printOutVals() {
         System.out.println();
         GeneralFormatter.printOut("In quest partita sono state disposte le seguenti regole:", true, false);
@@ -292,11 +294,14 @@ public class MainMenu {
         gm = new GameHandler(player1, player2);
     }
 
-    private void printEndBattle(){
+    /**
+     * Stampa il risultato della partita e l'equilibrio generato.
+     */
+    private void printEndBattle() {
         Player winner = (Player) Broadcast.askForGameState(Broadcast.WINNER_PLAYER);
         Player loser = (Player) Broadcast.askForGameState(Broadcast.LOSER_PLAYER);
         Balance b = (Balance) Broadcast.askForGameState(Broadcast.GAME_BALANCE);
-        GeneralFormatter.printOut("Il giocatore " + winner.getName() + " ha sconfitto il suo avversario " + loser.getName() + "!", true,false);
+        GeneralFormatter.printOut("Il giocatore " + winner.getName() + " ha sconfitto il suo avversario " + loser.getName() + "!", true, false);
         main.consoleSpaces(3);
         GeneralFormatter.printOut("RIVELAZIONE EQUILIBRIO DELLA PARTITA", true, false);
         main.consoleSpaces(2);

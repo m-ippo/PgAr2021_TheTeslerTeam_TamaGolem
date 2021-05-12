@@ -133,7 +133,7 @@ public class CommonRocksetStore {
      * @param type Il nodo la cui pietra aggrega.
      */
     public void removePreorder(Node type) {
-        Pair<Node, Rock> p = null;
+        Pair<Node, Rock> p;
         Optional<Pair<Node, Rock>> findFirst = retain.stream().filter(t -> {
             return t.getKey() == type;
         }).findFirst();
@@ -212,7 +212,8 @@ public class CommonRocksetStore {
     }
 
     /**
-     * Chiude il set corrente.
+     * Chiude il set corrente. La chiamata a questo metodo è obbligatoria quando
+     * si vuole cambiare il set di pietre comuni.
      */
     public void closeSet() {
         closed = true;

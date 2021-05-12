@@ -4,7 +4,6 @@ import ttt.tamagolem.contents.xml.elements.Battle;
 import ttt.tamagolem.contents.xml.elements.Phrase;
 import ttt.tamagolem.contents.xml.elements.Round;
 import ttt.utils.console.output.ObjectOutputEngine;
-import ttt.utils.console.output.interfaces.PrintableObject;
 import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 

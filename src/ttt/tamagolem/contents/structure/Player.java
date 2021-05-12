@@ -34,38 +34,78 @@ public class Player implements InputObject, PrintableObject {
     private Golem golem;
     private int usedGolems = 0;
 
+    /**
+     * Costruttore che serve per il motore di auto-inserimento di oggetti da
+     * console.
+     */
     public Player() {
     }
 
+    /**
+     * Costruttore che chiede il nome del giocatore.
+     *
+     * @param name
+     */
     public Player(String name) {
         this.name = name;
     }
 
+    /**
+     * Imposta il nome al giocatore.
+     *
+     * @param value Il nome da assegnare.
+     */
     @Order(Priority = 0)
     @InputElement(Name = "Nome giocatore", Type = String.class, Validator = NameValidator.class)
     public void setName(String value) {
         name = value;
     }
 
+    /**
+     * Ritorna il nome assegnato a questo giocatore.
+     *
+     * @return Il nome.
+     */
     @Printable(replace = "giocatore")
     public String getName() {
         return name;
     }
 
+    /**
+     * Imposta il nuovo golem da usare e aumenta il conteggio dei golem usati da
+     * questo giocatore.
+     *
+     * @param golem Il golem in uso.
+     */
     public void setGolem(Golem golem) {
         this.golem = golem;
-        usedGolems++;
+        if (golem != null) {
+            usedGolems++;
+        }
     }
 
+    /**
+     * Ritorna il golem in utilizzo dal giocatore.
+     *
+     * @return Il golem corrente.
+     */
     public Golem getGolem() {
         return golem;
     }
 
+    /**
+     * Ritorna il numero di golem già usati.
+     *
+     * @return Il conteggio di golem usati.
+     */
     public int getUsedGolems() {
         return usedGolems;
     }
 
-    public void reset(){
+    /**
+     * Reimposta il giocatore per iniziare una nuova partita.
+     */
+    public void reset() {
         usedGolems = 0;
         golem = null;
     }

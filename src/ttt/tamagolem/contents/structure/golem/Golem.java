@@ -94,6 +94,7 @@ public class Golem {
 
     private void dead() {
         listeners.forEach(l -> l.onDeath());
+        listeners.clear();
     }
 
     /**

@@ -25,7 +25,6 @@ import ttt.tamagolem.contents.exceptions.UnitializedException;
 import ttt.tamagolem.contents.graph.Node;
 import ttt.tamagolem.contents.structure.Player;
 import ttt.tamagolem.contents.structure.balance.Balance;
-import ttt.tamagolem.contents.structure.events.GolemListener;
 import ttt.tamagolem.contents.structure.golem.Golem;
 import ttt.tamagolem.contents.xml.elements.ElementoSecondario;
 import ttt.tamagolem.contents.xml.elements.Nome;
@@ -72,11 +71,14 @@ public class GameHandler {
     /**
      * Avvia la partita e avverte tutte le istanze in ascolto.
      *
-     * @throws ttt.tamagolem.contents.exceptions.UnitializedException
+     * @throws ttt.tamagolem.contents.exceptions.UnitializedException Quando la
+     * partita non è ancora stata impostata con i valori calcolati.
      */
     public void start() throws UnitializedException {
+        //Prendo i valori comuni al gioco.
         diff = (Difficulty) Broadcast.askForGameState(Broadcast.CURRENT_GAME_DIFFICULTY);
         Nome n = (Nome) Broadcast.askForGameState(Broadcast.GAME_NODES);
+        //Genero i nomi dei nodi
         nodes_names = new ArrayList<>();
         ArrayList<String> tmp = new ArrayList<>();
         n.getElements().forEach(iel -> {
@@ -89,11 +91,14 @@ public class GameHandler {
         for (int i = 0; i < maxNodes; i++) {
             nodes_names.add(tmp.get(i));
         }
+        //Inizializzo l'equilibrio
         b = new Balance(5 * diff.getMin(), nodes_names);
         b.generateNodeInteractions();
         b.generateLinkValues();
+        //Eseguo i calcoli
         svc = new StartValueCalculator(b);
         diff.exec();
+        //Creo lo Store di pietre comuni
         crs = CommonRocksetStore.getInstance();
         crs.setup(b);
         //Prima di annunciare l'inizio partita
@@ -101,12 +106,14 @@ public class GameHandler {
         Broadcast.forceBroadcastGameState(this);
         //Dopo averlo annunciato.
         GeneralFormatter.incrementIndents();
+        //Creo golem per giocatore 1
         generateGolem(p1);
         System.out.println();
         System.out.println();
+        //Creo golem per giocatore 2
         generateGolem(p2);
         GeneralFormatter.decrementIndents();
-        // generare BattleHandler
+        //Inizio la gestione della battaglia
         battle_handler = new BattleHandler(p1, p2);
         current = GameStates.NEXT_ROUND;
         Broadcast.forceBroadcastGameState(this);
@@ -117,7 +124,7 @@ public class GameHandler {
      * Genera un golem per un giocatore, questo metodo effettua il controllo per
      * determinare su una partita è finita.
      *
-     * @param player
+     * @param player Il giocatore per cui generare il golem.
      */
     private void generateGolem(Player player) {
         if (player != null) {
@@ -149,7 +156,7 @@ public class GameHandler {
                             GeneralFormatter.decrementIndents();
                             generateGolem(player);
                         });
-                        if(battle_handler != null){
+                        if (battle_handler != null) {
                             current = GameStates.NEXT_ROUND;
                             Broadcast.forceBroadcastGameState(this);
                             battle_handler.rockBattle();
@@ -159,7 +166,7 @@ public class GameHandler {
                     }
                 } else { //Questo giocatore ha perso
                     crs.closeSet();
-                    GeneralFormatter.printOut("Il giocatore "+ player.getName() + " ha finito i golem...", true, false);
+                    GeneralFormatter.printOut("Il giocatore " + player.getName() + " ha finito i golem...", true, false);
                     Broadcast.broadcastGameState(Broadcast.GAME_BALANCE, b, this);
                     Broadcast.broadcastGameState(Broadcast.LOSER_PLAYER, player, this);
                     Broadcast.broadcastGameState(Broadcast.WINNER_PLAYER, getOpponent(player), this);
@@ -277,7 +284,7 @@ public class GameHandler {
     }
 
     /**
-     * Chiede l'abbandono forzato all'utente (prima che la partita si
+     * Chiede l'abbandono forzato all'utente (prima che la partita sia
      * terminata).
      *
      * @return La scelta dell'utente.

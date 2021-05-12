@@ -43,7 +43,8 @@ public class Rock {
      */
     public int against(Rock r) {
         Link l = type.to(r.type);
-        return l != null && l.getPower() != null ? (l.getFrom() == type ? l.getPower() : -l.getPower()) : 0;
+        Integer p = l != null ? l.getPower() : null;
+        return l != null && p != null ? (l.getFrom() == type ? p : -l.getPower()) : 0;
     }
 
     /**

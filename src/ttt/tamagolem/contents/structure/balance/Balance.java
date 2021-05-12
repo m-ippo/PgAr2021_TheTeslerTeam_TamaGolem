@@ -139,7 +139,6 @@ public class Balance extends Graph {
             int inputs = n.getInputLinks().size();
             int outputs = n.getOutputLinks().size();
             if (val != 0 || empties != 0 || inputs < 1 || outputs < 1) {
-                //System.out.printf(n.toString() + "\nErrore nodo " + n.getName() + ":\n\tValore ris: %d\n\tVuoti rimasti:%d\n\tInputs:%d\n\tOutputs:%d", val, empties, inputs, outputs);
                 return false;
             }
         }
