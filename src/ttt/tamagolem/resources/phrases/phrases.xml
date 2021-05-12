@@ -5,11 +5,19 @@
         <elemento>Pare che i golem abbiano iniziato a lanciarsi delle pietre...</elemento>
     </battle>
     <generazione>
-        <elemento> È il momento di creare un nuovo tamagolem!</elemento>
+        <elemento>È il momento di creare un nuovo tamagolem!</elemento>
         <elemento>Bisogna dare le pietre ad un nuovo golem!</elemento>
+        <elemento>%giocatore deve evocare un nuovo golem!</elemento>
+        <elemento>Dopo la penosa sconfitta %giocatore deve generare un nuovo sfidante...</elemento>
+        <elemento>%giocatore è stato battuto... L'evocazione di un nuovo golem potrebbe portarlo alla vittoria?F</elemento>
     </generazione>
     <round>
         <elemento>Il golem di %giocatore ha subito del %d danno.</elemento>
         <elemento>%giocatore ha subito %d di danno dal suo nemico.</elemento>
+        <elemento>Il golem ha subito %d, %giocatore deve cambiare strategia.</elemento>
+        <elemento>Un danno di %d al golem di %giocatore fa cambiare il corso della partita...</elemento>
+        <elemento>%giocatore ha subito un gran colpo!</elemento>
+        <elemento>%giocatore deve correre ai ripari!!</elemento>
+        <elemento>L'oscuro equilibrio che governa la partita infligge fa sì che %giocatore subisca un danno pari a %d!</elemento>
     </round>
 </phrases>

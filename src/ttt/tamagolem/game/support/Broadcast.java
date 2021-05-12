@@ -60,6 +60,12 @@ public class Broadcast {
      */
     public final static Integer MAX_ROCKS_PER_GOLEM = 4;//"g_rks";
 
+    /**
+     * Chiave del valore che indica il numero di elementi utilizzati nel gioco.
+     * Da questo dipende la difficoltà.
+     */
+    public final static Integer NODES_COUNT = 5;
+
     private final static HashMap<Integer, Integer> game_values = new HashMap<>();
     private static final ArrayList<GameValueListener> value_listeners = new ArrayList<>();
 
@@ -123,7 +129,7 @@ public class Broadcast {
     /**
      * Chiave del valore della lista di nodi.
      */
-    public final static Integer GAME_NODES = 4;
+    public final static Integer GAME_NODE_NAMES = 4;
     /**
      * Chiave del valore dell'equilibrio della partita.
      */

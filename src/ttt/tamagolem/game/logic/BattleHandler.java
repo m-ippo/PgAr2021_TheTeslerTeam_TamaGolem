@@ -24,7 +24,6 @@ import ttt.utils.console.output.GeneralFormatter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-
 /**
  * Gestisce le battaglie tra golems.
  *
@@ -32,8 +31,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class BattleHandler {
 
-    private Player player1;
-    private Player player2;
+    private final Player player1;
+    private final Player player2;
 
     public BattleHandler(Player player1, Player player2) {
         this.player1 = player1;
@@ -58,15 +57,15 @@ public class BattleHandler {
             Rock r2 = golem2.getRock();
             if (r1.winsAgainst(r2)) {
                 GeneralFormatter.incrementIndents();
-                GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
-                System.out.println(PhrasePicker.getInstance().getRoundString(player2, r1.against(r2)));
+                //GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
+                GeneralFormatter.printOut(PhrasePicker.getInstance().getRoundString(player2, r1.against(r2)), true, false);
                 GeneralFormatter.decrementIndents();
                 wait(1000);
                 golem2.decrementLifeBy(r1.against(r2));
             } else {
                 GeneralFormatter.incrementIndents();
-                GeneralFormatter.printOut("Il golem ha subito danno pari a " + r2.against(r1), true, false);
-                System.out.println(PhrasePicker.getInstance().getRoundString(player1, r2.against(r1)));
+                //GeneralFormatter.printOut("Il golem ha subito danno pari a " + r2.against(r1), true, false);
+                GeneralFormatter.printOut(PhrasePicker.getInstance().getRoundString(player1, r2.against(r1)), true, false);
                 GeneralFormatter.decrementIndents();
                 wait(1000);
                 golem1.decrementLifeBy(r2.against(r1));
@@ -76,9 +75,10 @@ public class BattleHandler {
 
     /**
      * Ferma il programma per la qta di millisecondi passati per parametro.
+     *
      * @param millisecons Millisecondi da aspettare.
      */
-    public void wait(int millisecons){
+    public void wait(int millisecons) {
         try {
             Thread.sleep(millisecons);
         } catch (InterruptedException e) {
@@ -88,20 +88,20 @@ public class BattleHandler {
 
     /**
      * Stampa punti di attesa:<br>
+     * .
+     * <br>
+     * .
      * .<br>
+     * .
      * ..<br>
-     * ...<br>
      * Aggiungendo un punto sulla stessa riga.
      */
-    public void printPuntini(){
-        for(int i = 0; i < 3; i++) {
+    public void printPuntini() {
+        for (int i = 0; i < 3; i++) {
             System.out.print(". ");
             wait(500);
         }
         System.out.println();
     }
-
-
-
 
 }
