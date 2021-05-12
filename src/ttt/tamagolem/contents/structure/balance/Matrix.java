@@ -66,10 +66,10 @@ public class Matrix {
         return ris;
     }
 
-    private int sumColumn(int colonna) {
+    private int sumColumn(int[][] mat, int colonna) {
         int ris = 0;
-        for (int[] matrice1 : matrice) {
-            ris += matrice1[colonna];
+        for (int i = 0; i < mat.length; i++) {
+            ris += mat[i][colonna];
         }
         return ris;
     }
@@ -162,23 +162,20 @@ public class Matrix {
 
                 if (i != j) { //perche non deve dare valori sulla diagonale
                     if (matrice[i][j] == -1) {
-                        // se quel valore è l'ultimo in uscita sia nella riga che nella colonna e rimane solo
-                        // un'entrata sia nella riga che nella colonna
-                        if(contaUniColonna(j) == 1 && contaZeriColonna(j) == 1 && thereIsOnlyOneOne(matrice[i]) && countZeros(matrice[i]) == 1){
-                            int min = Math.max(Math.abs(sumColumn(j)), Math.abs(sumRow(nuova_matrice[i])));
-                            nuova_matrice[i][j] = random.nextInt(val_max/2) + (min);
-                        } // se il valore è l'ultimo in uscita nella colonna e rimane solo un entrata nella colonna
-                        else if(contaUniColonna(j) == 1 && contaZeriColonna(j) == 1){
-                            nuova_matrice[i][j] = random.nextInt(val_max/2) + (1 + Math.abs(sumColumn(j)));
-                        } // se il valore è l'ultimo in uscita nella riga e rimane solo un entrata nella riga
-                        else if (thereIsOnlyOneOne(matrice[i]) && countZeros(matrice[i]) == 1){
-                            nuova_matrice[i][j] = random.nextInt(val_max/2) + (1 + Math.abs(sumRow(matrice[i])));
-                        } // se il valore è l'ultimo in uscita nella riga ma ci sono altre entrate
-                        else if (thereIsOnlyOneOne(matrice[i])) {
-                            nuova_matrice[i][j] = random.nextInt(val_max/2) + countZeros(matrice[i]);
+                        if (thereIsOnlyOneOne(matrice[i])) {
+                            nuova_matrice[i][j] = random.nextInt(val_max) + (1 + countZeros(matrice[i]));
+                            if(sumRow(nuova_matrice[i]) == 0){
+                                nuova_matrice[i][j] += random.nextInt(val_max/2) + 1;
+                            }
+                        } else if (countOccurrences(matrice[i], -1) == 2){
+                            int somma_riga = Math.abs(sumRow(nuova_matrice[i]));
+                            nuova_matrice[i][j] = random.nextInt(Math.abs(somma_riga + (somma_riga != 1 ? - 1 : -2))) + 1;
                         }
                         else {
                             nuova_matrice[i][j] = random.nextInt(val_max) + 1;
+                            if(sumRow(nuova_matrice[i]) == 0){
+                                nuova_matrice[i][j] += random.nextInt(val_max/2) + 1;
+                            }
                         }
                         nuova_matrice[j][i] = -nuova_matrice[i][j];
                         matrice[i][j] = matrice[j][i] = 7;
@@ -207,5 +204,40 @@ public class Matrix {
             }
         }
         return ris;
+    }
+
+
+    public void generateValues2() {
+        int[][] nuova_matrice = new int[matrice.length][matrice.length];
+        for (int i = 0; i < matrice.length; i++) {   // crea una nuova matrice di 0 da completare
+            for (int j = 0; j < matrice.length; j++) {
+                nuova_matrice[i][j] = 0;
+            }
+        }
+
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = i + 1; j < matrice.length; j++) {
+                int quanti_ne_mancano = countOccurrences(matrice[i], -1) + countZeros(matrice[i]);
+                if( quanti_ne_mancano == 1){
+                    nuova_matrice[i][j] = -sumRow(nuova_matrice[i]) ;
+                } else if (quanti_ne_mancano == 2){
+                    int valore = (random.nextInt(val_max) + 1) * (matrice[i][j] == -1 ? 1 : -1);
+                    valore = sumRow(nuova_matrice[i]) + valore == 0 ? (sumColumn(nuova_matrice, j) - valore == 0 ? -valore+2 : -valore) : (sumColumn(nuova_matrice, j) + valore == 0 ? -valore : valore);
+                    nuova_matrice[i][j] = valore;
+                } else {
+                    nuova_matrice[i][j] = (random.nextInt(val_max) + 1)  * (matrice[i][j] == -1 ? 1 : -1);
+                }
+                nuova_matrice[j][i] = -nuova_matrice[i][j];
+                matrice[i][j] = matrice[j][i] = 7;
+            }
+        }
+        matrice = nuova_matrice;
+    }
+
+    private int fixRandom(int val, int riga, int colonna, int[][] n_mat){
+        if(sumRow(n_mat[riga]) + val == 0){
+            //if(sumColumn(colonna) + valore == 0 )
+        }
+        return 7;
     }
 }

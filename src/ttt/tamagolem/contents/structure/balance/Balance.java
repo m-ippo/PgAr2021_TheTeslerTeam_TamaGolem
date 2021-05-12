@@ -100,7 +100,7 @@ public class Balance extends Graph {
      */
     public void generateNodeInteractions() {
         m = new Matrix(this);
-        m.generateValues();
+        m.generateValues2();
     }
 
     /**
