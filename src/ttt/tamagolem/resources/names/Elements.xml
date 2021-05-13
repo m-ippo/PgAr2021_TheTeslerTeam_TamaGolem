@@ -184,7 +184,7 @@
         <elemento>The Trinity</elemento>
         <elemento>toBdefined</elemento>
     </nomi>
-    <citta>
+    <nomi type="Citta'">
         <elemento>Roma</elemento>
         <elemento>Firenze</elemento>
         <elemento>Ancona</elemento>
@@ -201,5 +201,5 @@
         <elemento>Modena</elemento>
         <elemento>Livorno</elemento>
         <elemento>Parma</elemento>
-    </citta>
+    </nomi>
 </elementi>
