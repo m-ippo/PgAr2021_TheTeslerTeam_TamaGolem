@@ -141,11 +141,18 @@ public class Balance extends Graph {
             if (val != 0 || empties != 0 || inputs < 1 || outputs < 1) {
                 return false;
             }
+            for (Node n2 : getNodes()) {
+                for (Link l : n2.getOutputLinks()) {
+                    if (l.getPower() == 0) {
+                        return false;
+                    }
+                }
+            }
         }
         return true;
     }
 
-    public Matrix getMatrix(){
+    public Matrix getMatrix() {
         return this.m;
     }
 
