@@ -142,7 +142,7 @@ public class GameHandler {
                         generateRockset();
                         GeneralFormatter.decrementIndents();
                         Golem opponents_golem = getOpponent(player).getGolem();
-                        while (crs.previewOrder().allSame()
+                        while (crs.previewOrder().allSame() // controlla se tutte le pietre dei giocatori sono esattamente le stesse (poi ci siamo accorti che non è un caso possibile)
                                 && (opponents_golem != null ? crs.previewOrder().equals(opponents_golem.getRockset()) : false)) {
                             crs.deleteOrder();
                             GeneralFormatter.incrementIndents();
@@ -154,7 +154,7 @@ public class GameHandler {
                         player.setGolem(g);
                         Broadcast.forceBroadcastGameState(this);
 
-                        if (opponents_golem != null) {
+                        if (opponents_golem != null) { // se le pietre dei due giocatori sono le stesse nella stessa sequenza va a cambiare la sequenza del secondo giocatore
                             if (opponents_golem.getRockset().equals(g.getRockset())) {
                                 g.getRockset().addOffset(1);
                                 GeneralFormatter.incrementIndents();

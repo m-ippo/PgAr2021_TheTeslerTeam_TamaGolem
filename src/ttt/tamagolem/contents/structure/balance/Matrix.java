@@ -135,9 +135,12 @@ public class Matrix {
     /**
      * Metodo per assegnare i valori alla matrice, partendo dai valori di quella
      * creata dalle direzioni degli archi.
+     * @Deprecated Funziona al 98% --- la somma delle righe e colonne è corretta ma
+     * in casi particolari genera valori = 0.
      *
      */
-    public void generateValues() {
+    @Deprecated
+    private void generateValues() {
         int[][] nuova_matrice = new int[matrice.length][matrice.length];
         for (int i = 0; i < matrice.length; i++) {   // crea una nuova matrice di 0 da completare
             for (int j = 0; j < matrice.length; j++) {
@@ -205,6 +208,11 @@ public class Matrix {
         return ris;
     }
 */
+
+    /**
+     * Genera i valori della matrice di interazione tra i nodi, in modo che la somma di tutte le righe e di tutte le colonne
+     * sia 0, tenendo conto del valore massimo passato per parametro nella classe,
+     */
     public void generateValues2() {
         int[][] nuova_matrice = new int[matrice.length][matrice.length];
         for (int i = 0; i < matrice.length; i++) {   // crea una nuova matrice di 0 da completare
@@ -215,7 +223,7 @@ public class Matrix {
 
         for (int i = 0; i < matrice.length; i++) {
             for (int j = i + 1; j < matrice.length; j++) {
-                int quanti_ne_mancano = countOccurrences(matrice[i], -1) + countZeros(matrice[i]);
+                int quanti_ne_mancano = countOccurrences(matrice[i], -1) + countZeros(matrice[i]); // quanri valori mancano in entrata/uscita da impostare
                 switch (quanti_ne_mancano) {
                     case 1:
                         nuova_matrice[i][j] = -sumRow(nuova_matrice[i]);
@@ -231,7 +239,7 @@ public class Matrix {
                         break;
                 }
                 nuova_matrice[j][i] = -nuova_matrice[i][j];
-                matrice[i][j] = matrice[j][i] = 7;
+                matrice[i][j] = matrice[j][i] = 7; // cambia il valore della matrice di 0/-1 in modo da non essere ricalcolato
             }
         }
         matrice = nuova_matrice;
@@ -249,6 +257,15 @@ public class Matrix {
                     Altrimenti basta ritornare il valore stesso.
      */
 
+    /**
+     * Controlla ed eventualmente cambia il valore da inserire nella matrice, in
+     * base alle condizioni inserite.
+     * @param val Valore.
+     * @param riga Numero della riga.
+     * @param colonna Numero della colonna.
+     * @param n_mat Matrice dei valori.
+     * @return Valore da inserire.
+     */
     private int fixRandom(int val, int riga, int colonna, int[][] n_mat) {
         if (sumRow(n_mat[riga]) + val == 0){
             if(sumColumn(n_mat, colonna) - val == 0 ){

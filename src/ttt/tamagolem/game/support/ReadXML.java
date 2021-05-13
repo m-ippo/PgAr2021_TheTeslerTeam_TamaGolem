@@ -18,7 +18,7 @@ import ttt.tamagolem.contents.xml.elements.Round;
 public class ReadXML {
 
     /**
-     * Legge e carica i nomi dei nomi tra cui l'utente può scegliere.
+     * Legge e carica i nomi dei nomi dei nodi tra cui l'utente può scegliere.
      *
      * @return Il documento caricato.
      */

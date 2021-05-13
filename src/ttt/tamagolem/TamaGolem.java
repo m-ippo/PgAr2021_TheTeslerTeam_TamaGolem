@@ -1,10 +1,9 @@
 package ttt.tamagolem;
 
-import ttt.tamagolem.contents.graph.Graph;
 import ttt.tamagolem.game.MainMenu;
 
 /**
- *
+ * Classe per la gestione del TamaGolem.
  * @author TTT
  */
 public class TamaGolem {
@@ -13,9 +12,5 @@ public class TamaGolem {
         MainMenu mm = new MainMenu();
     }
 
-    public static void stampaNodi(Graph g) {
-        g.getGraphLinks().forEach(l -> System.out.println(l.toString()));
-        g.getNodes().forEach(n -> System.out.println(n.getInputSum() + "  " + n.getOutputSum()));
-    }
 
 }

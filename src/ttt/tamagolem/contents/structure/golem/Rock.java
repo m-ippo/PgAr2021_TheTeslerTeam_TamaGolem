@@ -20,7 +20,7 @@ import ttt.tamagolem.contents.graph.Link;
 import ttt.tamagolem.contents.graph.Node;
 
 /**
- * Rappresenta una pietra.
+ * Classe per la gestione di una pietra.
  *
  * @author TTT
  */

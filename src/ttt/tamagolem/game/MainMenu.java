@@ -149,7 +149,7 @@ public class MainMenu {
             }
             return null;
         });
-        //Caricare file XML e impostare valori default.
+        //Carica file XML e imposta valori default.
         elenco_nomi_disponibili = (ElementoPrincipale) ReadXML.loadNomi().getFirstElement("elementi");
         elenco_nomi_nodi = (Nome) elenco_nomi_disponibili.getFirstElement("nomi");
         initListeners();

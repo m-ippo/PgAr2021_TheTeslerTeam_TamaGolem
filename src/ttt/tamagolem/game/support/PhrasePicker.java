@@ -7,7 +7,6 @@ import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 
 import java.util.Collections;
-import java.util.MissingFormatArgumentException;
 import java.util.Stack;
 import ttt.tamagolem.contents.structure.engine.support.IntegerSupport;
 
@@ -85,7 +84,7 @@ public class PhrasePicker {
     /**
      * Ritorna la frase per la generazione del tamagolem.
      *
-     * @param p
+     * @param p Giocatore.
      * @return Frase per la generazione del tamagolem.
      */
     public String getGenerationString(Player p) {
@@ -102,11 +101,7 @@ public class PhrasePicker {
      */
     public String getRoundString(Player p, IntegerSupport damage) {
         String temp = getFirstStringOfList(lista_round, p, damage);
-        //try {
-        //    return String.format(temp, damage.getValue());
-        //} catch (MissingFormatArgumentException ex) {
         return temp;
-        // }
     }
 
 }

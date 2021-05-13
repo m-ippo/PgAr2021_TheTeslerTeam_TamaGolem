@@ -6,6 +6,9 @@ import ttt.utils.xml.engine.annotations.Element;
 import ttt.utils.xml.engine.annotations.EngineMethod;
 import ttt.utils.xml.engine.annotations.Tag;
 
+/**
+ * Classe che rappresenta un particolare XMLElement.
+ */
 @Element(Name = "nomi",CanHaveValue = false)
 public class Nome extends XMLElement {
     String tagType;

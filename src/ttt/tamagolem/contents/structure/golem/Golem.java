@@ -20,7 +20,7 @@ import ttt.tamagolem.contents.exceptions.UnitializedException;
 import ttt.tamagolem.contents.structure.events.GolemListener;
 
 /**
- * Crea un nuovo golem.
+ * Classe per la gestione di un TamaGolem.
  *
  * @author TTT
  */

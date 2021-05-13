@@ -19,8 +19,8 @@ import ttt.tamagolem.game.logic.GameHandler;
 import ttt.tamagolem.game.support.Broadcast;
 
 /**
- * Listener dello stato di gioco chiamato per ogni {@link Broadcast#forceBroadcastGameState(tamagolem.game.logic.GameHandler)
- * } oppure {@link Broadcast#broadcastGameState(java.lang.Integer, java.lang.Object, tamagolem.game.logic.GameHandler)
+ * Listener dello stato di gioco chiamato per ogni {@link Broadcast#forceBroadcastGameState(ttt.tamagolem.game.logic.GameHandler)
+ * } oppure {@link Broadcast#broadcastGameState(java.lang.Integer, java.lang.Object, ttt.tamagolem.game.logic.GameHandler)
  * } solo quando è necessario.
  *
  * @author TTT
