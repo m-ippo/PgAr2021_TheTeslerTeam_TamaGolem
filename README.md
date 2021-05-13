@@ -14,19 +14,21 @@ Il programma permetter di scegliere tra ben 5 difficoltà:
 </p>
 
 ### Capacità
-L'algoritmo di generazione dell'equilibrio ha una capacità di successo del 99,998% oltre ad una velocità elevata:
-  <br>Media del tempo di generazione di 10.000 equilibri con: [*nodi : tempo per generare 10.000 equilibri* ]
-  >3 nodi: 43.0ms<br>
-  >4 nodi: 55.0ms<br>
-  >5 nodi: 100.0ms<br>
-  >6 nodi: 158.0ms<br>
-  >7 nodi: 241.0ms<br>
-  >8 nodi: 339.0ms<br>
-  >9 nodi: 468.0ms<br>
-  >10 nodi: 610.0ms<br>
-  >11 nodi: 792.0ms<br>
-  >12 nodi: 1007.0ms<br>
-  >13 nodi: 1402.0ms<br>
+L'algoritmo di generazione dell'equilibrio ha una capacità di successo del 100.00% oltre ad una velocità elevata:
+  <br>Media del tempo di generazione di 10.000 (*10 volte) equilibri con: [*nodi : tempo medio per generare un equilibrio/tempo per generare 10.000 equilibri* ]
+  >3 nodi: 8.5E-5ms / 85.0ms [giusti:10000 *10]<br>
+  >4 nodi: 1.12E-4ms /112.0ms [giusti:10000 *10]<br>
+  >5 nodi: 1.55E-4ms /155.0ms [giusti:10000 *10]<br>
+  >6 nodi: 2.31E-4ms /231.0ms [giusti:10000 *10]<br>
+  >7 nodi: 3.31E-4ms /331.0ms [giusti:10000 *10]<br>
+  >8 nodi: 4.33E-4ms /433.0ms [giusti:10000 *10]<br>
+  >9 nodi: 5.79E-4ms /579.0ms [giusti:10000 *10]<br>
+  >10 nodi: 7.93E-4ms /793.0ms [giusti:10000 *10]<br>
+  >11 nodi: 9.76E-4ms /976.0ms [giusti:10000 *10]<br>
+  >12 nodi: 0.001188ms /1188.0ms [giusti:10000 *10]<br>
+  >13 nodi: 0.001441ms /1441.0ms [giusti:10000 *10]<br>
+
+<br>Il progetto è costituito da ben 23 package e 37 classi!
 
 Durante la generazione di un golem è possibile cambiare le pietre precedentemente selezionate se la partita non è ancora iniziata. 
 Inoltre finita una partita si può iniziare una nuova senza dover per forza generare i giocatori. 
