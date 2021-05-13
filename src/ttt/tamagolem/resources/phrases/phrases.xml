@@ -10,14 +10,29 @@
         <elemento>%giocatore deve evocare un nuovo golem!</elemento>
         <elemento>Dopo la penosa sconfitta %giocatore deve generare un nuovo sfidante...</elemento>
         <elemento>%giocatore è stato battuto... L'evocazione di un nuovo golem potrebbe portarlo alla vittoria?</elemento>
+        <elemento>Uno scontro avvincente, ma %giocatore ha perso questo round...</elemento>
+        <elemento>Dev'essere stata la singola possibilità su 130.000 ad avere determinato la sconfitta di %giocatore.</elemento>
+        <elemento>Ogni volta che si combatto %giocatore perde...</elemento>
+        <elemento>%giocatore sta pensando se ritirarsi dalla partita o shierare un nuovo golem.</elemento>
+        <elemento>%giocatore è in pausa riflessiva.</elemento>
+        <elemento>@%giocatore devi generare un golem!!!</elemento>
     </generazione>
     <round>
-        <elemento>Il golem di %giocatore ha subito del %d danno.</elemento>
+        <elemento>Il golem di %giocatore ha subito %d di danno.</elemento>
         <elemento>%giocatore ha subito %d di danno dal suo nemico.</elemento>
         <elemento>Il golem ha subito %d, %giocatore deve cambiare strategia.</elemento>
         <elemento>Un danno di %d al golem di %giocatore fa cambiare il corso della partita...</elemento>
-        <elemento>%giocatore ha subito un gran colpo!</elemento>
-        <elemento>%giocatore deve correre ai ripari!!</elemento>
+        <elemento>%giocatore ha subito un gran colpo! ( %d )</elemento>
+        <elemento>%giocatore deve correre ai ripari!! ( %d )</elemento>
         <elemento>L'oscuro equilibrio che governa la partita fa sì che %giocatore subisca un danno pari a %d!</elemento>
+        <elemento>I golem decidono di allearsi e di battersi contro %giocatore con %d di danno.</elemento>
+        <elemento>%giocatore sta pagando i suoi crimini contro l'umanità subendo un danno pari a %d .</elemento>
+        <elemento>%giocatore, ripigliati! ( %d )</elemento>
+        <elemento>%d trentini andarono a Trento tutti e %d trotterellando.</elemento>
+        <elemento>%giocatore conosce il suo destino ma non lo vuole ammettre, perciò subisce %d di danno.</elemento>
+        <elemento>La lezione di fisica infligge a %giocatore %d di danno.</elemento>
+        <elemento>%giocatore subisce %d di danno e lo accetta senza lamentarsi. Impara da lui.</elemento>
+        <elemento>%giocatore non ha aiutato a scrivere queste frasi. Il suo golem perde %d di vita.</elemento>
+        <elemento>Il golem di %giocatore ha totalmente sbagliato... Subisce %d di danno</elemento>
     </round>
 </phrases>

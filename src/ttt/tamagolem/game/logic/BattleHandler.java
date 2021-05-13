@@ -23,6 +23,7 @@ import ttt.tamagolem.game.support.PhrasePicker;
 import ttt.utils.console.output.GeneralFormatter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import ttt.tamagolem.contents.structure.engine.support.IntegerSupport;
 
 /**
  * Gestisce le battaglie tra golems.
@@ -58,14 +59,14 @@ public class BattleHandler {
             if (r1.winsAgainst(r2)) {
                 GeneralFormatter.incrementIndents();
                 //GeneralFormatter.printOut("Il golem ha subito danno pari a " + r1.against(r2), true, false);
-                GeneralFormatter.printOut(PhrasePicker.getInstance().getRoundString(player2, r1.against(r2)), true, false);
+                GeneralFormatter.printOut(PhrasePicker.getInstance().getRoundString(player2, new IntegerSupport(r1.against(r2))), true, false);
                 GeneralFormatter.decrementIndents();
                 wait(1000);
                 golem2.decrementLifeBy(r1.against(r2));
             } else {
                 GeneralFormatter.incrementIndents();
                 //GeneralFormatter.printOut("Il golem ha subito danno pari a " + r2.against(r1), true, false);
-                GeneralFormatter.printOut(PhrasePicker.getInstance().getRoundString(player1, r2.against(r1)), true, false);
+                GeneralFormatter.printOut(PhrasePicker.getInstance().getRoundString(player1, new IntegerSupport(r2.against(r1))), true, false);
                 GeneralFormatter.decrementIndents();
                 wait(1000);
                 golem1.decrementLifeBy(r2.against(r1));
@@ -82,7 +83,6 @@ public class BattleHandler {
         try {
             Thread.sleep(millisecons);
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 

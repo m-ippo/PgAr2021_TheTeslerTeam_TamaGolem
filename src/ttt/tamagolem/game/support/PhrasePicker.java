@@ -7,7 +7,9 @@ import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 
 import java.util.Collections;
+import java.util.MissingFormatArgumentException;
 import java.util.Stack;
+import ttt.tamagolem.contents.structure.engine.support.IntegerSupport;
 
 /**
  * Classe per la gestione delle stringhe da stampare a video durante la partita.
@@ -98,9 +100,13 @@ public class PhrasePicker {
      * @param damage Valore del danno.
      * @return Frase per il round.
      */
-    public String getRoundString(Player p, int damage) {
-        String temp = getFirstStringOfList(lista_round, p);
-        return String.format(temp, damage);
+    public String getRoundString(Player p, IntegerSupport damage) {
+        String temp = getFirstStringOfList(lista_round, p, damage);
+        //try {
+        //    return String.format(temp, damage.getValue());
+        //} catch (MissingFormatArgumentException ex) {
+        return temp;
+        // }
     }
 
 }

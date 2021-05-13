@@ -232,6 +232,19 @@ public class Matrix {
         matrice = nuova_matrice;
     }
 
+    /*
+    Se la somma della riga e del valore generato è uguale a zero 
+            Bisogna controllare se la somma del valore con segno opposto e della somma della colonna è uguale a 0
+                    Se sia riga+valore ==0 e colonna-valore == 0 Il valore generato va cambiato.
+                    Altrimenti va bene ritornare il valore opposto
+            Altrimenti bisogna controllare se la somma del valore e della somma della colonna è uguale a 0
+                    Se colonna+valore == 0 bisogna controllare se la riga-valore == 0
+                        Se riga-valore == 0 il valore generato va cambiato
+                        Altrimenti va bene ritornare il valore opposto.
+                    Altrimenti basta ritornare il valore stesso.
+    
+    
+     */
     private int fixRandom(int val, int riga, int colonna, int[][] n_mat) {
         if (sumRow(n_mat[riga]) + val == 0) {
             //if(sumColumn(colonna) + valore == 0 )
