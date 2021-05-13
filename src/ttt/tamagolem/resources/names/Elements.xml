@@ -10,10 +10,10 @@
         <elemento>Luce</elemento>
         <elemento>Tenebre</elemento>
         <elemento>Magma</elemento>
-        <elemento>Vuoto</elemento>
-        <elemento>Pieno</elemento>
-        <elemento>Mezzo vuoto</elemento>
-        <elemento>Mezzo pieno</elemento>
+        <elemento>Fulmine</elemento>
+        <elemento>Psico</elemento>
+        <elemento>Drago</elemento>
+        <elemento>Acciaio</elemento>
     </nomi>
     <nomi type="Alfabeto">
         <elemento>A</elemento>
@@ -98,7 +98,7 @@
         <elemento>Buio</elemento>
         <elemento>Acciaio</elemento>
         <elemento>Folletto</elemento>
-        <elemento>Sconosciuto</elemento>
+        <elemento>Normale</elemento>
         <elemento>Ombra</elemento>
     </nomi>
     <nomi type="Brands">
@@ -156,7 +156,6 @@
         <elemento>Twitch</elemento>
         <elemento>AliExpress</elemento>
     </nomi>
-
     <nomi type="Progetto Arnaldo">
         <elemento>TripleTeslas</elemento>
         <elemento>404IQNotFound</elemento>
@@ -185,4 +184,22 @@
         <elemento>The Trinity</elemento>
         <elemento>toBdefined</elemento>
     </nomi>
+    <citta>
+        <elemento>Roma</elemento>
+        <elemento>Firenze</elemento>
+        <elemento>Ancona</elemento>
+        <elemento>Brindisi</elemento>
+        <elemento>Bergamo</elemento>
+        <elemento winner="true">Brescia</elemento>
+        <elemento>Crema</elemento>
+        <elemento>Bologna</elemento>
+        <elemento>Milano</elemento>
+        <elemento>Napoli</elemento>
+        <elemento>Torino</elemento>
+        <elemento>Genova</elemento>
+        <elemento>Palermo</elemento>
+        <elemento>Modena</elemento>
+        <elemento>Livorno</elemento>
+        <elemento>Parma</elemento>
+    </citta>
 </elementi>

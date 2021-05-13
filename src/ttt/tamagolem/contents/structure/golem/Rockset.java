@@ -101,7 +101,6 @@ public final class Rockset {
     public void addOffset(Integer i) {
         if (i != null && i > 0 && (current + i) < rocks.length) {
             current += i;
-            System.out.println("[CURRENT] " + current);
         }
     }
 
