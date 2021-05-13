@@ -222,7 +222,8 @@ public class Matrix {
                         break;
                     case 2:
                         int valore = (random.nextInt(val_max) + 1) * (matrice[i][j] == -1 ? 1 : -1);
-                        valore = sumRow(nuova_matrice[i]) + valore == 0 ? (sumColumn(nuova_matrice, j) - valore == 0 ? -valore - (-valore == 2 ? 1 : 2) : -valore) : (sumColumn(nuova_matrice, j) + valore == 0 ? (sumRow(nuova_matrice[i]) - valore == 0 ? -valore - (-valore == 2 ? 1 : 2) : -valore) : valore);
+                        //valore = sumRow(nuova_matrice[i]) + valore == 0 ? (sumColumn(nuova_matrice, j) - valore == 0 ? -valore - (-valore == 2 ? 1 : 2) : -valore) : (sumColumn(nuova_matrice, j) + valore == 0 ? (sumRow(nuova_matrice[i]) - valore == 0 ? -valore - (-valore == 2 ? 1 : 2) : -valore) : valore);
+                        valore = fixRandom(valore, i, j, nuova_matrice);
                         nuova_matrice[i][j] = valore;
                         break;
                     default:
@@ -246,14 +247,25 @@ public class Matrix {
                         Se riga-valore == 0 il valore generato va cambiato
                         Altrimenti va bene ritornare il valore opposto.
                     Altrimenti basta ritornare il valore stesso.
-    
-    
      */
-    /*
+
     private int fixRandom(int val, int riga, int colonna, int[][] n_mat) {
-        if (sumRow(n_mat[riga]) + val == 0) {
-            //if(sumColumn(colonna) + valore == 0 )
+        if (sumRow(n_mat[riga]) + val == 0){
+            if(sumColumn(n_mat, colonna) - val == 0 ){
+                return fixRandom((random.nextInt(val_max) + 1) * (matrice[riga][colonna] == -1 ? 1 : -1), riga, colonna, n_mat);
+            } else {
+                return -val;
+            }
+        }  else {
+            if (sumColumn(n_mat, colonna) + val == 0){
+                if(sumRow(n_mat[riga]) - val == 0){
+                    return fixRandom((random.nextInt(val_max) + 1) * (matrice[riga][colonna] == -1 ? 1 : -1), riga, colonna, n_mat);
+                } else {
+                    return -val;
+                }
+            } else {
+                return val;
+            }
         }
-        return 7;
-    }*/
+    }
 }
