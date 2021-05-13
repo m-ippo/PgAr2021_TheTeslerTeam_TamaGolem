@@ -132,7 +132,7 @@ public class Balance extends Graph {
      * @return {@code true} nel caso tutti i nodi e archi sono stati generati
      * correttamente.
      */
-    public boolean checkBalance() {
+ public boolean checkBalance() {
         for (Node n : nodi_setup) {
             int val = n.getInputSum() - n.getOutputSum();
             int empties = n.getVoidLinks();
@@ -140,6 +140,13 @@ public class Balance extends Graph {
             int outputs = n.getOutputLinks().size();
             if (val != 0 || empties != 0 || inputs < 1 || outputs < 1) {
                 return false;
+            }
+            for (Node n2 : getNodes()) {
+                for (Link l : n2.getOutputLinks()) {
+                    if (l.getPower() == 0) {
+                        return false;
+                    }
+                }
             }
         }
         return true;
